@@ -50,13 +50,13 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     // testcontainer
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.testcontainers:testcontainers:1.19.0"
     testImplementation "org.testcontainers:junit-jupiter:1.19.0"
     testImplementation 'org.testcontainers:mysql:1.19.0'
 
     // rest-assured
-    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'io.rest-assured:rest-assured:4.5.1'
+
 
     // REST Docs
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
@@ -90,10 +90,6 @@ asciidoctor {
     baseDirFollowsSourceFile()
 
     dependsOn test
-}
-
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
 }
 
 tasks.register('createDocument', Copy) {
