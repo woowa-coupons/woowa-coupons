@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS coupon
     initial_quantity INT         NOT NULL,
     remain_quantity  INT         NOT NULL,
     coupon_group_id  BIGINT      NOT NULL,
+    created_at       TIMESTAMP   NOT NULL,
     PRIMARY KEY (id)
 );
 
