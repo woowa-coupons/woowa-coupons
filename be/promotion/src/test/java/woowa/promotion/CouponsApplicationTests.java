@@ -1,4 +1,4 @@
-package woowa.coupons;
+package woowa.promotion;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
