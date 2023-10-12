@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS member
     email      VARCHAR(45) NOT NULL,
     created_at TIMESTAMP   NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS coupon
 (
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS coupon
     coupon_group_id  BIGINT      NOT NULL,
     created_at       TIMESTAMP   NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS promotion_history
 (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS promotion_history
     member_id       BIGINT    NOT NULL,
     promotion_id    BIGINT    NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS orders
 (
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS orders
     created_at TIMESTAMP NOT NULL,
     member_id  BIGINT    NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS promotion_option
 (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS promotion_option
     is_random     TINYINT     NOT NULL,
     promotion_id  BIGINT      NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS coupon_group
 (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS coupon_group
     finished_at  TIMESTAMP   NOT NULL,
     promotion_id BIGINT      NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS promotion_option_coupon
 (
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS promotion_option_coupon
     promotion_option_id BIGINT NOT NULL,
     coupon_id           BIGINT NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS promotion
 (
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS promotion
     is_display         TINYINT       NOT NULL,
     created_at         TIMESTAMP     NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS admin
 (
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS admin
     email      VARCHAR(45) NOT NULL,
     created_at TIMESTAMP   NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS member_coupon
 (
@@ -96,4 +96,4 @@ CREATE TABLE IF NOT EXISTS member_coupon
     member_id BIGINT    NOT NULL,
     coupon_id BIGINT    NOT NULL,
     PRIMARY KEY (id)
-    );
+);
