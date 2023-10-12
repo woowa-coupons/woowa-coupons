@@ -1,4 +1,4 @@
-package woowa.promotion.admin.promotion_history;
+package woowa.promotion.app.member_coupon.domain;
 
 import java.time.Instant;
 import javax.persistence.Column;
@@ -12,27 +12,27 @@ import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import woowa.promotion.admin.promotion.domain.Promotion;
+import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.app.member.domain.Member;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class PromotionHistory {
+public class MemberCoupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Instant participatedAt;
+    private Instant issuedAt;
 
     @JoinColumn(name = "member_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @JoinColumn(name = "promotion_id", nullable = false)
+    @JoinColumn(name = "coupon_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private Promotion promotion;
+    private Coupon coupon;
 
 }
