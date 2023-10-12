@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:8.0.34:///promotion
+    username: test
+    password: test
