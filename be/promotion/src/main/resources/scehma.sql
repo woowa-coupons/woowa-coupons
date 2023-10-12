@@ -88,3 +88,12 @@ CREATE TABLE IF NOT EXISTS admin
     created_at TIMESTAMP   NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS member_coupon
+(
+    id        BIGINT    NOT NULL AUTO_INCREMENT,
+    issued_at TIMESTAMP NOT NULL,
+    member_id BIGINT    NOT NULL,
+    coupon_id BIGINT    NOT NULL,
+    PRIMARY KEY (id)
+);
