@@ -41,7 +41,7 @@ jobs:
 
       # docker image 빌드
       - name: Build docker image
-        run: docker build -t 23yong/woowa-coupons .
+        run: docker build -t woowa-coupons/woowa-coupons .
 
       # GHCR(github container registry) 로그인
       - name: Login to GHCR
