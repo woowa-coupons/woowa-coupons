@@ -1,0 +1,10 @@
+package woowa.promotion.util;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ActiveProfiles;
+
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@ActiveProfiles("test")
+public abstract class AcceptanceTest {
+}
