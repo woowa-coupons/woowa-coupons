@@ -4,3 +4,7 @@ spring:
     url: jdbc:tc:mysql:8.0.34:///promotion
     username: test
     password: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
