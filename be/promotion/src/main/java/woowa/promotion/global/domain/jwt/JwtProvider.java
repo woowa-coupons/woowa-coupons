@@ -12,6 +12,7 @@ import woowa.promotion.global.properties.JwtProperties;
 public class JwtProvider {
 
     public static final long ACCESS_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24;
+    public static final String MEMBER_ID = "memberId";
 
     private final JwtProperties jwtProperties;
     private final Key key;
@@ -27,6 +28,11 @@ public class JwtProvider {
                 .setExpiration(getExpireDate(ACCESS_TOKEN_EXPIRATION_TIME))
                 .signWith(key)
                 .compact();
+    }
+
+    public String createAccessTokenByMemberId(Long memberId) {
+        Map<String, Object> claims = Map.of(MEMBER_ID, memberId);
+        return createAccessToken(claims);
     }
 
     public Date getExpireDate(long expirationTime) {
