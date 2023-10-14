@@ -26,5 +26,4 @@ public class SHA256 implements PasswordEncoder {
         }
         return hexBuilder.toString();
     }
-
 }
