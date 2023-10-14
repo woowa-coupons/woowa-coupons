@@ -21,5 +21,4 @@ public class SupportRepository {
         TestTransaction.end();
         return entity;
     }
-
 }

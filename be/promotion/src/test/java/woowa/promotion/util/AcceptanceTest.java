@@ -23,9 +23,7 @@ public abstract class AcceptanceTest {
 
     protected Member makeMember() throws Exception {
         String password = passwordEncoder.encrypt("password");
-        Member save = supportRepository.save(FixtureFactory.createMember(password));
-        return save;
+        return supportRepository.save(FixtureFactory.createMember(password));
     }
-
 }
 
