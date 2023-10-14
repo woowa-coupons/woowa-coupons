@@ -1,8 +1,10 @@
 package woowa.promotion.global.exception;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum ErrorCode {
 
     // Member
@@ -12,9 +14,5 @@ public enum ErrorCode {
     // PasswordEncoder
     FAILED_ENCRYPTION("잘못된 비밀번호입니다.");
 
-    private String content;
-
-    ErrorCode(String content) {
-        this.content = content;
-    }
+    private final String content;
 }
