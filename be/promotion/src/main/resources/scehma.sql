@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS member
     nickname   VARCHAR(45) NOT NULL,
     email      VARCHAR(45) NOT NULL,
     created_at TIMESTAMP   NOT NULL,
-    password   VARCHAR(40) NOT NULL,
+    password   VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
 

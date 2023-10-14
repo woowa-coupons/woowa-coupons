@@ -26,7 +26,7 @@ public class Member extends AuditingFields {
     @Column(nullable = false, length = 45)
     private String email;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String password;
 
     public Member(String nickname, String email, String password) {
