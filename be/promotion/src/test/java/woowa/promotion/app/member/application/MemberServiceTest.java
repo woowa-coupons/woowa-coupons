@@ -19,7 +19,7 @@ import woowa.promotion.util.ApplicationTest;
 class MemberServiceTest extends ApplicationTest {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private MemberService memberService;
     @Autowired
