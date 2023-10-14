@@ -24,10 +24,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void signUp(SignUpServiceRequest signupServiceRequest) throws Exception {
-        String nickname = signupServiceRequest.nickname();
-        String email = signupServiceRequest.email();
-        String encryptedPassword = passwordEncoder.encrypt(signupServiceRequest.password());
+    public void signUp(SignUpServiceRequest request) throws Exception {
+        String nickname = request.nickname();
+        String email = request.email();
+        String encryptedPassword = passwordEncoder.encrypt(request.password());
 
         Member member = new Member(nickname, email, encryptedPassword);
 
@@ -35,10 +35,10 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public String signIn(SignInServiceRequest signInServiceRequest) throws Exception {
-        Member findUser = findByEmail(signInServiceRequest.email());
+    public String signIn(SignInServiceRequest request) throws Exception {
+        Member findUser = findByEmail(request.email());
         System.out.println("service transction" + Thread.currentThread().getName());
-        if (!findUser.isSamePassword(passwordEncoder.encrypt(signInServiceRequest.password()))) {
+        if (!findUser.isSamePassword(passwordEncoder.encrypt(request.password()))) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, INVALID_PASSWORD.getContent());
         }
 
