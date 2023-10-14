@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import woowa.promotion.app.member.application.MemberService;
+import woowa.promotion.app.member.application.dto.response.SignInServiceResponse;
 import woowa.promotion.app.member.presentation.dto.request.SignInRequest;
 import woowa.promotion.app.member.presentation.dto.request.SignUpRequest;
-import woowa.promotion.app.member.presentation.dto.response.SignInResponse;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,10 +27,10 @@ public class MemberController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signin(
+    public ResponseEntity<SignInServiceResponse> signin(
             @RequestBody SignInRequest signInRequest
     ) throws Exception {
-        String accessToken = memberService.signIn(signInRequest.toServiceRequest());
-        return ResponseEntity.ok().body(new SignInResponse(accessToken));
+        SignInServiceResponse response = memberService.signIn(signInRequest.toServiceRequest());
+        return ResponseEntity.ok().body(response);
     }
 }

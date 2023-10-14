@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import woowa.promotion.app.member.application.dto.request.SignInServiceRequest;
 import woowa.promotion.app.member.application.dto.request.SignUpServiceRequest;
+import woowa.promotion.app.member.application.dto.response.SignInServiceResponse;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.app.member.infrastructure.MemberRepository;
 import woowa.promotion.app.member.security.hash.PasswordEncoder;
@@ -51,10 +52,10 @@ class MemberServiceTest extends ApplicationTest {
         SignInServiceRequest request = new SignInServiceRequest(june.getEmail(), "password");
 
         // when
-        String accessToken = memberService.signIn(request);
+        SignInServiceResponse response = memberService.signIn(request);
 
         // then
-        assertThat(accessToken).isNotNull();
+        assertThat(response.accessToken()).isNotNull();
     }
 
     @Test

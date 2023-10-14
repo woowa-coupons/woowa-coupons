@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import woowa.promotion.app.member.application.dto.request.SignInServiceRequest;
 import woowa.promotion.app.member.application.dto.request.SignUpServiceRequest;
+import woowa.promotion.app.member.application.dto.response.SignInServiceResponse;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.app.member.infrastructure.MemberRepository;
 import woowa.promotion.app.member.security.hash.PasswordEncoder;
@@ -35,14 +36,15 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public String signIn(SignInServiceRequest request) throws Exception {
+    public SignInServiceResponse signIn(SignInServiceRequest request) throws Exception {
         Member findUser = findByEmail(request.email());
-        
+
         if (!findUser.isSamePassword(passwordEncoder.encrypt(request.password()))) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, INVALID_PASSWORD.getContent());
         }
 
-        return jwtProvider.createAccessTokenByMemberId(findUser.getId());
+        String accessToken = jwtProvider.createAccessTokenByMemberId(findUser.getId());
+        return new SignInServiceResponse(accessToken);
     }
 
     private Member findByEmail(String email) {
