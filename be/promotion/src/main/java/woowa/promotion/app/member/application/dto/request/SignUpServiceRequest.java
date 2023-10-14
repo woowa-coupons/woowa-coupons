@@ -9,6 +9,6 @@ public record SignUpServiceRequest(
 ) {
     public Member toEntity() {
         return new Member(nickname, email, password);
-
     }
+    
 }
