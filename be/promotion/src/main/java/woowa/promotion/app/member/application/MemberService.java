@@ -37,7 +37,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public String signIn(SignInServiceRequest request) throws Exception {
         Member findUser = findByEmail(request.email());
-        System.out.println("service transction" + Thread.currentThread().getName());
+        
         if (!findUser.isSamePassword(passwordEncoder.encrypt(request.password()))) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, INVALID_PASSWORD.getContent());
         }
