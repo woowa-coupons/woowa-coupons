@@ -83,6 +83,4 @@ class MemberServiceTest extends ApplicationTest {
 
         return memberRepository.save(member);
     }
-
-
 }
