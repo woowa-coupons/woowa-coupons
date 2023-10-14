@@ -11,7 +11,6 @@ import woowa.promotion.util.AcceptanceTest;
 
 public class MemberAcceptanceTest extends AcceptanceTest {
 
-
     @Test
     void signUp() {
         // given
@@ -29,7 +28,6 @@ public class MemberAcceptanceTest extends AcceptanceTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-
     }
 
     @Test
