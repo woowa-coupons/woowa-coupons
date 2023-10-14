@@ -1,6 +1,7 @@
 package woowa.promotion.app.member.presentation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class MemberController {
             @RequestBody SignUpRequest signupRequest
     ) throws Exception {
         memberService.signUp(signupRequest.toServiceRequest());
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-in")
@@ -31,6 +32,6 @@ public class MemberController {
             @RequestBody SignInRequest signInRequest
     ) throws Exception {
         SignInServiceResponse response = memberService.signIn(signInRequest.toServiceRequest());
-        return ResponseEntity.ok().body(response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
