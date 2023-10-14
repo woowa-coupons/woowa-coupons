@@ -7,6 +7,7 @@ import woowa.promotion.app.member.security.hash.SHA256;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new SHA256();
