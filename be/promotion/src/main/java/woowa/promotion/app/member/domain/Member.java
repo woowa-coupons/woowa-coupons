@@ -1,5 +1,6 @@
 package woowa.promotion.app.member.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,5 +25,18 @@ public class Member extends AuditingFields {
 
     @Column(nullable = false, length = 45)
     private String email;
+
+    @Column(nullable = false, length = 500)
+    private String password;
+
+    public Member(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public boolean isSamePassword(String password) {
+        return Objects.equals(this.password, password);
+    }
 
 }
