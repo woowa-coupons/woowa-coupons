@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS member
 (
-    id         BIGINT      NOT NULL AUTO_INCREMENT,
-    nickname   VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    created_at TIMESTAMP   NOT NULL,
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    nickname   VARCHAR(45)  NOT NULL,
+    email      VARCHAR(45)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL,
     password   VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -83,10 +83,11 @@ CREATE TABLE IF NOT EXISTS promotion
 
 CREATE TABLE IF NOT EXISTS admin
 (
-    id         BIGINT      NOT NULL AUTO_INCREMENT,
-    nickname   VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    created_at TIMESTAMP   NOT NULL,
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    nickname   VARCHAR(45)  NOT NULL,
+    password   VARCHAR(500) NOT NULL,
+    email      VARCHAR(45)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL,
     PRIMARY KEY (id)
 );
 
