@@ -3,7 +3,7 @@ package woowa.promotion.global.exception;
 import lombok.Getter;
 
 @Getter
-public class ApiException extends RuntimeException{
+public class ApiException extends RuntimeException {
 
     private final CustomException customException;
 
