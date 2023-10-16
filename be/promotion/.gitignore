@@ -25,7 +25,11 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+### YML file ###
 application-jwt.yml
+application-origin.yml
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
