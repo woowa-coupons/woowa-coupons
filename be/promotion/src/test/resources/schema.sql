@@ -1,13 +1,18 @@
-CREATE TABLE IF NOT EXISTS member
+SET foreign_key_checks = 0;
+
+DROP TABLE IF EXISTS member;
+CREATE TABLE  member
 (
     id         BIGINT      NOT NULL AUTO_INCREMENT,
     nickname   VARCHAR(45) NOT NULL,
     email      VARCHAR(45) NOT NULL,
     created_at TIMESTAMP   NOT NULL,
+    password    VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS coupon
+DROP TABLE IF EXISTS coupon;
+CREATE TABLE coupon
 (
     id               BIGINT      NOT NULL AUTO_INCREMENT,
     title            VARCHAR(50) NOT NULL,
@@ -20,7 +25,8 @@ CREATE TABLE IF NOT EXISTS coupon
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS promotion_history
+DROP TABLE IF EXISTS promotion_history;
+CREATE TABLE promotion_history
 (
     id              BIGINT    NOT NULL AUTO_INCREMENT,
     participated_at TIMESTAMP NOT NULL,
@@ -29,7 +35,8 @@ CREATE TABLE IF NOT EXISTS promotion_history
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS orders
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders
 (
     id         BIGINT    NOT NULL AUTO_INCREMENT,
     created_at TIMESTAMP NOT NULL,
@@ -37,7 +44,8 @@ CREATE TABLE IF NOT EXISTS orders
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS promotion_option
+DROP TABLE IF EXISTS promotion_option;
+CREATE TABLE promotion_option
 (
     id            BIGINT      NOT NULL AUTO_INCREMENT,
     last_order_at TIMESTAMP   NULL,
@@ -47,7 +55,8 @@ CREATE TABLE IF NOT EXISTS promotion_option
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS coupon_group
+DROP TABLE IF EXISTS coupon_group;
+CREATE TABLE coupon_group
 (
     id           BIGINT      NOT NULL AUTO_INCREMENT,
     title        VARCHAR(50) NOT NULL,
@@ -57,7 +66,8 @@ CREATE TABLE IF NOT EXISTS coupon_group
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS promotion_option_coupon
+DROP TABLE IF EXISTS promotion_option_coupon;
+CREATE TABLE promotion_option_coupon
 (
     id                  BIGINT NOT NULL AUTO_INCREMENT,
     promotion_option_id BIGINT NOT NULL,
@@ -65,7 +75,8 @@ CREATE TABLE IF NOT EXISTS promotion_option_coupon
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS promotion
+DROP TABLE IF EXISTS promotion;
+CREATE TABLE promotion
 (
     id                 BIGINT        NOT NULL AUTO_INCREMENT,
     title              VARCHAR(50)   NOT NULL,
@@ -80,7 +91,8 @@ CREATE TABLE IF NOT EXISTS promotion
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS admin
+DROP TABLE IF EXISTS admin;
+CREATE TABLE admin
 (
     id         BIGINT      NOT NULL AUTO_INCREMENT,
     nickname   VARCHAR(45) NOT NULL,
@@ -89,7 +101,8 @@ CREATE TABLE IF NOT EXISTS admin
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS member_coupon
+DROP TABLE IF EXISTS member_coupon;
+CREATE TABLE member_coupon
 (
     id        BIGINT    NOT NULL AUTO_INCREMENT,
     issued_at TIMESTAMP NOT NULL,
@@ -97,3 +110,5 @@ CREATE TABLE IF NOT EXISTS member_coupon
     coupon_id BIGINT    NOT NULL,
     PRIMARY KEY (id)
 );
+
+SET foreign_key_checks = 1;
