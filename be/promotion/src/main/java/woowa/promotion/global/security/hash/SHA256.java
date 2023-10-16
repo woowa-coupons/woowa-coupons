@@ -1,11 +1,9 @@
-package woowa.promotion.app.member.security.hash;
-
-import static woowa.promotion.global.exception.ErrorCode.FAILED_ENCRYPTION;
+package woowa.promotion.global.security.hash;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.JwtException;
 
 public class SHA256 implements PasswordEncoder {
 
@@ -15,7 +13,7 @@ public class SHA256 implements PasswordEncoder {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             return bytesToHex(md.digest(text.getBytes()));
         } catch (NoSuchAlgorithmException | NullPointerException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, FAILED_ENCRYPTION.getContent());
+            throw new ApiException(JwtException.FAILED_ENCRYPTION);
         }
     }
 
@@ -26,4 +24,5 @@ public class SHA256 implements PasswordEncoder {
         }
         return hexBuilder.toString();
     }
+
 }
