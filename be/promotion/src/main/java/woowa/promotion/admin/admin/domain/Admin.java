@@ -28,4 +28,13 @@ public class Admin extends AuditingFields {
     @Column(nullable = false, length = 500)
     private String password;
 
+    private Admin(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public static Admin of(String nickname, String email, String password) {
+        return new Admin(nickname, email, password);
+    }
 }
