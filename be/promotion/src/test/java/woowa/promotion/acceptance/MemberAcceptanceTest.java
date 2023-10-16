@@ -38,7 +38,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
 
     @ParameterizedTest
     @MethodSource("providerSigninUser")
-    void signIn(String email, String password) throws Exception {
+    void signIn(String email, String password) {
         // given
         makeMember(유저_June);
 
@@ -76,6 +76,5 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                 )
         );
     }
-
 
 }
