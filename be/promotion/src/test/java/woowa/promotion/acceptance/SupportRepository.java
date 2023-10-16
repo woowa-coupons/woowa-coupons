@@ -1,5 +1,6 @@
 package woowa.promotion.acceptance;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -21,4 +22,10 @@ public class SupportRepository {
         return entity;
     }
 
+    public <T> List<T> findAll(Class<T> entityType) {
+        em.clear();
+        String entityTypeName = entityType.getSimpleName();
+        return em.createQuery(String.format("SELECT entity FROM %s entity", entityTypeName), entityType)
+                .getResultList();
+    }
 }
