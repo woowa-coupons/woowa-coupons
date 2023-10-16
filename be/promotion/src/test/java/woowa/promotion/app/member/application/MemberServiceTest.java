@@ -2,18 +2,18 @@ package woowa.promotion.app.member.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static woowa.promotion.fixture.UserFixture.유저_June;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 import woowa.promotion.app.member.application.dto.request.SignInServiceRequest;
 import woowa.promotion.app.member.application.dto.request.SignUpServiceRequest;
 import woowa.promotion.app.member.application.dto.response.SignInServiceResponse;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.app.member.infrastructure.MemberRepository;
-import woowa.promotion.app.member.security.hash.PasswordEncoder;
-import woowa.promotion.global.exception.ErrorCode;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.MemberException;
+import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 
 class MemberServiceTest extends ApplicationTest {
@@ -26,18 +26,18 @@ class MemberServiceTest extends ApplicationTest {
     private MemberRepository memberRepository;
 
     @Test
-    void signup() throws Exception {
+    void signup() {
         // given
-        String nickname = "june";
-        String email = "june@codesquad.kr";
-        String password = "password";
-        SignUpServiceRequest signupServiceRequest = new SignUpServiceRequest(nickname, email, password);
+        String nickname = 유저_June.getNickname();
+        String email = 유저_June.getEmail();
+        String password = 유저_June.getNickname();
+        SignUpServiceRequest signupServiceRequest = new SignUpServiceRequest(email, nickname, password);
 
         // when
         memberService.signUp(signupServiceRequest);
 
         // then
-        Member june = memberRepository.findByNickname("june").orElseThrow();
+        Member june = memberRepository.findByNickname(유저_June.getNickname()).orElseThrow();
         String encryptedPassword = passwordEncoder.encrypt(password);
 
         assertThat(june)
@@ -46,7 +46,7 @@ class MemberServiceTest extends ApplicationTest {
     }
 
     @Test
-    void signin() throws Exception {
+    void signin() {
         // given
         Member june = makeJune();
         SignInServiceRequest request = new SignInServiceRequest(june.getEmail(), "password");
@@ -59,7 +59,7 @@ class MemberServiceTest extends ApplicationTest {
     }
 
     @Test
-    void signinFailedWithWrongPassword() throws Exception {
+    void signinFailedWithWrongPassword() {
         // given
         Member june = makeJune();
         String wrongpassword = "wrong";
@@ -68,17 +68,18 @@ class MemberServiceTest extends ApplicationTest {
         // when
         assertThatThrownBy(
                 () -> memberService.signIn(request))
-                .isInstanceOf(ResponseStatusException.class)
-                .extracting("status", "reason")
+                .isInstanceOf(ApiException.class)
+                .extracting("status", "message")
                 .containsExactly(
-                        HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_PASSWORD.getContent()
+                        MemberException.INVALID_PASSWORD.getHttpStatus().value(),
+                        MemberException.INVALID_PASSWORD.getMessage()
                 );
     }
 
-    private Member makeJune() throws Exception {
-        String nickname = "june";
-        String email = "june@codesquad.kr";
-        String password = "password";
+    private Member makeJune() {
+        String nickname = 유저_June.getNickname();
+        String email = 유저_June.getEmail();
+        String password = 유저_June.getPassword();
         Member member = new Member(nickname, email, passwordEncoder.encrypt(password));
 
         return memberRepository.save(member);
