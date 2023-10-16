@@ -22,7 +22,7 @@ public class MemberController {
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signup(
             @RequestBody SignUpRequest signupRequest
-    ) throws Exception {
+    ) {
         memberService.signUp(signupRequest.toServiceRequest());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -30,8 +30,8 @@ public class MemberController {
     @PostMapping("/sign-in")
     public ResponseEntity<SignInServiceResponse> signin(
             @RequestBody SignInRequest signInRequest
-    ) throws Exception {
+    ) {
         SignInServiceResponse response = memberService.signIn(signInRequest.toServiceRequest());
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return ResponseEntity.ok().body(response);
     }
 }
