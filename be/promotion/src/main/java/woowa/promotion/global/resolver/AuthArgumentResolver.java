@@ -2,6 +2,7 @@ package woowa.promotion.global.resolver;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -11,6 +12,7 @@ import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AuthorizationException;
 
+@Component
 public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override

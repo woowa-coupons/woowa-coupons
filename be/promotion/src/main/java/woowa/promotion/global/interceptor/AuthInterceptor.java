@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import woowa.promotion.admin.admin.domain.Admin;
@@ -16,6 +17,7 @@ import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AuthorizationException;
 
+@Component
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
 
