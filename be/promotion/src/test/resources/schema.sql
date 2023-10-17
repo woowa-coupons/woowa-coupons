@@ -1,5 +1,10 @@
 SET foreign_key_checks = 0;
 
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+
+USE test;
+
 DROP TABLE IF EXISTS member;
 CREATE TABLE member
 (
