@@ -1,6 +1,7 @@
 package woowa.promotion.app.member.application;
 
 
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +49,7 @@ public class MemberService {
             throw new ApiException(MemberException.INVALID_PASSWORD);
         }
 
-        String accessToken = jwtProvider.createAccessTokenByMemberId(findUser.getId());
+        String accessToken = jwtProvider.createAccessToken(Map.of("memberId", findUser.getId()));
         return new SignInServiceResponse(accessToken);
     }
 
