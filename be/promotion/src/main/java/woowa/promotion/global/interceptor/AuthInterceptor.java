@@ -1,6 +1,5 @@
 package woowa.promotion.global.interceptor;
 
-import static woowa.promotion.global.util.HttpAuthorizationUtil.containsBearerToken;
 import static woowa.promotion.global.util.HttpAuthorizationUtil.extractAccessToken;
 
 import io.jsonwebtoken.Claims;
@@ -30,10 +29,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (CorsUtils.isPreFlightRequest(request)) {
             return true;
-        }
-
-        if (!containsBearerToken(request)) {
-            throw new ApiException(AuthorizationException.EMPTY_TOKEN);
         }
 
         String requestURI = request.getRequestURI();
