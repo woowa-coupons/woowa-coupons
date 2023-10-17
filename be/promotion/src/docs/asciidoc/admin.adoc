@@ -1,0 +1,15 @@
+[[Admin]]
+:toc: left
+:toclevels: 4
+== 관리자
+
+=== 회원가입
+
+.HTTP REQUEST
+include::{snippets}/admin/auth/signup/http-request.adoc[]
+.HTTP RESPONSE
+include::{snippets}/admin/auth/signup/http-response.adoc[]
+
+==== Request Fields
+
+include::{snippets}/admin/auth/signup/request-fields.adoc[]
