@@ -1,10 +1,7 @@
 package woowa.promotion.acceptance;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.fixture.UserFixture.유저_June;
-
 import io.restassured.RestAssured;
-import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,7 +11,32 @@ import woowa.promotion.app.member.presentation.dto.request.SignInRequest;
 import woowa.promotion.app.member.presentation.dto.request.SignUpRequest;
 import woowa.promotion.util.AcceptanceTest;
 
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static woowa.promotion.fixture.UserFixture.유저_June;
+
+@DisplayName("[인수테스트] 회원")
 public class MemberAcceptanceTest extends AcceptanceTest {
+
+    private static Stream<Arguments> providerSignupUser() {
+        return Stream.of(
+                Arguments.of(
+                        유저_June.getEmail(),
+                        유저_June.getNickname(),
+                        유저_June.getPassword()
+                )
+        );
+    }
+
+    private static Stream<Arguments> providerSigninUser() {
+        return Stream.of(
+                Arguments.of(
+                        유저_June.getEmail(),
+                        유저_June.getPassword()
+                )
+        );
+    }
 
     @ParameterizedTest
     @MethodSource("providerSignupUser")
@@ -56,25 +78,6 @@ public class MemberAcceptanceTest extends AcceptanceTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-    }
-
-    private static Stream<Arguments> providerSignupUser() {
-        return Stream.of(
-                Arguments.of(
-                        유저_June.getEmail(),
-                        유저_June.getNickname(),
-                        유저_June.getPassword()
-                )
-        );
-    }
-
-    private static Stream<Arguments> providerSigninUser() {
-        return Stream.of(
-                Arguments.of(
-                        유저_June.getEmail(),
-                        유저_June.getPassword()
-                )
-        );
     }
 
 }

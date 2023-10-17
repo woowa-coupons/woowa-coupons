@@ -14,6 +14,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DisplayName("JwtProvider 단위 테스트")
 class JwtProviderTest {
 
     private static final String SECRET_KEY = "1231231231231231231231231231231231312312312312312312312312312312";

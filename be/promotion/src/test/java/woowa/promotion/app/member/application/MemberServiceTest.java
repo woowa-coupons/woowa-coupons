@@ -1,9 +1,6 @@
 package woowa.promotion.app.member.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static woowa.promotion.fixture.UserFixture.유저_June;
-
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import woowa.promotion.app.member.application.dto.request.SignInServiceRequest;
@@ -16,6 +13,11 @@ import woowa.promotion.global.exception.domain.MemberException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static woowa.promotion.fixture.UserFixture.유저_June;
+
+@DisplayName("[비즈니스 로직 테스트] 회원")
 class MemberServiceTest extends ApplicationTest {
 
     @Autowired
