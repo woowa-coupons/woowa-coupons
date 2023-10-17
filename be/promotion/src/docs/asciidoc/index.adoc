@@ -1,0 +1,15 @@
+[[API]]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+== API 명세
+
+== woowa-coupons
+
+프로모션 & 쿠폰 시스템 API
+
+include::admin.adoc[]

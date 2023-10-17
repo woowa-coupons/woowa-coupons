@@ -1,13 +1,18 @@
 SET foreign_key_checks = 0;
 
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+
+USE test;
+
 DROP TABLE IF EXISTS member;
-CREATE TABLE  member
+CREATE TABLE member
 (
-    id         BIGINT      NOT NULL AUTO_INCREMENT,
-    nickname   VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    created_at TIMESTAMP   NOT NULL,
-    password    VARCHAR(500) NOT NULL,
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    nickname   VARCHAR(45)  NOT NULL,
+    email      VARCHAR(45)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL,
+    password   VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -94,10 +99,11 @@ CREATE TABLE promotion
 DROP TABLE IF EXISTS admin;
 CREATE TABLE admin
 (
-    id         BIGINT      NOT NULL AUTO_INCREMENT,
-    nickname   VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    created_at TIMESTAMP   NOT NULL,
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    nickname   VARCHAR(45)  NOT NULL,
+    email      VARCHAR(45)  NOT NULL,
+    password   VARCHAR(500) NOT NULL,
+    created_at TIMESTAMP    NOT NULL,
     PRIMARY KEY (id)
 );
 
