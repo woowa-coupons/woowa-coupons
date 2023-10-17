@@ -3,7 +3,7 @@ package woowa.promotion.admin.admin.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import woowa.promotion.admin.admin.application.dto.SignupServiceRequest;
+import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.infrastructure.AdminRepository;
 import woowa.promotion.global.exception.ApiException;

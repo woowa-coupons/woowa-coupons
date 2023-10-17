@@ -1,6 +1,6 @@
 package woowa.promotion.fixture;
 
-import woowa.promotion.admin.admin.application.dto.SignupServiceRequest;
+import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
 import woowa.promotion.app.member.domain.Member;
 

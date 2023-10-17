@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import woowa.promotion.admin.admin.application.AuthService;
-import woowa.promotion.admin.admin.application.dto.SignupServiceRequest;
+import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
 
 @RequiredArgsConstructor
