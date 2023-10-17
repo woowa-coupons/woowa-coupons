@@ -1,10 +1,13 @@
 package woowa.promotion.global.util;
 
 import javax.servlet.http.HttpServletRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.JwtException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpAuthorizationUtil {
 
     private static final String TOKEN_PREFIX = "Bearer";
