@@ -1,24 +1,26 @@
 package woowa.promotion.global.domain.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 import org.springframework.stereotype.Component;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.AuthorizationException;
 import woowa.promotion.global.properties.JwtProperties;
 
 @Component
 public class JwtProvider {
 
-    public static final long ACCESS_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24;
-    public static final String MEMBER_ID = "memberId";
+    private static final long ACCESS_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24;
 
-    private final JwtProperties jwtProperties;
     private final Key key;
 
     public JwtProvider(JwtProperties jwtProperties) {
-        this.jwtProperties = jwtProperties;
         this.key = Keys.hmacShaKeyFor(jwtProperties.secretKey().getBytes());
     }
 
@@ -30,13 +32,28 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String createAccessTokenByMemberId(Long memberId) {
-        Map<String, Object> claims = Map.of(MEMBER_ID, memberId);
-        return createAccessToken(claims);
-    }
-
     public Date getExpireDate(long expirationTime) {
         return new Date(System.currentTimeMillis() + expirationTime);
     }
 
+    public Claims extractClaims(String accessToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody();
+    }
+
+    public void validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+        } catch (ExpiredJwtException e) {
+            throw new ApiException(AuthorizationException.EXPIRED_TOKEN);
+        } catch (JwtException e) {
+            throw new ApiException(AuthorizationException.INVALID_TOKEN);
+        }
+    }
 }
