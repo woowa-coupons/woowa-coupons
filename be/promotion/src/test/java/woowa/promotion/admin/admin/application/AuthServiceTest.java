@@ -3,7 +3,9 @@ package woowa.promotion.admin.admin.application;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
+import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.global.security.hash.PasswordEncoder;
@@ -38,5 +40,19 @@ class AuthServiceTest extends ApplicationTest {
                 () -> assertThat(admin).isNotNull(),
                 () -> assertThat(admin.getPassword()).isEqualTo(encrypted)
         );
+    }
+
+    @DisplayName("관리자가 로그인에 성공하며 액세스 토큰을 발급받는다.")
+    @Test
+    void signIn() {
+        // given
+        SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
+        supportRepository.save(FixtureFactory.createAdmin());
+
+        // when
+        SignInServiceResponse response = authService.signIn(request);
+
+        // then
+        assertThat(response.accessToken()).isNotBlank();
     }
 }
