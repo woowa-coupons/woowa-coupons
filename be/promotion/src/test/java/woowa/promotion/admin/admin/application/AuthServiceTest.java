@@ -8,10 +8,12 @@ import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.fixture.FixtureFactory;
+import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("[비즈니스 로직 테스트] 관리자")
@@ -42,6 +44,18 @@ class AuthServiceTest extends ApplicationTest {
         );
     }
 
+    @DisplayName("중복된 회원가입 데이터가 주어지면 예외가 발생한다.")
+    @Test
+    void duplicatedSignupData_whenSignup_thenThrowsException() {
+        // given
+        SignupServiceRequest request = FixtureFactory.createSignupServiceRequest();
+        supportRepository.save(FixtureFactory.createAdmin());
+
+        // when & then
+        assertThatThrownBy(() -> authService.signup(request))
+                .isInstanceOf(ApiException.class);
+    }
+
     @DisplayName("관리자가 로그인에 성공하며 액세스 토큰을 발급받는다.")
     @Test
     void signIn() {
@@ -54,5 +68,16 @@ class AuthServiceTest extends ApplicationTest {
 
         // then
         assertThat(response.accessToken()).isNotBlank();
+    }
+
+    @DisplayName("유효하지 않은 로그인 데이터가 주어지면 예외가 발생한다.")
+    @Test
+    void givenInvalidSignInData_whenSignIn_thenThrowsException() {
+        // given
+        SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
+
+        // when & then
+        assertThatThrownBy(() -> authService.signIn(request))
+                .isInstanceOf(ApiException.class);
     }
 }
