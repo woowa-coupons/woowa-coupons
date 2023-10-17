@@ -38,11 +38,11 @@ public class JwtProvider {
     }
 
     public Claims extractClaims(String accessToken) {
-        Jws<Claims> claimsJws = validateJws(accessToken);
+        Jws<Claims> claimsJws = getValidateJws(accessToken);
         return claimsJws.getBody();
     }
 
-    private Jws<Claims> validateJws(String accessToken) {
+    private Jws<Claims> getValidateJws(String accessToken) {
         try {
             return extractJws(accessToken);
         } catch (ExpiredJwtException e) {
