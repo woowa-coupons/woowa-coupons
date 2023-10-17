@@ -2,6 +2,7 @@ package woowa.promotion.global.domain.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -37,23 +38,24 @@ public class JwtProvider {
     }
 
     public Claims extractClaims(String accessToken) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(accessToken)
-                .getBody();
+        Jws<Claims> claimsJws = validateJws(accessToken);
+        return claimsJws.getBody();
     }
 
-    public void validateToken(String token) {
+    private Jws<Claims> validateJws(String accessToken) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token);
+            return extractJws(accessToken);
         } catch (ExpiredJwtException e) {
             throw new ApiException(AuthorizationException.EXPIRED_TOKEN);
         } catch (JwtException e) {
             throw new ApiException(AuthorizationException.INVALID_TOKEN);
         }
+    }
+
+    private Jws<Claims> extractJws(String accessToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken);
     }
 }
