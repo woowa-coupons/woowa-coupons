@@ -32,7 +32,7 @@ public class CouponGroup {
     @Column(nullable = false)
     private Instant finishedAt;
 
-    @JoinColumn(name = "promotion_id", nullable = false)
+    @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
     

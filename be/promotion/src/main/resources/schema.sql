@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS coupon_group
     title        VARCHAR(50) NOT NULL,
     started_at   TIMESTAMP   NOT NULL,
     finished_at  TIMESTAMP   NOT NULL,
-    promotion_id BIGINT      NOT NULL,
+    promotion_id BIGINT      NULL,
     PRIMARY KEY (id)
 );
 
