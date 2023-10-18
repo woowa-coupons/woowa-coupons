@@ -7,19 +7,14 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import woowa.promotion.admin.admin.application.AuthService;
+import woowa.promotion.admin.admin.application.AdminService;
 import woowa.promotion.admin.admin.presentation.AuthController;
 import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.interceptor.AuthInterceptor;
 import woowa.promotion.global.resolver.AuthArgumentResolver;
 
-import java.util.Map;
-
-import static org.mockito.BDDMockito.any;
-import static org.mockito.BDDMockito.given;
-
 @MockBean({
-        AuthService.class
+        AdminService.class
 })
 @WebMvcTest({
         AuthController.class
