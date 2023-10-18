@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.infrastructure.AdminRepository;
 import woowa.promotion.app.member.domain.Member;
@@ -26,6 +27,7 @@ public class AuthService {
     private final AdminRepository adminRepository;
     private final MemberRepository memberRepository;
 
+    @Transactional(readOnly = true)
     public void setAdminAttribute(HttpServletRequest request) {
         Long adminId = getTokenValue(request, ADMIN_ID_KEY);
         Admin admin = adminRepository.findById(adminId)
@@ -33,6 +35,7 @@ public class AuthService {
         request.setAttribute("admin", admin);
     }
 
+    @Transactional(readOnly = true)
     public void setMemberAttribute(HttpServletRequest request) {
         Long memberId = getTokenValue(request, MEMBER_ID_KEY);
         Member member = memberRepository.findById(memberId)
