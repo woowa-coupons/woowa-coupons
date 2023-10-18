@@ -1,18 +1,15 @@
 package woowa.promotion.global.domain.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import java.security.Key;
-import java.util.Date;
-import java.util.Map;
 import org.springframework.stereotype.Component;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AuthorizationException;
 import woowa.promotion.global.properties.JwtProperties;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtProvider {
@@ -33,7 +30,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    public Date getExpireDate(long expirationTime) {
+    private Date getExpireDate(long expirationTime) {
         return new Date(System.currentTimeMillis() + expirationTime);
     }
 

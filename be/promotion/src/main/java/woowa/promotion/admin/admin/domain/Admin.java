@@ -1,14 +1,11 @@
 package woowa.promotion.admin.admin.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.global.domain.audit.AuditingFields;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,5 +33,9 @@ public class Admin extends AuditingFields {
 
     public static Admin of(String nickname, String email, String password) {
         return new Admin(nickname, email, password);
+    }
+
+    public boolean isSamePassword(String password) {
+        return this.password.equals(password);
     }
 }
