@@ -35,5 +35,10 @@ public class CouponGroup {
     @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
-    
+
+    public CouponGroup(String title, Instant startedAt, Instant finishedAt) {
+        this.title = title;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+    }
 }
