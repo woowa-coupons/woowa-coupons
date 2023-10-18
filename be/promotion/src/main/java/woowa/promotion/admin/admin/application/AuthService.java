@@ -1,5 +1,6 @@
 package woowa.promotion.admin.admin.application;
 
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +13,6 @@ import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AdminException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
-
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Transactional
@@ -31,7 +30,7 @@ public class AuthService {
             throw new ApiException(AdminException.DUPLICATED_EMAIL);
         }
 
-        Admin admin = Admin.of(request.email(), request.nickname(), encryptedPassword);
+        Admin admin = Admin.of(request.nickname(), request.email(), encryptedPassword);
         adminRepository.save(admin);
     }
 
@@ -40,7 +39,7 @@ public class AuthService {
         Admin admin = adminRepository.findByEmail(request.email())
                 .orElseThrow(() -> new ApiException(AdminException.INVALID_EMAIL));
 
-        if (!admin.isSamePassword(request.password())) {
+        if (!admin.isSamePassword(passwordEncoder.encrypt(request.password()))) {
             throw new ApiException(AdminException.INVALID_PASSWORD);
         }
 
