@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS member
 (
     id         BIGINT       NOT NULL AUTO_INCREMENT,
-    nickname   VARCHAR(45)  NOT NULL,
+    nickname   VARCHAR(45)  NOT NULL UNIQUE,
     email      VARCHAR(45)  NOT NULL,
     created_at TIMESTAMP    NOT NULL,
     password   VARCHAR(500) NOT NULL,
@@ -50,11 +50,12 @@ CREATE TABLE IF NOT EXISTS promotion_option
 
 CREATE TABLE IF NOT EXISTS coupon_group
 (
-    id           BIGINT      NOT NULL AUTO_INCREMENT,
-    title        VARCHAR(50) NOT NULL,
-    started_at   TIMESTAMP   NOT NULL,
-    finished_at  TIMESTAMP   NOT NULL,
-    promotion_id BIGINT      NULL,
+    id             BIGINT       NOT NULL AUTO_INCREMENT,
+    title          VARCHAR(50)  NOT NULL,
+    started_at     TIMESTAMP    NOT NULL,
+    finished_at    TIMESTAMP    NOT NULL,
+    admin_nickname VARCHAR(45) NOT NULL,
+    promotion_id   BIGINT       NULL,
     PRIMARY KEY (id)
 );
 

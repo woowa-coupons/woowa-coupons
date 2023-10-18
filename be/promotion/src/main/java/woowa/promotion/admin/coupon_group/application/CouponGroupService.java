@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
@@ -18,8 +19,8 @@ public class CouponGroupService {
     private final CouponRepository couponRepository;
 
     @Transactional
-    public void saveCouponGroup(CouponGroupCreateRequest request) {
-        CouponGroup couponGroup = request.toCouponGroup();
+    public void saveCouponGroup(CouponGroupCreateRequest request, Admin loginAdmin) {
+        CouponGroup couponGroup = request.toCouponGroup(loginAdmin.getNickname());
         couponGroupRepository.save(couponGroup);
 
         List<Coupon> coupons = request.toCoupons(couponGroup);

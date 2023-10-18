@@ -32,13 +32,17 @@ public class CouponGroup {
     @Column(nullable = false)
     private Instant finishedAt;
 
+    @Column(nullable = false)
+    private String adminNickname;
+
     @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
 
-    public CouponGroup(String title, Instant startedAt, Instant finishedAt) {
+    public CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname) {
         this.title = title;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
+        this.adminNickname = adminNickname;
     }
 }
