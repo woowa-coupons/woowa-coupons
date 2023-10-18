@@ -12,6 +12,7 @@ import woowa.promotion.acceptance.SupportRepository;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.fixture.UserFixture;
+import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -19,12 +20,17 @@ import woowa.promotion.global.security.hash.PasswordEncoder;
 @Sql(value = {"classpath:schema.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public abstract class AcceptanceTest {
 
-    @Autowired
-    protected SupportRepository supportRepository;
     @LocalServerPort
     private int port;
+
+    @Autowired
+    protected SupportRepository supportRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    protected JwtProvider jwtProvider;
 
     @BeforeEach
     void setUp() {

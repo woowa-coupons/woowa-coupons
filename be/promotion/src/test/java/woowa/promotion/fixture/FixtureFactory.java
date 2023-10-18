@@ -1,11 +1,15 @@
 package woowa.promotion.fixture;
 
+import java.time.Instant;
+import java.util.List;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest.CouponDto;
 import woowa.promotion.app.member.domain.Member;
 
 public class FixtureFactory {
@@ -50,5 +54,16 @@ public class FixtureFactory {
 
     public static Admin createAdmin() {
         return Admin.of("브루니", "bruni@woowa.com", "1234");
+    }
+
+    public static CouponGroupCreateRequest createCouponGroupCreateRequest() {
+        return new CouponGroupCreateRequest(
+                "쿠폰 그룹 제목",
+                Instant.parse("2023-10-06T14:30:00Z"),
+                Instant.parse("2023-10-06T14:30:00Z"),
+                List.of(
+                        new CouponDto("쿠폰 제목", "fixed", 1000, 100)
+                )
+        );
     }
 }
