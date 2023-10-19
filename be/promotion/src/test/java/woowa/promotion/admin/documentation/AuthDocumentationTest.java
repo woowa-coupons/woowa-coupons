@@ -1,34 +1,40 @@
 package woowa.promotion.admin.documentation;
 
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import woowa.promotion.admin.admin.application.AuthService;
+import woowa.promotion.admin.admin.application.AdminService;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.DocumentationTest;
-
-import static org.mockito.BDDMockito.*;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("[RESTDocs] 관리자 인증 API")
 public class AuthDocumentationTest extends DocumentationTest {
 
     @Autowired
-    private AuthService authService;
+    private AdminService adminService;
 
     @DisplayName("관리자 회원가입")
     @Test
     void signup() throws Exception {
         // given
         var signupData = FixtureFactory.createSignupServiceRequest();
-        willDoNothing().given(authService).signup(signupData);
+        willDoNothing().given(adminService).signup(signupData);
 
         // when
         var response = mockMvc.perform(post("/admin/auth/sign-up")
@@ -56,7 +62,7 @@ public class AuthDocumentationTest extends DocumentationTest {
     void signIn() throws Exception {
         // given
         var signInData = FixtureFactory.createSignInRequest();
-        given(authService.signIn(any(SignInServiceRequest.class))).willReturn(FixtureFactory.createSignInServiceResponse());
+        given(adminService.signIn(any(SignInServiceRequest.class))).willReturn(FixtureFactory.createSignInServiceResponse());
 
         // when
         var response = mockMvc.perform(post("/admin/auth/sign-in")

@@ -1,5 +1,9 @@
 package woowa.promotion.admin.admin.application;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,15 +17,11 @@ import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 @DisplayName("[비즈니스 로직 테스트] 관리자")
-class AuthServiceTest extends ApplicationTest {
+class AdminServiceTest extends ApplicationTest {
 
     @Autowired
-    private AuthService authService;
+    private AdminService adminService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -36,7 +36,7 @@ class AuthServiceTest extends ApplicationTest {
             SignupServiceRequest request = FixtureFactory.createSignupServiceRequest();
 
             // when
-            authService.signup(request);
+            adminService.signup(request);
 
             String encrypted = passwordEncoder.encrypt(request.password());
 
@@ -57,7 +57,7 @@ class AuthServiceTest extends ApplicationTest {
             supportRepository.save(FixtureFactory.createAdmin());
 
             // when & then
-            assertThatThrownBy(() -> authService.signup(request))
+            assertThatThrownBy(() -> adminService.signup(request))
                     .isInstanceOf(ApiException.class);
         }
     }
@@ -74,7 +74,7 @@ class AuthServiceTest extends ApplicationTest {
             supportRepository.save(FixtureFactory.createAdmin());
 
             // when
-            SignInServiceResponse response = authService.signIn(request);
+            SignInServiceResponse response = adminService.signIn(request);
 
             // then
             assertThat(response.accessToken()).isNotBlank();
@@ -87,7 +87,7 @@ class AuthServiceTest extends ApplicationTest {
             SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
 
             // when & then
-            assertThatThrownBy(() -> authService.signIn(request))
+            assertThatThrownBy(() -> adminService.signIn(request))
                     .isInstanceOf(ApiException.class);
         }
     }

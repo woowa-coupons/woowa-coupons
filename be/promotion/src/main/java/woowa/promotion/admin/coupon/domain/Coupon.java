@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
@@ -44,5 +45,14 @@ public class Coupon extends AuditingFields {
     @JoinColumn(name = "coupon_group_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private CouponGroup couponGroup;
-    
+
+    @Builder
+    private Coupon(String title, Integer discount, CouponType type, Integer initialQuantity, CouponGroup couponGroup) {
+        this.title = title;
+        this.discount = discount;
+        this.type = type;
+        this.initialQuantity = initialQuantity;
+        this.remainQuantity = initialQuantity;
+        this.couponGroup = couponGroup;
+    }
 }

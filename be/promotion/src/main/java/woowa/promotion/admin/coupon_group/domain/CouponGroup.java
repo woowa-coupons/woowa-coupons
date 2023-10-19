@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.promotion.domain.Promotion;
@@ -32,8 +33,18 @@ public class CouponGroup {
     @Column(nullable = false)
     private Instant finishedAt;
 
-    @JoinColumn(name = "promotion_id", nullable = false)
+    @Column(nullable = false)
+    private String adminNickname;
+
+    @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
-    
+
+    @Builder
+    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname) {
+        this.title = title;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+        this.adminNickname = adminNickname;
+    }
 }
