@@ -52,8 +52,8 @@ public class FixtureFactory {
         return new SignInServiceResponse("accessToken");
     }
 
-    public static Admin createAdmin() {
-        return Admin.of("브루니", "bruni@woowa.com", "1234");
+    public static Admin createAdmin(String encryptedPassword) {
+        return Admin.of("브루니", "bruni@woowa.com", encryptedPassword);
     }
 
     public static CouponGroupCreateRequest createCouponGroupCreateRequest() {
