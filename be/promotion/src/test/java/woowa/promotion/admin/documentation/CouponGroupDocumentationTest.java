@@ -37,7 +37,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
 
     private List<CouponGroupsResponse> createCouponGroupsResponse() {
         List<CouponGroupsResponse> ret = new ArrayList<>();
-        for (long i = 1; i <= 15; i++) {
+        for (long i = 15; i >= 1; i--) {
             ret.add(new CouponGroupsResponse(
                     i,
                     "쿠폰 그룹 제목 - " + i,
