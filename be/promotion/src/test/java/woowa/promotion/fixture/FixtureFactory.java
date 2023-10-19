@@ -8,14 +8,28 @@ import woowa.promotion.admin.admin.application.dto.response.SignInServiceRespons
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
+import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest.CouponDto;
+import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest;
+import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest.PromotionOptionRequest;
+import woowa.promotion.admin.promotion.domain.ProgressStatus;
+import woowa.promotion.admin.promotion.domain.Promotion;
+import woowa.promotion.admin.promotion_option.domain.MemberType;
+import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.app.member.domain.Member;
 
 public class FixtureFactory {
 
     public static Member createMember(UserFixture userFixture, String password) {
         return new Member(userFixture.getNickname(), userFixture.getEmail(), password);
+    }
+
+    public static PromotionOption createPromotionOption(PromotionOptionFixture promotionOptionFixture,
+                                                        Promotion promotion) {
+        return new PromotionOption(promotionOptionFixture.getLastOrderAt(), promotionOptionFixture.getRandom(),
+                promotion,
+                MemberType.from(promotionOptionFixture.getMemberType()));
     }
 
     public static SignupRequest createSignupRequest() {
@@ -55,6 +69,40 @@ public class FixtureFactory {
     public static Admin createAdmin() {
         return Admin.of("브루니", "bruni@woowa.com", "1234");
     }
+
+    public static Promotion createPromotion(PromotionFixture promotionFixture) {
+        return new Promotion(promotionFixture.getTitle(), promotionFixture.getContent(), promotionFixture.getBanner(),
+                promotionFixture.getStartedAt(), promotionFixture.getFinishedAt(),
+                ProgressStatus.valueOf(promotionFixture.getProgressStatus()), promotionFixture.getPromotionPageUrl(),
+                promotionFixture.isDisplay());
+    }
+
+    public static CouponGroup createCouponGroup(CouponGroupFixture couponGroupFixture) {
+        return CouponGroup.builder().title(couponGroupFixture.getTitle()).finishedAt(couponGroupFixture.getFinishedAt())
+                .startedAt(couponGroupFixture.getStartedAt()).adminNickname("admin").build();
+    }
+
+    public static PromotionOptionRequest createPromotionOptionRequest(PromotionOptionFixture promotionOptionFixture,
+                                                                      Long couponGroupId) {
+        return new PromotionOptionRequest(promotionOptionFixture.getMemberType(),
+                promotionOptionFixture.getLastOrderAt(), promotionOptionFixture.getRandom(), couponGroupId);
+    }
+
+
+    public static PromotionRegisterRequest createPromotionRegisterRequest(PromotionFixture promotionFixture,
+                                                                          List<PromotionOptionRequest> promotionOptions) {
+        return new PromotionRegisterRequest(
+                promotionFixture.getTitle(),
+                promotionFixture.getContent(),
+                promotionFixture.getBanner(),
+                promotionFixture.getStartedAt(),
+                promotionFixture.getFinishedAt(),
+                promotionFixture.getPromotionPageUrl(),
+                promotionFixture.isDisplay(),
+                promotionFixture.getProgressStatus(),
+                promotionOptions);
+    }
+
 
     public static CouponGroupCreateRequest createCouponGroupCreateRequest() {
         return new CouponGroupCreateRequest(
