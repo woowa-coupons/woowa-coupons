@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.promotion.domain.Promotion;
@@ -39,7 +40,8 @@ public class CouponGroup {
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
 
-    public CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname) {
+    @Builder
+    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname) {
         this.title = title;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;

@@ -26,7 +26,12 @@ public record CouponGroupCreateRequest(
     }
 
     public CouponGroup toCouponGroup(String adminNickname) {
-        return new CouponGroup(title, startedAt, finishedAt, adminNickname);
+        return CouponGroup.builder()
+                .title(title)
+                .startedAt(startedAt)
+                .finishedAt(finishedAt)
+                .adminNickname(adminNickname)
+                .build();
     }
 
     public List<Coupon> toCoupons(CouponGroup couponGroup) {
