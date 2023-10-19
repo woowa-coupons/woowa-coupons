@@ -18,8 +18,8 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
     @DisplayName("쿠폰 그룹 생성에 성공한다.")
     @Test
     void createCouponGroups() {
+        // given
         Admin admin = supportRepository.save(Admin.of("nickname", "email", "password"));
-
         String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
 
         var request = RestAssured
