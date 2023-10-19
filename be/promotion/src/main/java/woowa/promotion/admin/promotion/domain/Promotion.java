@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 import woowa.promotion.global.domain.audit.AuditingFields;
 
 @Getter
@@ -33,7 +32,6 @@ public class Promotion extends AuditingFields {
     private String bannerUrl;
 
     @Column(nullable = false, updatable = false)
-    @CreatedDate
     private Instant startedAt;
 
     @Column(nullable = false)
@@ -48,5 +46,21 @@ public class Promotion extends AuditingFields {
 
     @Column(nullable = false, columnDefinition = "TINYINT")
     private Boolean isDisplay;
+
+    public Promotion(String title, String content, String bannerUrl, Instant startedAt, Instant finishedAt,
+                     ProgressStatus progressStatus, String promotionPageUrl, Boolean isDisplay) {
+        this.title = title;
+        this.content = content;
+        this.bannerUrl = bannerUrl;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+        this.progressStatus = progressStatus;
+        this.promotionPageUrl = promotionPageUrl;
+        this.isDisplay = isDisplay;
+    }
+
+    public void setId(String title) {
+        this.title = title;
+    }
 
 }
