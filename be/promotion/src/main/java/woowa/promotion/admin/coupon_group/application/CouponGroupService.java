@@ -13,6 +13,7 @@ import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequ
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CouponGroupService {
 
     private final CouponGroupRepository couponGroupRepository;
