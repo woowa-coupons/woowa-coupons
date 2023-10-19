@@ -9,7 +9,7 @@ import woowa.promotion.global.exception.CustomException;
 @RequiredArgsConstructor
 public enum CouponException implements CustomException {
 
-    INVALID_COUPON_TYPE(HttpStatus.BAD_REQUEST, "잘못된 쿠폰 타입니다.");
+    INVALID_COUPON_TYPE(HttpStatus.BAD_REQUEST, "잘못된 쿠폰 타입입니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
