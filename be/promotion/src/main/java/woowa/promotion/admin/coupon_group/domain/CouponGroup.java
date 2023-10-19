@@ -47,4 +47,9 @@ public class CouponGroup {
         this.finishedAt = finishedAt;
         this.adminNickname = adminNickname;
     }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
+
 }
