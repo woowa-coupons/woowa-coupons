@@ -51,9 +51,7 @@ public class PromotionService {
 
         couponGroup.setPromotion(promotion);
 
-        PromotionOptionCouponGroup promotionOptionCouponGroup = new PromotionOptionCouponGroup(promotionOption,
-                couponGroup);
-        promotionOptionCouponGroupRepository.save(promotionOptionCouponGroup);
+        promotionOptionCouponGroupRepository.save(new PromotionOptionCouponGroup(promotionOption, couponGroup));
     }
 
     private PromotionOption savePromotionOption(PromotionOptionRequest promotionOptionRequest, Promotion promotion) {
