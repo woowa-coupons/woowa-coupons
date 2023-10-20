@@ -16,7 +16,7 @@ import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.fixture.FixtureFactory;
-import woowa.promotion.global.domain.page.Paging;
+import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.AcceptanceTest;
 
 @DisplayName("[인수테스트] 관리자 - 쿠폰 그룹")
@@ -77,7 +77,7 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
                 () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
                 () -> assertThat(response.jsonPath().getObject("data[0]", CouponGroupsResponse.class))
                         .hasFieldOrPropertyWithValue("title", "cg - 15"),
-                () -> assertThat(response.jsonPath().getObject("paging", Paging.class))
+                () -> assertThat(response.jsonPath().getObject("paging", CustomPage.Paging.class))
                         .hasFieldOrPropertyWithValue("currentPage", 1)
                         .hasFieldOrPropertyWithValue("totalPages", 2)
                         .hasFieldOrPropertyWithValue("totalElements", 15L)

@@ -26,7 +26,6 @@ import org.springframework.http.HttpMethod;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
-import woowa.promotion.global.domain.page.Paging;
 import woowa.promotion.util.DocumentationTest;
 
 @DisplayName("[RESTDocs] 쿠폰 그룹 API")
@@ -57,7 +56,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
         given(couponGroupService.retrieveCouponGroups(any()))
                 .willReturn(new CustomPage<>(
                         createCouponGroupsResponse(),
-                        new Paging(
+                        new CustomPage.Paging(
                                 1,
                                 2,
                                 15,

@@ -7,4 +7,13 @@ public record CustomPage<T>(
         List<T> data,
         Paging paging
 ) {
+
+    public record Paging(
+
+            int currentPage,
+            int totalPages,
+            long totalElements,
+            int size
+    ) {
+    }
 }
