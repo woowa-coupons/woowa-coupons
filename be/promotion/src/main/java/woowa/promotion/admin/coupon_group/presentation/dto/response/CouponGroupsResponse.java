@@ -15,7 +15,8 @@ public record CouponGroupsResponse(
         String createdBy
 ) {
 
-    public static CouponGroupsResponse of(CouponGroup couponGroup, Set<Coupon> coupons) {
+    public static CouponGroupsResponse of(CouponGroup couponGroup) {
+        Set<Coupon> coupons = couponGroup.getCoupons();
         return new CouponGroupsResponse(
                 couponGroup.getId(),
                 couponGroup.getTitle(),

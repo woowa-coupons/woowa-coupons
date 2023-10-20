@@ -16,7 +16,6 @@ import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
-import woowa.promotion.global.domain.page.Paging;
 
 @Service
 @RequiredArgsConstructor
@@ -41,12 +40,12 @@ public class CouponGroupService {
         Page<CouponGroup> couponGroups = couponGroupRepository.findAll(pageRequest);
 
         List<CouponGroupsResponse> couponGroupsResponses = couponGroups.stream()
-                .map(couponGroup -> CouponGroupsResponse.of(couponGroup, couponGroup.getCoupons()))
+                .map(CouponGroupsResponse::of)
                 .collect(Collectors.toList());
 
         return new CustomPage<>(
                 couponGroupsResponses,
-                new Paging(
+                new CustomPage.Paging(
                         pageable.getPageNumber(),
                         couponGroups.getTotalPages(),
                         couponGroups.getTotalElements(),
