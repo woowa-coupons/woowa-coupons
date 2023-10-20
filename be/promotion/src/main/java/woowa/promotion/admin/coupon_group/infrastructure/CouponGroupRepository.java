@@ -10,9 +10,6 @@ import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupS
 
 public interface CouponGroupRepository extends JpaRepository<CouponGroup, Long> {
 
-    @Query(value = "SELECT DISTINCT couponGroup " +
-            "FROM CouponGroup couponGroup " +
-            "LEFT JOIN Coupon coupon ON couponGroup.id = coupon.couponGroup.id")
     Page<CouponGroup> findAll(Pageable pageable);
 
     @Query("SELECT new woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse(" +
