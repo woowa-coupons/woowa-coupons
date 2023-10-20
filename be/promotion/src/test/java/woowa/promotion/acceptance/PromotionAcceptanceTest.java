@@ -73,7 +73,6 @@ public class PromotionAcceptanceTest extends AcceptanceTest {
                 .extract();
 
         // then
-        System.out.println("result+ " + response.body().jsonPath());
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.body().jsonPath().getString("contents[0].title"));
     }

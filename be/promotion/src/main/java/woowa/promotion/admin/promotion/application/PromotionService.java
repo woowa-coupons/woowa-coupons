@@ -59,8 +59,10 @@ public class PromotionService {
     }
 
     public List<PromotionListResponse> getPromotionList() {
-        List<Promotion> promotions = promotionRepository.findAll();
-        return promotions.stream().map(PromotionListResponse::from).toList();
+        return promotionRepository.findAll()
+                .stream()
+                .map(PromotionListResponse::from)
+                .toList();
     }
 
 

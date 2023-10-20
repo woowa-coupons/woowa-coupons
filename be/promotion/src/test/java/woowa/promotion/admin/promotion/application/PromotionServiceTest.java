@@ -32,7 +32,6 @@ class PromotionServiceTest extends ApplicationTest {
 
     @Autowired
     private PromotionService promotionService;
-
     @Autowired
     private PromotionRepository promotionRepository;
     @Autowired
@@ -60,7 +59,6 @@ class PromotionServiceTest extends ApplicationTest {
         Promotion promotion = promotionRepository.findAll().get(0);
         assertThat(promotion).usingRecursiveComparison().ignoringFields("id", "createdAt")
                 .isEqualTo(request.toEntity());
-
     }
 
     private CouponGroup makeCouponGroup(CouponGroup couponGroup) {
@@ -74,6 +72,7 @@ class PromotionServiceTest extends ApplicationTest {
         var promotionB = createPromotion(B_프로모션);
         var promotions = List.of(promotionA, promotionB);
         promotionRepository.saveAll(promotions);
+        
         // when
         var response = promotionService.getPromotionList();
 
@@ -82,7 +81,6 @@ class PromotionServiceTest extends ApplicationTest {
                 .isEqualTo(promotions.stream().map(
                         PromotionListResponse::from).toList()
                 );
-
     }
 
     @Test
