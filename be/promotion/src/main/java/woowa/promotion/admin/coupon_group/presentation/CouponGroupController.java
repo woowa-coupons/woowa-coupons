@@ -1,8 +1,12 @@
 package woowa.promotion.admin.coupon_group.presentation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
+import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.resolver.Authentication;
 
 @RequiredArgsConstructor
@@ -26,6 +32,13 @@ public class CouponGroupController {
     ) {
         couponGroupService.saveCouponGroup(request, loginAdmin);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<CustomPage<CouponGroupsResponse>> retrieveCouponGroups(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return ResponseEntity.ok(couponGroupService.retrieveCouponGroups(pageable));
     }
 
 }

@@ -13,3 +13,4 @@
 프로모션 & 쿠폰 시스템 API
 
 include::admin.adoc[]
+include::couponGroup.adoc[]

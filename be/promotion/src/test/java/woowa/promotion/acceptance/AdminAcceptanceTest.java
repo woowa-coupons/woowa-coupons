@@ -37,7 +37,7 @@ public class AdminAcceptanceTest extends AcceptanceTest {
     @Test
     void signIn() {
         // given
-        supportRepository.save(FixtureFactory.createAdmin());
+        supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt("1234")));
         var request = RestAssured
                 .given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

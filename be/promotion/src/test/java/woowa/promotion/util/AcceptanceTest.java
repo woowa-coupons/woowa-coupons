@@ -29,7 +29,7 @@ public abstract class AcceptanceTest {
     protected SupportRepository supportRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    protected PasswordEncoder passwordEncoder;
 
     @Autowired
     protected JwtProvider jwtProvider;
