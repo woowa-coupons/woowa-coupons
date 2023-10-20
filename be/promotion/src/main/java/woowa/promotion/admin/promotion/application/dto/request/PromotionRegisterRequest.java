@@ -1,5 +1,6 @@
 package woowa.promotion.admin.promotion.application.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.util.List;
 import woowa.promotion.admin.promotion.domain.ProgressStatus;
@@ -14,6 +15,7 @@ public record PromotionRegisterRequest(
         Instant startedAt,
         Instant finishedAt,
         String promotionPageUrl,
+        @JsonProperty("isDisplay")
         boolean isDisplay,
         String progressStatus,
         List<PromotionOptionRequest> promotionOptions
