@@ -1,6 +1,7 @@
 package woowa.promotion.admin.promotion.application;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,13 +72,27 @@ public class PromotionService {
                 .orElseThrow(() -> new ApiException(PromotionException.NOT_FOUND));
 
         List<PromotionOption> promotionOptions = promotionOptionRepository.findByPromotionId(promotionId);
-
         List<CouponGroup> couponGroups = promotionOptions.stream()
-                .map(promotionOption -> promotionOptionCouponGroupRepository.findByPromotionOptionId(
-                                promotionOption.getId()).orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND))
-                        .getCouponGroup())
-                .toList();
+                .map(this::getPromotionOptionCouponGroups)
+                .map(list -> getMatchingCouponGroup(list, promotionId))
+                .collect(Collectors.toList());
 
         return new PromotionDetailResponse(promotion, promotionOptions, couponGroups);
+    }
+
+    private List<PromotionOptionCouponGroup> getPromotionOptionCouponGroups(PromotionOption promotionOption) {
+        return promotionOptionCouponGroupRepository.findByPromotionOptionId(promotionOption.getId());
+    }
+
+    private CouponGroup getMatchingCouponGroup(List<PromotionOptionCouponGroup> couponGroupList, Long promotionId) {
+        return couponGroupList.stream()
+                .filter(promotionOptionCouponGroup -> isMatchingPromotion(promotionOptionCouponGroup, promotionId))
+                .map(PromotionOptionCouponGroup::getCouponGroup)
+                .findFirst()
+                .orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND));
+    }
+
+    private boolean isMatchingPromotion(PromotionOptionCouponGroup promotionOptionCouponGroup, Long promotionId) {
+        return promotionOptionCouponGroup.getCouponGroup().getPromotion().getId().equals(promotionId);
     }
 }
