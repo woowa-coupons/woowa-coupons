@@ -59,8 +59,5 @@ public class Promotion extends AuditingFields {
         this.isDisplay = isDisplay;
     }
 
-    public void setId(String title) {
-        this.title = title;
-    }
 
 }
