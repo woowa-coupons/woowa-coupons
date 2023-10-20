@@ -14,6 +14,7 @@ import static woowa.promotion.fixture.PromotionOptionFixture.B_프로모션_옵�
 import io.restassured.RestAssured;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,8 +24,10 @@ import woowa.promotion.admin.promotion.application.dto.request.PromotionRegister
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
 
+@DisplayName("[인수테스트] 관리자 - 프로모션")
 public class PromotionAcceptanceTest extends AcceptanceTest {
 
+    @DisplayName("프로모션 등록에 성공한다.")
     @Test
     void register() {
         // given
@@ -53,6 +56,7 @@ public class PromotionAcceptanceTest extends AcceptanceTest {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
+    @DisplayName("프로모션 리스트를 조회한다.")
     @Test
     void getPromotionList() {
         // given

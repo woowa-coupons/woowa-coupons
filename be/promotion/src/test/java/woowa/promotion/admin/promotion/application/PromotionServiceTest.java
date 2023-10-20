@@ -14,6 +14,7 @@ import static woowa.promotion.fixture.PromotionOptionFixture.A_프로모션_옵�
 import static woowa.promotion.fixture.PromotionOptionFixture.B_프로모션_옵션;
 
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
@@ -28,6 +29,8 @@ import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptio
 import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.PromotionOptionCouponGroupRepository;
 import woowa.promotion.util.ApplicationTest;
 
+
+@DisplayName("[비즈니스 로직 테스트] 관리자 프로모션")
 class PromotionServiceTest extends ApplicationTest {
 
     @Autowired
@@ -42,6 +45,7 @@ class PromotionServiceTest extends ApplicationTest {
     private PromotionOptionCouponGroupRepository promotionOptionCouponGroupRepository;
 
 
+    @DisplayName("프로모션 등록")
     @Test
     void register() {
         // given
@@ -65,6 +69,7 @@ class PromotionServiceTest extends ApplicationTest {
         return couponGroupRepository.save(couponGroup);
     }
 
+    @DisplayName("프로모션 리스트 조회")
     @Test
     void getPromotionList() {
         // given
@@ -72,7 +77,7 @@ class PromotionServiceTest extends ApplicationTest {
         var promotionB = createPromotion(B_프로모션);
         var promotions = List.of(promotionA, promotionB);
         promotionRepository.saveAll(promotions);
-        
+
         // when
         var response = promotionService.getPromotionList();
 
@@ -83,6 +88,7 @@ class PromotionServiceTest extends ApplicationTest {
                 );
     }
 
+    @DisplayName("프로모션 상세 조회")
     @Test
     void getPromotion() {
         // given
