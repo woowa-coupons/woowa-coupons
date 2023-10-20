@@ -13,14 +13,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import woowa.promotion.admin.admin.application.AdminService;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.presentation.AuthController;
+import woowa.promotion.admin.coupon_group.application.CouponGroupService;
+import woowa.promotion.admin.coupon_group.presentation.CouponGroupController;
 import woowa.promotion.global.interceptor.AuthInterceptor;
 import woowa.promotion.global.resolver.AuthArgumentResolver;
 
 @MockBean({
-        AdminService.class
+        AdminService.class,
+        CouponGroupService.class
 })
 @WebMvcTest({
-        AuthController.class
+        AuthController.class,
+        CouponGroupController.class
 })
 @AutoConfigureRestDocs
 public abstract class DocumentationTest {

@@ -8,6 +8,9 @@ import woowa.promotion.admin.admin.application.dto.response.SignInServiceRespons
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
+import woowa.promotion.admin.coupon.domain.Coupon;
+import woowa.promotion.admin.coupon.domain.CouponType;
+import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest.CouponDto;
 import woowa.promotion.app.member.domain.Member;
@@ -52,8 +55,8 @@ public class FixtureFactory {
         return new SignInServiceResponse("accessToken");
     }
 
-    public static Admin createAdmin() {
-        return Admin.of("브루니", "bruni@woowa.com", "1234");
+    public static Admin createAdmin(String encryptedPassword) {
+        return Admin.of("브루니", "bruni@woowa.com", encryptedPassword);
     }
 
     public static CouponGroupCreateRequest createCouponGroupCreateRequest() {
@@ -66,4 +69,24 @@ public class FixtureFactory {
                 )
         );
     }
+
+    public static CouponGroup createCouponGroup(String couponGroupTitle) {
+        return CouponGroup.builder()
+                .title(couponGroupTitle)
+                .startedAt(Instant.now())
+                .finishedAt(Instant.now().plusSeconds(10 * 24 * 60 * 60))
+                .adminNickname("admin")
+                .build();
+    }
+
+    public static Coupon createCoupon(String couponTitle, CouponGroup couponGroup) {
+        return Coupon.builder()
+                .title(couponTitle)
+                .type(CouponType.FIXED)
+                .discount(1000)
+                .initialQuantity(100)
+                .couponGroup(couponGroup)
+                .build();
+    }
+
 }

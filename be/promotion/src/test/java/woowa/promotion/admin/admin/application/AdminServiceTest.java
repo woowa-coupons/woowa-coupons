@@ -54,7 +54,7 @@ class AdminServiceTest extends ApplicationTest {
         void duplicatedSignupData_whenSignup_thenThrowsException() {
             // given
             SignupServiceRequest request = FixtureFactory.createSignupServiceRequest();
-            supportRepository.save(FixtureFactory.createAdmin());
+            supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt(request.password())));
 
             // when & then
             assertThatThrownBy(() -> adminService.signup(request))
@@ -71,7 +71,7 @@ class AdminServiceTest extends ApplicationTest {
         void signIn() {
             // given
             SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
-            supportRepository.save(FixtureFactory.createAdmin());
+            supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt(request.password())));
 
             // when
             SignInServiceResponse response = adminService.signIn(request);

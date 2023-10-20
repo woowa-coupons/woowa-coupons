@@ -1,0 +1,19 @@
+[[CouponGroup]]
+:toc: left
+:toclevels: 4
+== 쿠폰그룹
+
+=== 쿠폰그룹 목록조회
+
+.HTTP REQUEST
+include::{snippets}/admin/coupon-groups/retrieve-coupon-groups/http-request.adoc[]
+.HTTP RESPONSE
+include::{snippets}/admin/coupon-groups/retrieve-coupon-groups/http-response.adoc[]
+
+==== Request Query Parameters
+
+include::{snippets}/admin/coupon-groups/retrieve-coupon-groups/request-parameters.adoc[]
+
+==== Response Fields
+
+include::{snippets}/admin/coupon-groups/retrieve-coupon-groups/response-fields.adoc[]
