@@ -1,4 +1,4 @@
-package woowa.promotion.admin.promotion_option_coupon.domain;
+package woowa.promotion.admin.promotion_option_coupon_group.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,13 +10,13 @@ import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import woowa.promotion.admin.coupon.domain.Coupon;
+import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class PromotionOptionCoupon {
+public class PromotionOptionCouponGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,12 @@ public class PromotionOptionCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     private PromotionOption promotionOption;
 
-    @JoinColumn(name = "coupon_id", nullable = false)
+    @JoinColumn(name = "coupon_group_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private Coupon coupon;
+    private CouponGroup couponGroup;
 
+    public PromotionOptionCouponGroup(PromotionOption promotionOption, CouponGroup couponGroup) {
+        this.promotionOption = promotionOption;
+        this.couponGroup = couponGroup;
+    }
 }

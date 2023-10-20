@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS coupon_group
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS promotion_option_coupon
+CREATE TABLE IF NOT EXISTS promotion_option_coupon_group
 (
     id                  BIGINT NOT NULL AUTO_INCREMENT,
     promotion_option_id BIGINT NOT NULL,
-    coupon_id           BIGINT NOT NULL,
+    coupon_group_id           BIGINT NOT NULL,
     PRIMARY KEY (id)
 );
 

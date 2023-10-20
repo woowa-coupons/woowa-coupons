@@ -3,6 +3,8 @@ package woowa.promotion.admin.promotion_option.domain;
 import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,4 +34,14 @@ public class PromotionOption {
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
+    public PromotionOption(Instant lastOrderAt, Boolean isRandom, Promotion promotion, MemberType memberType) {
+        this.lastOrderAt = lastOrderAt;
+        this.isRandom = isRandom;
+        this.promotion = promotion;
+        this.memberType = memberType;
+    }
 }
