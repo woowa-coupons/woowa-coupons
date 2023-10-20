@@ -16,13 +16,13 @@ import woowa.promotion.admin.promotion.application.dto.response.PromotionDetailR
 import woowa.promotion.admin.promotion.application.dto.response.PromotionListResponse;
 
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/admin/promotions")
 @RestController
 public class PromotionController {
 
     private final PromotionService promotionService;
 
-    @PostMapping("/promotions")
+    @PostMapping("")
     public ResponseEntity<Void> register(
             @RequestBody PromotionRegisterRequest request
     ) {
@@ -30,13 +30,13 @@ public class PromotionController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/promotions")
+    @GetMapping("")
     public ResponseEntity<List<PromotionListResponse>> getPromotionList() {
         var response = promotionService.getPromotionList();
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/promotions{promotionId}")
+    @GetMapping("/{promotionId}")
     public ResponseEntity<PromotionDetailResponse> getPromotion(
             @PathVariable Long promotionId
     ) {
