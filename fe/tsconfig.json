@@ -8,7 +8,7 @@
 
     /* Emotion */
     "jsxImportSource": "@emotion/react",
-    "types": ["@emotion/react/types/css-prop"],
+    "types": ["@emotion/react/types/css-prop", "vite-plugin-svgr/client"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
