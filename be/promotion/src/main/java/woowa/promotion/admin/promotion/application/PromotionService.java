@@ -66,7 +66,6 @@ public class PromotionService {
     }
 
 
-    @Transactional(readOnly = true)
     public PromotionDetailResponse getPromotion(Long promotionId) {
         Promotion promotion = promotionRepository.findById(promotionId)
                 .orElseThrow(() -> new ApiException(PromotionException.NOT_FOUND));
