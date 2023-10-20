@@ -15,6 +15,7 @@ import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.ApplicationTest;
 
+@DisplayName("[비즈니스 로직 테스트] 쿠폰 그룹")
 class CouponGroupServiceTest extends ApplicationTest {
 
     @Autowired
@@ -24,14 +25,8 @@ class CouponGroupServiceTest extends ApplicationTest {
     @Test
     void retrieveCouponGroups() {
         // given
-        List<CouponGroup> couponGroups = new ArrayList<>();
-        IntStream.rangeClosed(1, 15)
-                .forEach(i -> couponGroups.add(
-                        supportRepository.save(FixtureFactory.createCouponGroup("cg - " + i)))
-                );
-        IntStream.rangeClosed(1, 45)
-                .forEach(i -> supportRepository.save(
-                        FixtureFactory.createCoupon("coupon - " + i, couponGroups.get(i % 15))));
+        int couponGroupCount = 15;
+        saveCouponGroupsAndCoupons(couponGroupCount);
 
         // when
         var response = couponGroupService.retrieveCouponGroups(PageRequest.of(1, 10, Direction.DESC, "id"));
@@ -45,5 +40,35 @@ class CouponGroupServiceTest extends ApplicationTest {
                 () -> assertThat(response.paging().totalElements()).isEqualTo(15),
                 () -> assertThat(response.paging().size()).isEqualTo(10)
         );
+    }
+
+    @DisplayName("쿠폰 그룹 간단 목록을 조회하면 id와 title만 조회된다.")
+    @Test
+    void retrieveSimpleCouponGroup() {
+        // given
+        int couponGroupCount = 15;
+        saveCouponGroupsAndCoupons(couponGroupCount);
+
+        // when
+        var response = couponGroupService.retrieveSimpleCouponGroups();
+
+        // then
+        assertAll(
+                () -> assertThat(response).hasSize(15),
+                () -> assertThat(response.get(0)).hasFieldOrProperty("id"),
+                () -> assertThat(response.get(0)).hasFieldOrProperty("title")
+        );
+    }
+
+    private void saveCouponGroupsAndCoupons(int couponGroupCount) {
+        List<CouponGroup> couponGroups = new ArrayList<>();
+
+        IntStream.rangeClosed(1, couponGroupCount)
+                .forEach(i -> couponGroups.add(
+                        supportRepository.save(FixtureFactory.createCouponGroup("cg - " + i)))
+                );
+        IntStream.rangeClosed(1, 45)
+                .forEach(i -> supportRepository.save(
+                        FixtureFactory.createCoupon("coupon - " + i, couponGroups.get(i % couponGroupCount))));
     }
 }
