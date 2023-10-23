@@ -5,4 +5,5 @@ import woowa.promotion.app.order.domain.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
+    boolean existsByMemberId(Long memberId);
 }
