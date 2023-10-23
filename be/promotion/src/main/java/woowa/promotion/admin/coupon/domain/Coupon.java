@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.global.domain.audit.AuditingFields;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.CouponException;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,5 +56,12 @@ public class Coupon extends AuditingFields {
         this.initialQuantity = initialQuantity;
         this.remainQuantity = initialQuantity;
         this.couponGroup = couponGroup;
+    }
+
+    public void issue() {
+        if (remainQuantity < 0) {
+            throw new ApiException(CouponException.EXHAUSTED);
+        }
+        remainQuantity--;
     }
 }

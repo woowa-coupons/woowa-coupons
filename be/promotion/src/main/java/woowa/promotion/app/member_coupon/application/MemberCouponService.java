@@ -1,12 +1,21 @@
 package woowa.promotion.app.member_coupon.application;
 
 
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import woowa.promotion.admin.coupon.domain.Coupon;
+import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.promotion_option.domain.MemberType;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
+import woowa.promotion.app.member.domain.Member;
+import woowa.promotion.app.member_coupon.domain.MemberCoupon;
+import woowa.promotion.app.member_coupon.infrastructure.MemberCouponRepository;
 import woowa.promotion.app.order.infrastructure.OrderRepository;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.CouponException;
 
 
 @Service
@@ -14,7 +23,25 @@ import woowa.promotion.app.order.infrastructure.OrderRepository;
 @RequiredArgsConstructor
 public class MemberCouponService {
 
+    private final MemberCouponRepository memberCouponRepository;
     private final OrderRepository orderRepository;
+    private final CouponRepository couponRepository;
+
+
+    private void issueRandomCoupon(Long couponGroupId, Member member) {
+        List<Coupon> coupons = couponRepository.findByCouponGroupIdAndRemainQuantityIsGreaterThan(couponGroupId, 0);
+        if (coupons.isEmpty()) {
+            throw new ApiException(CouponException.EXHAUSTED);
+        }
+        Collections.shuffle(coupons);
+        saveMemberCoupon(member, coupons.get(0));
+    }
+
+    private void saveMemberCoupon(Member member, Coupon coupon) {
+        coupon.issue();
+        MemberCoupon memberCoupon = new MemberCoupon(member, coupon);
+        memberCouponRepository.save(memberCoupon);
+    }
 
     private boolean isEligibleForPromotion(Long memberId, PromotionOption promotionOption) {
         if (promotionOption.getLastOrderAt() != null) {

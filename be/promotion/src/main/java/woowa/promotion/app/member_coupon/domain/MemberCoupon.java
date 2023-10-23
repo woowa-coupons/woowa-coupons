@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.app.member.domain.Member;
 
@@ -25,6 +26,7 @@ public class MemberCoupon {
     private Long id;
 
     @Column(nullable = false)
+    @CreatedDate
     private Instant issuedAt;
 
     @JoinColumn(name = "member_id", nullable = false)
@@ -35,4 +37,8 @@ public class MemberCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     private Coupon coupon;
 
+    public MemberCoupon(Member member, Coupon coupon) {
+        this.member = member;
+        this.coupon = coupon;
+    }
 }
