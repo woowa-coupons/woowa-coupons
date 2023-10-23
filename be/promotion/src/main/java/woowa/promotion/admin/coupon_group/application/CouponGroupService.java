@@ -14,6 +14,7 @@ import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 
@@ -52,5 +53,9 @@ public class CouponGroupService {
                         pageable.getPageSize()
                 )
         );
+    }
+
+    public List<CouponGroupSimpleResponse> retrieveSimpleCouponGroups() {
+        return couponGroupRepository.findAllCouponGroupSimpleResponse();
     }
 }

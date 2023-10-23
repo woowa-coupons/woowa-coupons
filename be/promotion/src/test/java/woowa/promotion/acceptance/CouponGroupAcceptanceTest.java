@@ -50,14 +50,7 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
     void retrieveCouponGroups() {
         // given
         Admin admin = supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt("1234")));
-        List<CouponGroup> couponGroups = new ArrayList<>();
-        IntStream.rangeClosed(1, 15)
-                .forEach(i -> couponGroups.add(
-                        supportRepository.save(FixtureFactory.createCouponGroup("cg - " + i)))
-                );
-        IntStream.rangeClosed(1, 45)
-                .forEach(i -> supportRepository.save(
-                        FixtureFactory.createCoupon("coupon - " + i, couponGroups.get(i % 15))));
+        saveCouponGroupsAndCoupons();
         String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
 
         var request = RestAssured
@@ -83,5 +76,44 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
                         .hasFieldOrPropertyWithValue("totalElements", 15L)
                         .hasFieldOrPropertyWithValue("size", 10)
         );
+    }
+
+    @DisplayName("쿠폰 그룹 간단 목록을 조회한다.")
+    @Test
+    void retrieveSimpleCouponGroup() {
+        // given
+        Admin admin = supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt("1234")));
+        saveCouponGroupsAndCoupons();
+        String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
+
+        // when
+        var response = RestAssured
+                .given().log().all()
+                .auth().oauth2(accessToken)
+                .get("/admin/coupon-groups/summary")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
+                () -> assertThat(response.jsonPath().getList(".", CouponGroup.class)).hasSize(15),
+                () -> assertThat(response.jsonPath().getObject("[0]", CouponGroup.class))
+                        .hasFieldOrProperty("id")
+                        .hasFieldOrProperty("title")
+        );
+    }
+
+    private void saveCouponGroupsAndCoupons() {
+        List<CouponGroup> couponGroups = new ArrayList<>();
+        int couponGroupCount = 15;
+
+        IntStream.rangeClosed(1, couponGroupCount)
+                .forEach(i -> couponGroups.add(
+                        supportRepository.save(FixtureFactory.createCouponGroup("cg - " + i)))
+                );
+        IntStream.rangeClosed(1, 45)
+                .forEach(i -> supportRepository.save(
+                        FixtureFactory.createCoupon("coupon - " + i, couponGroups.get(i % couponGroupCount))));
     }
 }

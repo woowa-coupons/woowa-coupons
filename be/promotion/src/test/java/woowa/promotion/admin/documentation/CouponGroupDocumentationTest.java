@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.DocumentationTest;
@@ -110,6 +111,43 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                                 fieldWithPath("paging.totalPages").description("총 페이지 수"),
                                 fieldWithPath("paging.totalElements").description("총 요소 수"),
                                 fieldWithPath("paging.size").description("페이지 크기")
+                        )
+                ));
+    }
+
+    @DisplayName("쿠폰 그룹 간단 목록 조회")
+    @Test
+    void retrieveSimpleCouponGroups() throws Exception {
+        // given
+        given(couponGroupService.retrieveSimpleCouponGroups())
+                .willReturn(List.of(
+                        new CouponGroupSimpleResponse(1L, "쿠폰 그룹 제목 - 1"),
+                        new CouponGroupSimpleResponse(2L, "쿠폰 그룹 제목 - 2")
+                ));
+
+        // when
+        var response = mockMvc.perform(request(HttpMethod.GET, "/admin/coupon-groups/summary")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer abc.abc.abc"));
+
+        // then
+        var resultActions = response
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[*].id").exists())
+                .andExpect(jsonPath("$[*].title").exists());
+
+        // docs
+        resultActions
+                .andDo(document("admin/coupon-groups/retrieve-simple-coupon-groups",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("JWT 인증 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("[]").description("쿠폰 그룹 간단 목록"),
+                                fieldWithPath("[].id").description("쿠폰 그룹 ID"),
+                                fieldWithPath("[].title").description("쿠폰 그룹 제목")
                         )
                 ));
     }

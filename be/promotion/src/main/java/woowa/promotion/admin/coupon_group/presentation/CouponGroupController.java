@@ -1,5 +1,6 @@
 package woowa.promotion.admin.coupon_group.presentation;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.resolver.Authentication;
@@ -39,6 +41,11 @@ public class CouponGroupController {
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(couponGroupService.retrieveCouponGroups(pageable));
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<CouponGroupSimpleResponse>> retrieveSimpleCouponGroups() {
+        return ResponseEntity.ok(couponGroupService.retrieveSimpleCouponGroups());
     }
 
 }
