@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.global.domain.page.CustomPage;
@@ -101,6 +102,37 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
                 () -> assertThat(response.jsonPath().getObject("[0]", CouponGroup.class))
                         .hasFieldOrProperty("id")
                         .hasFieldOrProperty("title")
+        );
+    }
+
+    @DisplayName("쿠폰 그룹 상세 목록을 조회한다.")
+    @Test
+    void retrieveDetailCouponGroup() {
+        // given
+        Admin admin = supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt("1234")));
+        saveCouponGroupsAndCoupons();
+        String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
+
+        // when
+        var response = RestAssured
+                .given().log().all()
+                .auth().oauth2(accessToken)
+                .get("/admin/coupon-groups/1")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
+                () -> assertThat(response.jsonPath().getString("title")).isNotBlank(),
+                () -> assertThat(response.jsonPath().getString("startedAt")).isNotBlank(),
+                () -> assertThat(response.jsonPath().getString("finishedAt")).isNotBlank(),
+                () -> assertThat(response.jsonPath().getList("coupons", CouponGroupCouponResponse.class)).hasSize(3),
+                () -> assertThat(response.jsonPath().getObject("coupons[0]", CouponGroupCouponResponse.class))
+                        .hasFieldOrProperty("title")
+                        .hasFieldOrProperty("type")
+                        .hasFieldOrProperty("discount")
+                        .hasFieldOrProperty("initialQuantity")
         );
     }
 

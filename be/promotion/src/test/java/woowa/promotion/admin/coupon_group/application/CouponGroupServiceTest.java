@@ -4,14 +4,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.BiPredicate;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.ApplicationTest;
 
@@ -57,6 +62,37 @@ class CouponGroupServiceTest extends ApplicationTest {
                 () -> assertThat(response).hasSize(15),
                 () -> assertThat(response.get(0)).hasFieldOrProperty("id"),
                 () -> assertThat(response.get(0)).hasFieldOrProperty("title")
+        );
+    }
+
+    @DisplayName("쿠폰 그룹 상세페이지를 조회한다.")
+    @Test
+    void retrieveDetailCouponGroup() {
+        // given
+        int couponGroupCount = 1;
+        saveCouponGroupsAndCoupons(couponGroupCount);
+        CouponGroup couponGroup = supportRepository.findAll(CouponGroup.class).get(0);
+        List<Coupon> coupons = supportRepository.findAll(Coupon.class).stream()
+                .sorted(Comparator.comparing(Coupon::getTitle)).toList();
+
+        // when
+        var response = couponGroupService.retrieveDetailCouponGroup(couponGroup.getId());
+
+        // then
+        BiPredicate<CouponGroupCouponResponse, Coupon> myCompare = (d1, d2) -> Objects.equals(d1.type(),
+                d2.getType().name());
+
+        assertAll(
+                () -> assertThat(couponGroup.getTitle()).isEqualTo(response.title()),
+                () -> assertThat(couponGroup.getStartedAt()).isEqualTo(response.startedAt()),
+                () -> assertThat(couponGroup.getFinishedAt()).isEqualTo(response.finishedAt()),
+                () -> assertThat(
+                        response.coupons().stream().sorted(Comparator.comparing(CouponGroupCouponResponse::title))
+                                .toList())
+                        .usingRecursiveComparison()
+                        .withEqualsForFields(myCompare, "type")
+                        .ignoringFields("type")
+                        .isEqualTo(coupons)
         );
     }
 

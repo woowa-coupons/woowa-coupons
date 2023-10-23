@@ -14,9 +14,12 @@ import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.CouponGroupException;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +60,12 @@ public class CouponGroupService {
 
     public List<CouponGroupSimpleResponse> retrieveSimpleCouponGroups() {
         return couponGroupRepository.findAllCouponGroupSimpleResponse();
+    }
+
+    public CouponGroupDetailResponse retrieveDetailCouponGroup(Long couponGroupId) {
+        CouponGroup couponGroup = couponGroupRepository.findCouponGroupWithCouponsUsingFetchjoin(couponGroupId)
+                .orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND));
+
+        return CouponGroupDetailResponse.from(couponGroup);
     }
 }
