@@ -1,0 +1,19 @@
+[[AppPromotion]]
+:toc: left
+:toclevels: 4
+== 앱 프로모션
+
+=== 앱 프로모션 목록 조회
+
+.HTTP Request
+include::{snippets}/app-promotion/retrieve/http-request.adoc[]
+.HTTP Response
+include::{snippets}/app-promotion/retrieve/http-response.adoc[]
+
+==== Request Headers
+
+include::{snippets}/app-promotion/retrieve/request-headers.adoc[]
+
+==== Response Fields
+
+include::{snippets}/app-promotion/retrieve/response-fields.adoc[]

@@ -1,7 +1,8 @@
 package woowa.promotion.fixture;
 
-import java.time.Instant;
 import woowa.promotion.admin.promotion.domain.ProgressStatus;
+
+import java.time.Instant;
 
 public enum PromotionFixture {
 
@@ -9,7 +10,10 @@ public enum PromotionFixture {
             "www.promotionUrl.com", true, ProgressStatus.ON_GOING.name()),
     B_프로모션("나만 10만원", "먹기 싫은"
             + " 음식을 고르세요", "www.bannerUrl.com", Instant.now(), Instant.now(),
-            "www.promotionUrl.com", true, ProgressStatus.ON_GOING.name());
+            "www.promotionUrl.com", true, ProgressStatus.ON_GOING.name()),
+    C_프로모션("추석 이벤트", "즐거운 한가위"
+            + " 음식을 고르세요", "www.bannerUrl.com", Instant.now(), Instant.now().plusSeconds(3600 * 24 * 7),
+            "www.promotionUrl.com", false, ProgressStatus.ON_GOING.name());
 
     private final String title;
     private final String content;
