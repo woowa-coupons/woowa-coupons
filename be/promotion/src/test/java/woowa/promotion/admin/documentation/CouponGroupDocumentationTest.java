@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
@@ -148,6 +151,52 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                                 fieldWithPath("[]").description("쿠폰 그룹 간단 목록"),
                                 fieldWithPath("[].id").description("쿠폰 그룹 ID"),
                                 fieldWithPath("[].title").description("쿠폰 그룹 제목")
+                        )
+                ));
+    }
+
+    @DisplayName("쿠폰 그룹 상세 조회")
+    @Test
+    void retrieveDetailCouponGroups() throws Exception {
+        // given
+        given(couponGroupService.retrieveDetailCouponGroup(any()))
+                .willReturn(new CouponGroupDetailResponse("쿠폰 그룹 제목 - 1", Instant.now(),
+                        Instant.now().plusSeconds(10 * 24 * 60 * 60),
+                        List.of(new CouponGroupCouponResponse("쿠폰 - 1", "FIXED", 1000, 100))
+                ));
+
+        // when
+        var response = mockMvc.perform(request(HttpMethod.GET, "/admin/coupon-groups/1")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer abc.abc.abc"));
+
+        // then
+        var resultActions = response
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.startedAt").exists())
+                .andExpect(jsonPath("$.finishedAt").exists())
+                .andExpect(jsonPath("$.coupons").isArray())
+                .andExpect(jsonPath("$.coupons[*].title").exists())
+                .andExpect(jsonPath("$.coupons[*].type").exists())
+                .andExpect(jsonPath("$.coupons[*].discount").exists())
+                .andExpect(jsonPath("$.coupons[*].initialQuantity").exists());
+
+        // docs
+        resultActions
+                .andDo(document("admin/coupon-groups/retrieve-detail-coupon-groups",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("JWT 인증 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath(".title").description("쿠폰 그룹"),
+                                fieldWithPath(".startedAt").description("쿠폰 그룹 시작 시간"),
+                                fieldWithPath(".finishedAt").description("쿠폰 그룹 종료 시간"),
+                                fieldWithPath("coupons[].title").description("쿠폰 제목"),
+                                fieldWithPath("coupons[].type").description("쿠폰 할인 종류"),
+                                fieldWithPath("coupons[].discount").description("쿠폰 할인 discount"),
+                                fieldWithPath("coupons[].initialQuantity").description("쿠폰 초기 수량")
                         )
                 ));
     }
