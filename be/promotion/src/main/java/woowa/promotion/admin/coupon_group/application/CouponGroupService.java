@@ -66,6 +66,6 @@ public class CouponGroupService {
         CouponGroup couponGroup = couponGroupRepository.findCouponGroupWithCouponsUsingFetchjoin(couponGroupId)
                 .orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND));
 
-        return CouponGroupDetailResponse.of(couponGroup);
+        return CouponGroupDetailResponse.from(couponGroup);
     }
 }

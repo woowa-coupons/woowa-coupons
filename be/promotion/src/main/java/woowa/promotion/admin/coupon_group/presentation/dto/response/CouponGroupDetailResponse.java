@@ -18,18 +18,18 @@ public record CouponGroupDetailResponse(
             Integer discount,
             Integer initialQuantity
     ) {
-        public static CouponGroupCouponResponse of(Coupon coupon) {
+        public static CouponGroupCouponResponse from(Coupon coupon) {
             return new CouponGroupCouponResponse(coupon.getTitle(), coupon.getType().name(), coupon.getDiscount(),
                     coupon.getInitialQuantity());
         }
     }
 
-    public static CouponGroupDetailResponse of(CouponGroup couponGroup) {
+    public static CouponGroupDetailResponse from(CouponGroup couponGroup) {
         return new CouponGroupDetailResponse(
                 couponGroup.getTitle(),
                 couponGroup.getStartedAt(),
                 couponGroup.getFinishedAt(),
-                couponGroup.getCoupons().stream().map(CouponGroupCouponResponse::of).toList()
+                couponGroup.getCoupons().stream().map(CouponGroupCouponResponse::from).toList()
         );
     }
 }
