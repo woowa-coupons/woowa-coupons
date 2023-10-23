@@ -85,13 +85,15 @@ class CouponGroupServiceTest extends ApplicationTest {
         assertAll(
                 () -> assertThat(couponGroup.getTitle()).isEqualTo(response.title()),
                 () -> assertThat(couponGroup.getStartedAt()).isEqualTo(response.startedAt()),
-                () -> assertThat(couponGroup.getFinishedAt()).isEqualTo(response.finishedAt())
+                () -> assertThat(couponGroup.getFinishedAt()).isEqualTo(response.finishedAt()),
+                () -> assertThat(
+                        response.coupons().stream().sorted(Comparator.comparing(CouponGroupCouponResponse::title))
+                                .toList())
+                        .usingRecursiveComparison()
+                        .withEqualsForFields(myCompare, "type")
+                        .ignoringFields("type")
+                        .isEqualTo(coupons)
         );
-        assertThat(response.coupons().stream().sorted(Comparator.comparing(CouponGroupCouponResponse::title)).toList())
-                .usingRecursiveComparison()
-                .withEqualsForFields(myCompare, "type")
-                .ignoringFields("type")
-                .isEqualTo(coupons);
     }
 
     private void saveCouponGroupsAndCoupons(int couponGroupCount) {

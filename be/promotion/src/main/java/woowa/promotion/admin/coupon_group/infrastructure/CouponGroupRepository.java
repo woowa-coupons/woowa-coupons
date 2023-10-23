@@ -19,7 +19,7 @@ public interface CouponGroupRepository extends JpaRepository<CouponGroup, Long> 
             ") FROM CouponGroup couponGroup")
     List<CouponGroupSimpleResponse> findAllCouponGroupSimpleResponse();
 
-    @Query("SELECT cg FROM CouponGroup cg JOIN FETCH cg.coupons WHERE cg.id = :couponGroupId")
+    @Query("SELECT couponGroup FROM CouponGroup couponGroup JOIN FETCH couponGroup.coupons WHERE couponGroup.id = :couponGroupId")
     Optional<CouponGroup> findCouponGroupWithCouponsUsingFetchjoin(@Param("couponGroupId") Long counponGroupId);
 
 }

@@ -133,7 +133,6 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
                         .hasFieldOrProperty("type")
                         .hasFieldOrProperty("discount")
                         .hasFieldOrProperty("initialQuantity")
-
         );
     }
 
