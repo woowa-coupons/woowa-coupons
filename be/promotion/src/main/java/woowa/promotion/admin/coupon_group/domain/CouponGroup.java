@@ -1,20 +1,32 @@
 package woowa.promotion.admin.coupon_group.domain;
 
+import java.time.Instant;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.promotion.domain.Promotion;
-
-import javax.persistence.*;
-import java.time.Instant;
-import java.util.Set;
+import woowa.promotion.global.domain.audit.AuditingFields;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.CouponGroupException;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class CouponGroup {
+public class CouponGroup extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +66,12 @@ public class CouponGroup {
 
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    public Coupon getOneCoupon() {
+        return coupons.stream()
+                .findFirst()
+                .orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND));
     }
 
 }

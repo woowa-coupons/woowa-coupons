@@ -9,7 +9,8 @@ import woowa.promotion.global.exception.CustomException;
 @RequiredArgsConstructor
 public enum PromotionException implements CustomException {
 
-    NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 프로모션 입니다.");
+    NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 프로모션 입니다."),
+    ALREADY_PARTICIPATE(HttpStatus.CONFLICT, "이미 참여한 프로모션입니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
