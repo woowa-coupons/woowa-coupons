@@ -1,7 +1,5 @@
 package woowa.promotion.fixture;
 
-import java.time.Instant;
-import java.util.List;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
@@ -11,6 +9,7 @@ import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.domain.CouponType;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
+import woowa.promotion.admin.coupon_group.domain.Type;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest.CouponDto;
 import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest;
@@ -20,6 +19,9 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.MemberType;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.app.member.domain.Member;
+
+import java.time.Instant;
+import java.util.List;
 
 public class FixtureFactory {
 
@@ -80,8 +82,13 @@ public class FixtureFactory {
     }
 
     public static CouponGroup createCouponGroup(CouponGroupFixture couponGroupFixture) {
-        return CouponGroup.builder().title(couponGroupFixture.getTitle()).finishedAt(couponGroupFixture.getFinishedAt())
-                .startedAt(couponGroupFixture.getStartedAt()).adminNickname("admin").build();
+        return CouponGroup.builder()
+                .title(couponGroupFixture.getTitle())
+                .finishedAt(couponGroupFixture.getFinishedAt())
+                .startedAt(couponGroupFixture.getStartedAt())
+                .adminNickname("admin")
+                .type(Type.EVERYDAY)
+                .build();
     }
 
     public static PromotionOptionRequest createPromotionOptionRequest(PromotionOptionFixture promotionOptionFixture,
@@ -111,6 +118,7 @@ public class FixtureFactory {
                 "쿠폰 그룹 제목",
                 Instant.parse("2023-10-06T14:30:00Z"),
                 Instant.parse("2023-10-06T14:30:00Z"),
+                "EVERYDAY",
                 List.of(
                         new CouponDto("쿠폰 제목", "fixed", 1000, 100)
                 )
@@ -122,6 +130,7 @@ public class FixtureFactory {
                 .title(couponGroupTitle)
                 .startedAt(Instant.now())
                 .finishedAt(Instant.now().plusSeconds(10 * 24 * 60 * 60))
+                .type(Type.EVERYDAY)
                 .adminNickname("admin")
                 .build();
     }
