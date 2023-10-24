@@ -40,22 +40,25 @@ CREATE TABLE IF NOT EXISTS orders
 
 CREATE TABLE IF NOT EXISTS promotion_option
 (
-    id            BIGINT      NOT NULL AUTO_INCREMENT,
-    last_order_at TIMESTAMP   NULL,
-    member_type   VARCHAR(50) NOT NULL,
-    is_random     TINYINT     NOT NULL,
-    promotion_id  BIGINT      NOT NULL,
+    id                BIGINT      NOT NULL AUTO_INCREMENT,
+    last_order_at     TIMESTAMP   NULL,
+    last_order_before TINYINT     NULL,
+    member_type       VARCHAR(50) NOT NULL,
+    is_random         TINYINT     NOT NULL,
+    promotion_id      BIGINT      NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS coupon_group
 (
-    id             BIGINT       NOT NULL AUTO_INCREMENT,
-    title          VARCHAR(50)  NOT NULL,
-    started_at     TIMESTAMP    NOT NULL,
-    finished_at    TIMESTAMP    NOT NULL,
+    id             BIGINT      NOT NULL AUTO_INCREMENT,
+    title          VARCHAR(50) NOT NULL,
+    started_at     TIMESTAMP   NOT NULL,
+    finished_at    TIMESTAMP   NOT NULL,
+    type           VARCHAR(20) NOT NULL,
     admin_nickname VARCHAR(45) NOT NULL,
-    promotion_id   BIGINT       NULL,
+    created_at     TIMESTAMP   NOT NULL,
+    promotion_id   BIGINT      NULL,
     PRIMARY KEY (id)
 );
 
@@ -63,7 +66,7 @@ CREATE TABLE IF NOT EXISTS promotion_option_coupon_group
 (
     id                  BIGINT NOT NULL AUTO_INCREMENT,
     promotion_option_id BIGINT NOT NULL,
-    coupon_group_id           BIGINT NOT NULL,
+    coupon_group_id     BIGINT NOT NULL,
     PRIMARY KEY (id)
 );
 
