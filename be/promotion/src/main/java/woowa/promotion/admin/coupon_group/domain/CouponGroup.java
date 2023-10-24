@@ -1,22 +1,15 @@
 package woowa.promotion.admin.coupon_group.domain;
 
-import java.time.Instant;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.promotion.domain.Promotion;
+
+import javax.persistence.*;
+import java.time.Instant;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,6 +32,10 @@ public class CouponGroup {
     @Column(nullable = false)
     private String adminNickname;
 
+    @Column(nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
     @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
@@ -47,11 +44,12 @@ public class CouponGroup {
     private Set<Coupon> coupons;
 
     @Builder
-    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname) {
+    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname, Type type) {
         this.title = title;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
         this.adminNickname = adminNickname;
+        this.type = type;
     }
 
     public void setPromotion(Promotion promotion) {

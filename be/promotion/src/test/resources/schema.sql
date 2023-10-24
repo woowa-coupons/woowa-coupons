@@ -52,11 +52,12 @@ CREATE TABLE orders
 DROP TABLE IF EXISTS promotion_option;
 CREATE TABLE promotion_option
 (
-    id            BIGINT      NOT NULL AUTO_INCREMENT,
-    last_order_at TIMESTAMP   NULL,
-    member_type   VARCHAR(50) NOT NULL,
-    is_random     TINYINT     NOT NULL,
-    promotion_id  BIGINT      NOT NULL,
+    id                BIGINT      NOT NULL AUTO_INCREMENT,
+    last_order_at     TIMESTAMP   NULL,
+    last_order_before TINYINT     NULL,
+    member_type       VARCHAR(50) NOT NULL,
+    is_random         TINYINT     NOT NULL,
+    promotion_id      BIGINT      NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -67,6 +68,7 @@ CREATE TABLE coupon_group
     title          VARCHAR(50) NOT NULL,
     started_at     TIMESTAMP   NOT NULL,
     finished_at    TIMESTAMP   NOT NULL,
+    type           VARCHAR(20) NOT NULL,
     admin_nickname VARCHAR(45) NOT NULL,
     promotion_id   BIGINT      NULL,
     PRIMARY KEY (id)
@@ -77,7 +79,7 @@ CREATE TABLE promotion_option_coupon_group
 (
     id                  BIGINT NOT NULL AUTO_INCREMENT,
     promotion_option_id BIGINT NOT NULL,
-    coupon_group_id           BIGINT NOT NULL,
+    coupon_group_id     BIGINT NOT NULL,
     PRIMARY KEY (id)
 );
 
