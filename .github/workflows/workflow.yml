@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-#  packages: write
 
 jobs:
   backend-deploy:
@@ -39,10 +38,6 @@ jobs:
       # Spring boot application 빌드
       - name: Build with gradle
         run: ./gradlew clean build
-
-      # docker image 빌드
-#      - name: Build docker image
-#        run: docker build -t woowa-coupons/woowa-coupons .
 
       # GHCR(github container registry) 로그인
       - name: Login to GHCR
@@ -84,7 +79,7 @@ jobs:
             echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} >> TOKEN.txt
             cat TOKEN.txt | docker login https://ghcr.io -u ${{secrets.GH_USER}} --password-stdin
             
-            docker-compose -f docker-compose-deploy.yml down -v
-            docker-compose -f docker-compose-deploy.yml pull
-            docker-compose -f docker-compose-deploy.yml up -d
+            docker-compose -f docker-compose.yml down -v
+            docker-compose -f docker-compose.yml pull
+            docker-compose -f docker-compose.yml up -d
             docker image prune -f
