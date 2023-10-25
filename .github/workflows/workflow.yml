@@ -58,6 +58,8 @@ jobs:
       # 6. EC2로 docker-compose.yml 전송
       - name: Deliver docker-compose.yml File
         uses: appleboy/scp-action@master
+        run:
+          pwd
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
