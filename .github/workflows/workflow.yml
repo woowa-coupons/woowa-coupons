@@ -23,37 +23,37 @@ jobs:
         with:
           token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
           submodules: true
-#
-#      # 2. JDK 설치
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v3
-#        with:
-#          java-version: '17'
-#          distribution: 'temurin'
-#
-#      # 3. Build 단계
-#      - name: Build with Gradle
-#        run: |
-#          chmod +x ./gradlew
-#          ./gradlew clean build
-#
-#      # 4. GHCR(github container registry) 로그인
-#      - name: Login to GHCR
-#        uses: docker/login-action@v1
-#        with:
-#          registry: ghcr.io
-#          username: ${{secrets.GH_USER}}
-#          password: ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}}
-#
-#      # 5. Build & Push to GHCR
-#      - name: Build and Push
-#        uses: docker/build-push-action@v2
-#        with:
-#          context: .
-#          # repository 기준 도커파일 위치
-#          file: ./Dockerfile
-#          push: true
-#          tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
+
+      # 2. JDK 설치
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Build 단계
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build
+
+      # 4. GHCR(github container registry) 로그인
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{secrets.GH_USER}}
+          password: ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}}
+
+      # 5. Build & Push to GHCR
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          # repository 기준 위치
+          file: ./Dockerfile
+          push: true
+          tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
 
       # 6. EC2로 docker-compose.yml 전송
       - name: Deliver docker-compose.yml File
@@ -62,6 +62,7 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.WAS_USERNAME }}
+          # repository 기준 위치
           source: "docker-compose.yml"
           target: "/home/ubuntu"
 
