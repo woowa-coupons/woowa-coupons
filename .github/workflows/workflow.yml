@@ -5,13 +5,16 @@ on:
     branches:
       - test-be-release
 
-permissions:
-  contents: read
-  packages: write
+
 
 jobs:
   backend-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     defaults:
       run:
         shell: bash
