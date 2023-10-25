@@ -1,5 +1,7 @@
 package woowa.promotion.admin.promotion.application;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,6 @@ import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.Promot
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.CouponGroupException;
 import woowa.promotion.global.exception.domain.PromotionException;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -67,7 +66,6 @@ public class PromotionService {
                 .toList();
     }
 
-
     public PromotionDetailResponse getPromotion(Long promotionId) {
         Promotion promotion = promotionRepository.findById(promotionId)
                 .orElseThrow(() -> new ApiException(PromotionException.NOT_FOUND));
@@ -78,7 +76,7 @@ public class PromotionService {
                 .map(list -> getMatchingCouponGroup(list, promotionId))
                 .collect(Collectors.toList());
 
-        return new PromotionDetailResponse(promotion, promotionOptions, couponGroups);
+        return PromotionDetailResponse.of(promotion, promotionOptions, couponGroups);
     }
 
     private List<PromotionOptionCouponGroup> getPromotionOptionCouponGroups(PromotionOption promotionOption) {

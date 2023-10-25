@@ -1,13 +1,12 @@
 package woowa.promotion.admin.promotion.application.dto.response;
 
-import woowa.promotion.admin.coupon_group.domain.CouponGroup;
-import woowa.promotion.admin.promotion.domain.Promotion;
-import woowa.promotion.admin.promotion_option.domain.PromotionOption;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import woowa.promotion.admin.coupon_group.domain.CouponGroup;
+import woowa.promotion.admin.promotion.domain.Promotion;
+import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 
 public record PromotionDetailResponse(
 
@@ -16,18 +15,16 @@ public record PromotionDetailResponse(
         String bannerUrl,
         Instant startedAt,
         Instant finishedAt,
-        boolean isDisplay,
+        Boolean isDisplay,
         String progressStatus,
         String promotionPageUrl,
         List<PromotionOptionResponse> promotionOptions
 ) {
 
-    public PromotionDetailResponse(
-            Promotion promotion,
-            List<PromotionOption> promotionOption,
-            List<CouponGroup> couponGroups
-    ) {
-        this(
+    public static PromotionDetailResponse of(Promotion promotion,
+                                             List<PromotionOption> promotionOption,
+                                             List<CouponGroup> couponGroups) {
+        return new PromotionDetailResponse(
                 promotion.getTitle(),
                 promotion.getContent(),
                 promotion.getBannerUrl(),
@@ -43,7 +40,7 @@ public record PromotionDetailResponse(
     private static List<PromotionOptionResponse> makePromotionOptionResponse(List<PromotionOption> promotionOptions,
                                                                              List<CouponGroup> couponGroups) {
         return IntStream.range(0, promotionOptions.size())
-                .mapToObj(index -> new PromotionOptionResponse(promotionOptions.get(index), couponGroups.get(index)))
+                .mapToObj(index -> PromotionOptionResponse.of(promotionOptions.get(index), couponGroups.get(index)))
                 .collect(Collectors.toList());
     }
 
@@ -54,12 +51,12 @@ public record PromotionDetailResponse(
             Boolean isRandom,
             CouponGroupResponse couponGroup
     ) {
-        public PromotionOptionResponse(PromotionOption promotionOption, CouponGroup couponGroup) {
-            this(
+        public static PromotionOptionResponse of(PromotionOption promotionOption, CouponGroup couponGroup) {
+            return new PromotionOptionResponse(
                     promotionOption.getMemberType().name(),
                     promotionOption.getLastOrderAt(),
-                    couponGroup.getIsRandom(),
-                    new CouponGroupResponse(couponGroup)
+                    promotionOption.getLastOrderBefore(),
+                    CouponGroupResponse.from(couponGroup)
             );
         }
     }
@@ -69,8 +66,11 @@ public record PromotionDetailResponse(
             Long id,
             String title
     ) {
-        public CouponGroupResponse(CouponGroup couponGroup) {
-            this(couponGroup.getId(), couponGroup.getTitle());
+        public static CouponGroupResponse from(CouponGroup couponGroup) {
+            return new CouponGroupResponse(
+                    couponGroup.getId(),
+                    couponGroup.getTitle()
+            );
         }
     }
 
