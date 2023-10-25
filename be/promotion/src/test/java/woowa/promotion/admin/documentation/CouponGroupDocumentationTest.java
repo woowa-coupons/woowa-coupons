@@ -1,24 +1,5 @@
 package woowa.promotion.admin.documentation;
 
-import static org.mockito.BDDMockito.any;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +13,24 @@ import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroups
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.DocumentationTest;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @DisplayName("[RESTDocs] 쿠폰 그룹 API")
 public class CouponGroupDocumentationTest extends DocumentationTest {
 
@@ -44,6 +43,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
             ret.add(new CouponGroupsResponse(
                     i,
                     "쿠폰 그룹 제목 - " + i,
+                    true,
                     List.of("쿠폰 제목1", "쿠폰 제목2"),
                     100,
                     100,
@@ -80,6 +80,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                 .andExpect(jsonPath("$.data").isArray())
                 .andExpect(jsonPath("$.data[*].id").exists())
                 .andExpect(jsonPath("$.data[*].title").exists())
+                .andExpect(jsonPath("$.data[*].isRandom").exists())
                 .andExpect(jsonPath("$.data[*].couponTitles").isArray())
                 .andExpect(jsonPath("$.data[*].couponTitles[*]").exists())
                 .andExpect(jsonPath("$.data[*].totalRemainQuantity").exists())
@@ -106,6 +107,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                                 fieldWithPath("data").description("쿠폰 그룹 목록"),
                                 fieldWithPath("data[].id").description("쿠폰 그룹 ID"),
                                 fieldWithPath("data[].title").description("쿠폰 그룹 제목"),
+                                fieldWithPath("data[].isRandom").description("쿠폰 그룹의 쿠폰 발급 방식"),
                                 fieldWithPath("data[].couponTitles").description("쿠폰 그룹에 포함된 쿠폰 제목 목록"),
                                 fieldWithPath("data[].totalRemainQuantity").description("쿠폰 그룹에 포함된 쿠폰의 잔여 수량 총합"),
                                 fieldWithPath("data[].totalInitialQuantity").description("쿠폰 그룹에 포함된 쿠폰의 초기 수량 총합"),
