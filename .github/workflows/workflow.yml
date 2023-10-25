@@ -33,8 +33,9 @@ jobs:
 
       # Gradle 실행권한 부여
       - name: Grant execute permission to gradlew
-        run: | pwd
-        chmod +x ./gradlew
+        run: | 
+          pwd
+          chmod +x ./gradlew
 
       # Spring boot application 빌드
       - name: Build with gradle
