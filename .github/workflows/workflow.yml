@@ -61,6 +61,8 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
+          port: 22
+          username: ubuntu
           source: "docker-compose.yml"
           target: "/home/ubuntu"
 
