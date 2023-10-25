@@ -41,9 +41,7 @@ jobs:
 
       # docker image 빌드
       - name: Build docker image
-        run: |
-          pwd
-          docker build -f ./Dockerfile -t woowa-coupons/woowa-coupons .
+        run: docker build -t woowa-coupons/woowa-coupons .
 
       # GHCR(github container registry) 로그인
       - name: Login to GHCR
@@ -59,7 +57,7 @@ jobs:
         id: docker_build
         with:
           context: .
-          file: ./Dockerfile
+          file: ./be/promotion/Dockerfile
           push: true
           tags: |
             ghcr.io/${{secrets.GH_USER}}/woowa-coupons:0.0
