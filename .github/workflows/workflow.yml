@@ -5,16 +5,13 @@ on:
     branches:
       - test-be-release
 
-
+permissions:
+  contents: read
+#  packages: write
 
 jobs:
   backend-deploy:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
-
     defaults:
       run:
         shell: bash
@@ -61,6 +58,7 @@ jobs:
         id: docker_build
         with:
           context: .
+          # repository 기준 도커파일 위치
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0

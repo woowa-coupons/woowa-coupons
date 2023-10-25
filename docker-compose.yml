@@ -4,6 +4,6 @@ services:
 
   was:
     container_name: woowa-promotion-was
-    image: woowa-coupons/woowa-promotion-was:0.0
+    image: ghcr.io/woowa-coupons/woowa-promotion-was:0.0
     ports:
       - "8080:8080"
