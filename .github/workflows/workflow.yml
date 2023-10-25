@@ -61,7 +61,7 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./docker-compose.yml"
+          source: "./be/promotions/docker-compose.yml"
           target: "/home/ubuntu"
 
 #      # 7. WAS 인스턴스 접속 & 애플리케이션 실행
