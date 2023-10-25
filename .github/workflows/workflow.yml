@@ -63,7 +63,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           username: ubuntu
-          source: "./be/promotion/docker-compose.yml"
+          source: "docker-compose.yml"
           target: "/home/ubuntu"
 
 #      # 7. WAS 인스턴스 접속 & 애플리케이션 실행
