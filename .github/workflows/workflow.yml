@@ -61,24 +61,23 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
+          # username, port 필수 지정
           username: ubuntu
           port: 22
           source: "docker-compose.yml"
           target: "/home/ubuntu"
 
-#      # 7. WAS 인스턴스 접속 & 애플리케이션 실행
-#      - name: Connect to WAS & Execute Application
-#        uses: appleboy/ssh-action@v0.1.6
-#        with:
-#          host: ${{ secrets.WAS_HOST }}
-#          username: ${{ secrets.WAS_USERNAME }}
-#          key: ${{ secrets.SSH_KEY }}
-#          port: ${{ secrets.WAS_SSH_PORT }}
-#          script: |
-#            echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} > TOKEN.txt
-#            cat TOKEN.txt | docker login https://ghcr.io -u ${{secrets.GH_USER}} --password-stdin
-#
-#            docker-compose -f docker-compose.yml down -v
-#            docker-compose -f docker-compose.yml pull
-#            docker-compose -f docker-compose.yml up -d
-#            docker image prune -f
+      # 7. WAS 인스턴스 접속 & 애플리케이션 실행
+      - name: Connect to WAS & Execute Application
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.WAS_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} > TOKEN.txt
+            cat TOKEN.txt | docker login https://ghcr.io -u ${{secrets.GH_USER}} --password-stdin
+
+            docker-compose -f docker-compose.yml down -v
+            docker-compose -f docker-compose.yml pull
+            docker-compose -f docker-compose.yml up -d
+            docker image prune -f
