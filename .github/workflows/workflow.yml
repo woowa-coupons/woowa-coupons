@@ -61,9 +61,7 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
-          # username, port 필수 지정
-          username: ubuntu
-          port: 22
+          username: ${{ secrets.WAS_USERNAME }}
           source: "docker-compose.yml"
           target: "/home/ubuntu"
 
@@ -74,7 +72,6 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.WAS_USERNAME }}
-          port: ${{ secrets.WAS_SSH_PORT }}
           script: |
             echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} > TOKEN.txt
             cat TOKEN.txt | docker login https://ghcr.io -u ${{secrets.GH_USER}} --password-stdin
