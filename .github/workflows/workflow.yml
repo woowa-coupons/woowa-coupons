@@ -17,12 +17,12 @@ jobs:
         working-directory: ./be/promotion
 
     steps:
-#      # 1. Source 단계 - 저장소 Checkout
-#      - name: Checkout Source Code
-#        uses: actions/checkout@v3
-#        with:
-#          token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
-#          submodules: true
+      # 1. Source 단계 - 저장소 Checkout
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
+          submodules: true
 #
 #      # 2. JDK 설치
 #      - name: Set up JDK 17
@@ -61,7 +61,7 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./be/promotions/docker-compose.yml"
+          source: "docker-compose.yml"
           target: "/home/ubuntu"
 
 #      # 7. WAS 인스턴스 접속 & 애플리케이션 실행
