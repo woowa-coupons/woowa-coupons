@@ -22,9 +22,6 @@ public class PromotionOption {
     @Column(columnDefinition = "TINYINT")
     private Boolean lastOrderBefore;
 
-    @Column(nullable = false, columnDefinition = "TINYINT")
-    private Boolean isRandom;
-
     @JoinColumn(name = "promotion_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
@@ -33,9 +30,8 @@ public class PromotionOption {
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
-    public PromotionOption(Instant lastOrderAt, Boolean isRandom, Promotion promotion, MemberType memberType) {
+    public PromotionOption(Instant lastOrderAt, Promotion promotion, MemberType memberType) {
         this.lastOrderAt = lastOrderAt;
-        this.isRandom = isRandom;
         this.promotion = promotion;
         this.memberType = memberType;
     }

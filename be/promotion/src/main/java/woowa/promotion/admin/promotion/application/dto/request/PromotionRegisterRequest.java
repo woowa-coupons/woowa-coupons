@@ -1,14 +1,16 @@
 package woowa.promotion.admin.promotion.application.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.Instant;
-import java.util.List;
 import woowa.promotion.admin.promotion.domain.ProgressStatus;
 import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.MemberType;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 
+import java.time.Instant;
+import java.util.List;
+
 public record PromotionRegisterRequest(
+
         String title,
         String content,
         String banner,
@@ -27,14 +29,14 @@ public record PromotionRegisterRequest(
     }
 
     public record PromotionOptionRequest(
+
             String memberType,
             Instant lastOrderAt,
-            Boolean isRandom,
             Long couponGroupId
     ) {
         public PromotionOption toEntity(Promotion promotion) {
-            return new PromotionOption(lastOrderAt, isRandom, promotion, MemberType.from(memberType));
+            return new PromotionOption(lastOrderAt, promotion, MemberType.from(memberType));
         }
-
     }
+
 }

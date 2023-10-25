@@ -66,7 +66,6 @@ public class PromotionService {
                 .toList();
     }
 
-
     public PromotionDetailResponse getPromotion(Long promotionId) {
         Promotion promotion = promotionRepository.findById(promotionId)
                 .orElseThrow(() -> new ApiException(PromotionException.NOT_FOUND));
@@ -77,7 +76,7 @@ public class PromotionService {
                 .map(list -> getMatchingCouponGroup(list, promotionId))
                 .collect(Collectors.toList());
 
-        return new PromotionDetailResponse(promotion, promotionOptions, couponGroups);
+        return PromotionDetailResponse.of(promotion, promotionOptions, couponGroups);
     }
 
     private List<PromotionOptionCouponGroup> getPromotionOptionCouponGroups(PromotionOption promotionOption) {
