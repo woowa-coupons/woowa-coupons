@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   backend-deploy:
@@ -59,8 +60,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
+          tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
 
       # Copy docker-compose-deploy.yml
       - name: Deliver docker-compose-deploy.yml file
@@ -68,7 +68,7 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
-          source: "docker-compose-deploy.yml"
+          source: "docker-compose.yml"
           target: "/home/ubuntu"
 
       # WAS 인스턴스 접속 & 애플리케이션 실행
