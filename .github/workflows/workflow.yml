@@ -40,8 +40,8 @@ jobs:
         run: ./gradlew clean build
 
       # docker image 빌드
-      - name: Build docker image
-        run: docker build -t woowa-coupons/woowa-coupons .
+#      - name: Build docker image
+#        run: docker build -t woowa-coupons/woowa-coupons .
 
       # GHCR(github container registry) 로그인
       - name: Login to GHCR
@@ -57,10 +57,10 @@ jobs:
         id: docker_build
         with:
           context: .
-          file: ./be/promotion/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{secrets.GH_USER}}/woowa-coupons:0.0
+            ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
 
       # Copy docker-compose-deploy.yml
       - name: Deliver docker-compose-deploy.yml file
