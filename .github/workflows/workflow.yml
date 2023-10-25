@@ -1,9 +1,9 @@
 name: CI/CD
 
 on:
-  pull_request:
+  push:
     branches:
-      - release-be-prod
+      - test-be-release
 
 permissions:
   contents: read
