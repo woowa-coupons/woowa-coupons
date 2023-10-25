@@ -31,9 +31,11 @@ public class FixtureFactory {
 
     public static PromotionOption createPromotionOption(PromotionOptionFixture promotionOptionFixture,
                                                         Promotion promotion) {
-        return new PromotionOption(promotionOptionFixture.getLastOrderAt(), promotionOptionFixture.getRandom(),
+        return new PromotionOption(
+                promotionOptionFixture.getLastOrderAt(),
                 promotion,
-                MemberType.from(promotionOptionFixture.getMemberType()));
+                MemberType.from(promotionOptionFixture.getMemberType())
+        );
     }
 
     public static SignupRequest createSignupRequest() {
@@ -88,15 +90,16 @@ public class FixtureFactory {
                 .startedAt(couponGroupFixture.getStartedAt())
                 .adminNickname("admin")
                 .type(Type.EVERYDAY)
+                .isRandom(couponGroupFixture.getIsRandom())
                 .build();
     }
 
     public static PromotionOptionRequest createPromotionOptionRequest(PromotionOptionFixture promotionOptionFixture,
                                                                       Long couponGroupId) {
         return new PromotionOptionRequest(promotionOptionFixture.getMemberType(),
-                promotionOptionFixture.getLastOrderAt(), promotionOptionFixture.getRandom(), couponGroupId);
+                promotionOptionFixture.getLastOrderAt(),
+                couponGroupId);
     }
-
 
     public static PromotionRegisterRequest createPromotionRegisterRequest(PromotionFixture promotionFixture,
                                                                           List<PromotionOptionRequest> promotionOptions) {
@@ -119,6 +122,7 @@ public class FixtureFactory {
                 Instant.parse("2023-10-06T14:30:00Z"),
                 Instant.parse("2023-10-06T14:30:00Z"),
                 "EVERYDAY",
+                false,
                 List.of(
                         new CouponDto("쿠폰 제목", "fixed", 1000, 100)
                 )
@@ -131,6 +135,7 @@ public class FixtureFactory {
                 .startedAt(Instant.now())
                 .finishedAt(Instant.now().plusSeconds(10 * 24 * 60 * 60))
                 .type(Type.EVERYDAY)
+                .isRandom(false)
                 .adminNickname("admin")
                 .build();
     }

@@ -1,7 +1,5 @@
 package woowa.promotion.admin.promotion.application;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +18,9 @@ import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.Promot
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.CouponGroupException;
 import woowa.promotion.global.exception.domain.PromotionException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

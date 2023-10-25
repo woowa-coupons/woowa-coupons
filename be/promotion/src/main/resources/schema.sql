@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS promotion_option
     last_order_at     TIMESTAMP   NULL,
     last_order_before TINYINT     NULL,
     member_type       VARCHAR(50) NOT NULL,
-    is_random         TINYINT     NOT NULL,
     promotion_id      BIGINT      NOT NULL,
     PRIMARY KEY (id)
 );
@@ -57,7 +56,7 @@ CREATE TABLE IF NOT EXISTS coupon_group
     finished_at    TIMESTAMP   NOT NULL,
     type           VARCHAR(20) NOT NULL,
     admin_nickname VARCHAR(45) NOT NULL,
-    created_at     TIMESTAMP   NOT NULL,
+    is_random      TINYINT     NOT NULL,
     promotion_id   BIGINT      NULL,
     PRIMARY KEY (id)
 );

@@ -1,14 +1,16 @@
 package woowa.promotion.admin.promotion.application.dto.response;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public record PromotionDetailResponse(
+
         String title,
         String content,
         String bannerUrl,
@@ -18,28 +20,7 @@ public record PromotionDetailResponse(
         String progressStatus,
         String promotionPageUrl,
         List<PromotionOptionResponse> promotionOptions
-
 ) {
-
-    public record PromotionOptionResponse(
-            String member,
-            Instant lastOrderAt,
-            Boolean isRandom,
-            CouponGroupResponse couponGroup
-    ) {
-        public PromotionOptionResponse(PromotionOption promotionOption, CouponGroup couponGroups) {
-            this(promotionOption.getMemberType().name(), promotionOption.getLastOrderAt(),
-                    promotionOption.getIsRandom(), new CouponGroupResponse(couponGroups));
-        }
-    }
-
-    public record CouponGroupResponse(
-            Long id,
-            String title) {
-        public CouponGroupResponse(CouponGroup couponGroup) {
-            this(couponGroup.getId(), couponGroup.getTitle());
-        }
-    }
 
     public PromotionDetailResponse(
             Promotion promotion,
@@ -64,6 +45,33 @@ public record PromotionDetailResponse(
         return IntStream.range(0, promotionOptions.size())
                 .mapToObj(index -> new PromotionOptionResponse(promotionOptions.get(index), couponGroups.get(index)))
                 .collect(Collectors.toList());
+    }
+
+    public record PromotionOptionResponse(
+
+            String member,
+            Instant lastOrderAt,
+            Boolean isRandom,
+            CouponGroupResponse couponGroup
+    ) {
+        public PromotionOptionResponse(PromotionOption promotionOption, CouponGroup couponGroup) {
+            this(
+                    promotionOption.getMemberType().name(),
+                    promotionOption.getLastOrderAt(),
+                    couponGroup.getIsRandom(),
+                    new CouponGroupResponse(couponGroup)
+            );
+        }
+    }
+
+    public record CouponGroupResponse(
+
+            Long id,
+            String title
+    ) {
+        public CouponGroupResponse(CouponGroup couponGroup) {
+            this(couponGroup.getId(), couponGroup.getTitle());
+        }
     }
 
 }

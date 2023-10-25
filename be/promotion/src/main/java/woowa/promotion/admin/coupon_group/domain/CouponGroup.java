@@ -36,6 +36,9 @@ public class CouponGroup {
     @Enumerated(EnumType.STRING)
     private Type type;
 
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private Boolean isRandom;
+
     @JoinColumn(name = "promotion_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promotion promotion;
@@ -44,12 +47,13 @@ public class CouponGroup {
     private Set<Coupon> coupons;
 
     @Builder
-    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname, Type type) {
+    private CouponGroup(String title, Instant startedAt, Instant finishedAt, String adminNickname, Type type, Boolean isRandom) {
         this.title = title;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
         this.adminNickname = adminNickname;
         this.type = type;
+        this.isRandom = isRandom;
     }
 
     public void setPromotion(Promotion promotion) {

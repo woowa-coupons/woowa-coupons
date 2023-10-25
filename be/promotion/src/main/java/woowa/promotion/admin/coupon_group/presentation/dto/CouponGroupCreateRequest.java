@@ -16,6 +16,7 @@ public record CouponGroupCreateRequest(
         Instant startedAt,
         Instant finishedAt,
         String type,
+        Boolean isRandom,
 
         @JsonProperty("coupons")
         List<CouponDto> couponDtos
@@ -27,6 +28,7 @@ public record CouponGroupCreateRequest(
                 .finishedAt(finishedAt)
                 .adminNickname(adminNickname)
                 .type(Type.from(type))
+                .isRandom(isRandom)
                 .build();
     }
 
@@ -47,6 +49,7 @@ public record CouponGroupCreateRequest(
     }
 
     public record CouponDto(
+
             String title,
             String type,
             int discount,
