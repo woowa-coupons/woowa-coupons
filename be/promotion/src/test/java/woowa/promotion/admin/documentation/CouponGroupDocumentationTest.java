@@ -162,10 +162,14 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
     void retrieveDetailCouponGroups() throws Exception {
         // given
         given(couponGroupService.retrieveDetailCouponGroup(any()))
-                .willReturn(new CouponGroupDetailResponse("쿠폰 그룹 제목 - 1", Instant.now(),
-                        Instant.now().plusSeconds(10 * 24 * 60 * 60),
-                        List.of(new CouponGroupCouponResponse("쿠폰 - 1", "FIXED", 1000, 100))
-                ));
+                .willReturn(new CouponGroupDetailResponse(
+                                "쿠폰 그룹 제목 - 1",
+                                true,
+                                Instant.now(),
+                                Instant.now().plusSeconds(10 * 24 * 60 * 60),
+                                List.of(new CouponGroupCouponResponse("쿠폰 - 1", "FIXED", 1000, 100))
+                        )
+                );
 
         // when
         var response = mockMvc.perform(request(HttpMethod.GET, "/admin/coupon-groups/1")
@@ -175,6 +179,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
         var resultActions = response
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.isRandom").exists())
                 .andExpect(jsonPath("$.startedAt").exists())
                 .andExpect(jsonPath("$.finishedAt").exists())
                 .andExpect(jsonPath("$.coupons").isArray())
@@ -193,6 +198,7 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                         ),
                         responseFields(
                                 fieldWithPath(".title").description("쿠폰 그룹"),
+                                fieldWithPath(".isRandom").description("쿠폰 그룹의 쿠폰 발급 방식"),
                                 fieldWithPath(".startedAt").description("쿠폰 그룹 시작 시간"),
                                 fieldWithPath(".finishedAt").description("쿠폰 그룹 종료 시간"),
                                 fieldWithPath("coupons[].title").description("쿠폰 제목"),
