@@ -14,7 +14,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./be
+        working-directory: ./be/promotion
 
     steps:
       # SOURCE 단계 - 저장소 Checkout
@@ -33,9 +33,7 @@ jobs:
 
       # Gradle 실행권한 부여
       - name: Grant execute permission to gradlew
-        run: | 
-          pwd
-          chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       # Spring boot application 빌드
       - name: Build with gradle
