@@ -52,6 +52,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          # repository 기준 위치
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
@@ -62,6 +63,8 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.WAS_USERNAME }}
+          # repository 기준 위치
           source: "docker-compose-deploy.yml"
           target: "/home/ubuntu"
 
