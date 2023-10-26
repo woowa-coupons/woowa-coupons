@@ -44,6 +44,7 @@ public class MemberCouponService {
                 .map(this::getCouponGroups)
                 .findFirst()
                 .flatMap(couponGroups -> couponGroups.stream()
+                        .filter(this::isRemainCoupon)
                         .filter(couponGroup -> !isExpiredCouponGroup(couponGroup))
                         .filter(couponGroup -> !isAlreadyIssued(member, couponGroup))
                         .findFirst())
@@ -64,6 +65,11 @@ public class MemberCouponService {
         return promotionOptionCouponGroups.stream()
                 .map(PromotionOptionCouponGroup::getCouponGroup)
                 .toList();
+    }
+
+    private boolean isRemainCoupon(CouponGroup couponGroup) {
+        return couponGroup.getCoupons().stream()
+                .allMatch(coupon -> coupon.getRemainQuantity() > 0);
     }
 
     private boolean isExpiredCouponGroup(CouponGroup couponGroup) {
