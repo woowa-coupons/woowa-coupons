@@ -8,7 +8,6 @@ import { useCoupon } from '@components/coupon/useCoupons';
 import SelectInputGroup from './inputGroup/SelectInputGroup';
 import CustomButton from '@components/common/button/CustomButton';
 import { Icon } from '@components/common/Icon/Icon';
-import { CouponGroupType, IsRandom } from './CouponType';
 
 export default function CouponGroupCard() {
   const {
@@ -31,11 +30,6 @@ export default function CouponGroupCard() {
     setValue: setIsRandom,
     onChange: onIsRandomChange,
   } = useInput();
-  const {
-    value: groupType,
-    setValue: setGroupType,
-    onChange: onGroupTypeChange,
-  } = useInput();
   const { coupons, setCoupons, onCreate, onEdit, onDelete } = useCoupon();
 
   /** 쿠폰 생성 Form 초기화 하기 */
@@ -44,12 +38,10 @@ export default function CouponGroupCard() {
     setStaredAt('');
     setFinishedAt('');
     setIsRandom('');
-    setGroupType('');
     setCoupons([]);
   };
 
   const handleSubmitButtonCLick = () => {
-
     console.log(
       '그룹이름:',
       groupName,
@@ -59,8 +51,6 @@ export default function CouponGroupCard() {
       finishedAt,
       '\n',
       isRandom,
-      '\n',
-      groupType,
       '\n',
       coupons
     );
@@ -100,19 +90,12 @@ export default function CouponGroupCard() {
         required={true}
         value={isRandom}
         placeholder={'쿠폰 타입을 선택해 주세요.'}
-        options={IsRandom}
+        options={[
+          { text: '일반 발급', value: '정액' },
+          { text: '랜덤 발급', value: '정률' },
+        ]}
         inputGroupSize={'medium'}
         onChange={onIsRandomChange}
-      />
-
-      <SelectInputGroup
-        title={'쿠폰 그룹 타입'}
-        required={true}
-        value={groupType}
-        placeholder={'쿠폰 그룹 타입을 선택해 주세요.'}
-        options={CouponGroupType}
-        inputGroupSize={'medium'}
-        onChange={onGroupTypeChange}
       />
 
       <CouponRegistrationGroup

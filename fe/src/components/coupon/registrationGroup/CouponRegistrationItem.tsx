@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Icon } from '@components/common/Icon/Icon';
-import { Coupon, CouponType } from '../CouponType';
+import { Coupon } from '../CouponType';
 import SelectInputGroup from '../inputGroup/SelectInputGroup';
 import TextInputGroup from '../inputGroup/TextInputGroup';
 import {
@@ -12,22 +12,19 @@ import {
 } from './CouponRegistrationGroup.style';
 
 type Props = {
-  index: number;
+  index: number,
   coupon: Coupon;
   // onEdit: (couponId: number, newCoupon: Coupon) => void; TODO: 수정기능 만들기
   onDelete: (couponId: number) => void;
 };
 
-export default function CouponRegistrationItem({
-  index,
-  coupon,
-  onDelete,
-}: Props) {
+export default function CouponRegistrationItem({index, coupon, onDelete}: Props) {
+  
   const handleDeleteButtonClick = () => {
     onDelete(coupon.id);
     return;
   };
-
+  
   return (
     <div css={registrationItemTopDivStyle}>
       <div css={registrationItemIndexDivStyle}>#{index}</div>
@@ -45,7 +42,10 @@ export default function CouponRegistrationItem({
           title={'쿠폰 타입'}
           required={false}
           placeholder={'쿠폰 타입을 선택해 주세요.'}
-          options={CouponType}
+          options={[
+            { text: '정액 쿠폰', value: '정액' },
+            { text: '정률 쿠폰', value: '정률' },
+          ]}
           inputGroupSize={'small'}
           value={coupon.type}
         />
@@ -67,7 +67,9 @@ export default function CouponRegistrationItem({
         />
       </div>
 
-      <div css={closeIconDiv} onClick={handleDeleteButtonClick}>
+      <div 
+        css={closeIconDiv}
+        onClick={handleDeleteButtonClick}>
         <Icon name={'x'} size={'M'}></Icon>
       </div>
     </div>
