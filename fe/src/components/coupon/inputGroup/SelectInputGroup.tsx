@@ -8,7 +8,7 @@ import {
 import { requiredIndicationStyle } from '../CouponGroup.style';
 import { InputGroupSize } from './InputGroupType';
 
-type Option = { text: string; value: string };
+type Option = { text: string; value: string; };
 
 type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   title: string;
@@ -24,6 +24,7 @@ export default function SelectInputGroup({
   inputGroupSize,
   ...props
 }: Props) {
+
   return (
     <div css={inputGroupTopDivStyle}>
       <div css={inputGroupTitleStyle(inputGroupSize)}>
@@ -31,7 +32,9 @@ export default function SelectInputGroup({
         {required ? <div css={requiredIndicationStyle}>*</div> : null}
       </div>
       <div>
-        <select css={selectInputStyle(inputGroupSize)} {...props}>
+        <select 
+          css={selectInputStyle(inputGroupSize)}
+          {...props} >
           {/* {props.value ? null : (
             <option value="" disabled hidden selected>{props.placeholder}</option>
           )} */}
