@@ -5,11 +5,14 @@ import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.app.member.domain.Member;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class MemberCoupon {
 
@@ -17,6 +20,7 @@ public class MemberCoupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreatedDate
     @Column(nullable = false)
     private Instant issuedAt;
 
@@ -28,14 +32,13 @@ public class MemberCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     private Coupon coupon;
 
-    private MemberCoupon(Instant issuedAt, Member member, Coupon coupon) {
-        this.issuedAt = issuedAt;
+    private MemberCoupon(Member member, Coupon coupon) {
         this.member = member;
         this.coupon = coupon;
     }
 
     public static MemberCoupon of(Member member, Coupon coupon) {
-        return new MemberCoupon(Instant.now(), member, coupon);
+        return new MemberCoupon(member, coupon);
     }
 
 }
