@@ -14,7 +14,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./be
+        working-directory: ./be/promotion
 
     steps:
       # SOURCE 단계 - 저장소 Checkout
@@ -31,17 +31,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Gradle 실행권한 부여
-      - name: Grant execute permission to gradlew
-        run: chmod +x ./gradlew
-
-      # Spring boot application 빌드
-      - name: Build with gradle
-        run: ./gradlew clean build
-
-      # docker image 빌드
-      - name: Build docker image
-        run: docker build -t woowa-coupons/woowa-coupons .
+      # Build 단계
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build
 
       # GHCR(github container registry) 로그인
       - name: Login to GHCR
@@ -54,13 +48,12 @@ jobs:
       # Build & Push to GHCR
       - name: Build and push
         uses: docker/build-push-action@v2
-        id: docker_build
         with:
           context: .
+          # repository 기준 위치
           file: ./Dockerfile
           push: true
-          tags: |
-            ghcr.io/${{secrets.GH_USER}}/woowa-coupons:0.0
+          tags: ghcr.io/${{secrets.GH_USER}}/woowa-promotion-was:0.0
 
       # Copy docker-compose-deploy.yml
       - name: Deliver docker-compose-deploy.yml file
@@ -68,6 +61,8 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.WAS_USERNAME }}
+          # repository 기준 위치
           source: "docker-compose-deploy.yml"
           target: "/home/ubuntu"
 
@@ -78,9 +73,8 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           username: ${{ secrets.WAS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.WAS_SSH_PORT }}
           script: |
-            echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} >> TOKEN.txt
+            echo ${{secrets.PRIVATE_REPO_ACCESS_TOKEN}} > TOKEN.txt
             cat TOKEN.txt | docker login https://ghcr.io -u ${{secrets.GH_USER}} --password-stdin
             
             docker-compose -f docker-compose-deploy.yml down -v
