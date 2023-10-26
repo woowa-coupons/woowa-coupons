@@ -78,19 +78,20 @@ public class MemberCouponService {
     private void issueCouponInCouponGroup(CouponGroup couponGroup, Member member) {
         Set<Coupon> coupons = couponGroup.getCoupons();
 
-        if (couponGroup.getIsRandom()) {
-            Coupon coupon = coupons.stream()
+        Coupon coupon = selectCoupon(coupons, couponGroup.getIsRandom());
+
+        issue(member, coupon);
+    }
+
+    private Coupon selectCoupon(Set<Coupon> coupons, boolean isRandom) {
+        if (isRandom) {
+            return coupons.stream()
                     .findAny()
                     .orElseThrow(() -> new ApiException(CouponException.NOT_FOUND));
-
-            issue(member, coupon);
-            return;
         }
-
-        Coupon coupon = coupons.stream()
+        return coupons.stream()
                 .findFirst()
                 .orElseThrow(() -> new ApiException(CouponException.NOT_FOUND));
-        issue(member, coupon);
     }
 
     private void issue(Member member, Coupon coupon) {
