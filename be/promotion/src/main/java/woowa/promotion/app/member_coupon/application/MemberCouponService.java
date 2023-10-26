@@ -1,6 +1,7 @@
 package woowa.promotion.app.member_coupon.application;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
+import woowa.promotion.admin.coupon_group.domain.Type;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.admin.promotion_option.infrastructure.PromotionOptionRepository;
 import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptionCouponGroup;
@@ -78,7 +80,13 @@ public class MemberCouponService {
 
     private boolean isAlreadyIssued(Member member, CouponGroup couponGroup) {
         List<Long> couponIds = couponRepository.findIdsByCouponGroupId(couponGroup.getId());
-        return memberCouponRepository.existsByMemberIdAndCouponIdIn(member.getId(), couponIds);
+        if (couponGroup.getType() == Type.PERIOD) {
+            return memberCouponRepository.existsByMemberIdAndCouponIdIn(member.getId(), couponIds);
+        }
+        return memberCouponRepository.existsByMemberIdAndCouponIdInAndToday(member.getId(),
+                couponIds,
+                Instant.now().truncatedTo(ChronoUnit.DAYS),
+                Instant.now().truncatedTo(ChronoUnit.DAYS).plus(1, ChronoUnit.DAYS));
     }
 
     private void issueCouponInCouponGroup(CouponGroup couponGroup, Member member) {
