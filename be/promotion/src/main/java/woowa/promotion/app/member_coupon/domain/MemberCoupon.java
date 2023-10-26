@@ -1,14 +1,7 @@
 package woowa.promotion.app.member_coupon.domain;
 
 import java.time.Instant;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +27,15 @@ public class MemberCoupon {
     @JoinColumn(name = "coupon_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Coupon coupon;
+
+    private MemberCoupon(Instant issuedAt, Member member, Coupon coupon) {
+        this.issuedAt = issuedAt;
+        this.member = member;
+        this.coupon = coupon;
+    }
+
+    public static MemberCoupon of(Member member, Coupon coupon) {
+        return new MemberCoupon(Instant.now(), member, coupon);
+    }
 
 }
