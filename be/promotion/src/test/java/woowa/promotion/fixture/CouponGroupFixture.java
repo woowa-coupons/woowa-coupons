@@ -1,13 +1,16 @@
 package woowa.promotion.fixture;
 
-import woowa.promotion.admin.coupon_group.domain.Type;
-
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import woowa.promotion.admin.coupon_group.domain.Type;
 
 public enum CouponGroupFixture {
 
     A_쿠폰그룹("A_쿠폰그룹", Instant.now(), Instant.now(), Type.EVERYDAY, true),
-    B_쿠폰그룹("B_쿠폰그룹", Instant.now(), Instant.now(), Type.PERIOD, false);
+    B_쿠폰그룹("B_쿠폰그룹", Instant.now(), Instant.now(), Type.PERIOD, false),
+    추석_쿠폰그룹_신규("추석 쿠폰 그룹 신규", Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS), Type.PERIOD, false),
+    추석_쿠폰그룹_랜("추석 쿠폰 그룹 랜덤", Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS), Type.PERIOD, true);
+
 
     private final String title;
     private final Instant startedAt;
@@ -42,5 +45,5 @@ public enum CouponGroupFixture {
     public Boolean getIsRandom() {
         return isRandom;
     }
-    
+
 }
