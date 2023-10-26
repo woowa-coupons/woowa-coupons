@@ -12,19 +12,22 @@ import {
 } from './CouponRegistrationGroup.style';
 
 type Props = {
-  index: number,
+  index: number;
   coupon: Coupon;
   // onEdit: (couponId: number, newCoupon: Coupon) => void; TODO: 수정기능 만들기
   onDelete: (couponId: number) => void;
 };
 
-export default function CouponRegistrationItem({index, coupon, onDelete}: Props) {
-  
+export default function CouponRegistrationItem({
+  index,
+  coupon,
+  onDelete,
+}: Props) {
   const handleDeleteButtonClick = () => {
     onDelete(coupon.id);
     return;
   };
-  
+
   return (
     <div css={registrationItemTopDivStyle}>
       <div css={registrationItemIndexDivStyle}>#{index}</div>
@@ -67,9 +70,7 @@ export default function CouponRegistrationItem({index, coupon, onDelete}: Props)
         />
       </div>
 
-      <div 
-        css={closeIconDiv}
-        onClick={handleDeleteButtonClick}>
+      <div css={closeIconDiv} onClick={handleDeleteButtonClick}>
         <Icon name={'x'} size={'M'}></Icon>
       </div>
     </div>
