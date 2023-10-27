@@ -30,7 +30,7 @@ export default function DateInputGroup({
       </div>
       <div>
         <input
-          type="date"
+          type="datetime-local"
           css={dateInputStyle(inputGroupSize)}
           onChange={props.onChange}
           value={value}
