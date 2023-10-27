@@ -1,5 +1,7 @@
 package woowa.promotion.fixture;
 
+import java.time.Instant;
+import java.util.List;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
@@ -19,9 +21,7 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.MemberType;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.app.member.domain.Member;
-
-import java.time.Instant;
-import java.util.List;
+import woowa.promotion.app.member_coupon.presentation.dto.CouponIssueRequest;
 
 public class FixtureFactory {
 
@@ -94,6 +94,16 @@ public class FixtureFactory {
                 .build();
     }
 
+    public static Coupon createCoupon(CouponFixture couponFixture, CouponGroup couponGroup) {
+        return Coupon.builder()
+                .title(couponFixture.getTitle())
+                .couponGroup(couponGroup)
+                .type(CouponType.from(couponFixture.getCouponType()))
+                .initialQuantity(couponFixture.getInitialQuantity())
+                .discount(couponFixture.getDiscount())
+                .build();
+    }
+
     public static PromotionOptionRequest createPromotionOptionRequest(PromotionOptionFixture promotionOptionFixture,
                                                                       Long couponGroupId) {
         return new PromotionOptionRequest(promotionOptionFixture.getMemberType(),
@@ -115,6 +125,9 @@ public class FixtureFactory {
                 promotionOptions);
     }
 
+    public static CouponIssueRequest createCouponIssueRequest(Long promotionId) {
+        return new CouponIssueRequest(promotionId);
+    }
 
     public static CouponGroupCreateRequest createCouponGroupCreateRequest() {
         return new CouponGroupCreateRequest(
