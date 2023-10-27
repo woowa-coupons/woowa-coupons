@@ -32,7 +32,6 @@ export default function DateInputGroup({
         <input
           type="date"
           css={dateInputStyle(inputGroupSize)}
-          maxLength={50}
           onChange={props.onChange}
           value={value}
           {...props}
