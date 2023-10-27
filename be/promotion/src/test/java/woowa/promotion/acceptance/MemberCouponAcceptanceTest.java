@@ -8,8 +8,10 @@ import static woowa.promotion.fixture.FixtureFactory.createCouponGroup;
 import static woowa.promotion.fixture.FixtureFactory.createPromotion;
 import static woowa.promotion.fixture.FixtureFactory.createPromotionOption;
 import static woowa.promotion.fixture.PromotionFixture.추석_프로모션;
+import static woowa.promotion.fixture.PromotionOptionFixture.두번째_프로모션_옵션;
 import static woowa.promotion.fixture.PromotionOptionFixture.첫번째_프로모션_옵션;
 import static woowa.promotion.fixture.UserFixture.유저_Bruni;
+import static woowa.promotion.fixture.UserFixture.유저_Jinny;
 
 import io.restassured.RestAssured;
 import java.util.Map;
@@ -29,12 +31,38 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("시나리오 A")
     @Test
-    @Sql(value = {"classpath:scenarioA.sql"})
+    @Sql(value = {"classpath:schema.sql", "classpath:scenarioA.sql"})
     void scenarioA() {
         // given
         Member member = makeMember(유저_Bruni);
         String accessToken = jwtProvider.createAccessToken(Map.of("memberId", member.getId()));
         Long promotionId = saveScenarioA();
+
+        var request = RestAssured
+                .given().log().all()
+                .auth().oauth2(accessToken)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(FixtureFactory.createCouponIssueRequest(promotionId));
+
+        // when
+        var response = request
+                .when().post("/app/member-coupons")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+
+    }
+
+    @DisplayName("시나리오 B")
+    @Test
+    @Sql(value = {"classpath:schema.sql", "classpath:scenarioB.sql"})
+    void scenarioB() {
+        // given
+        Member member = makeMember(유저_Jinny);
+        String accessToken = jwtProvider.createAccessToken(Map.of("memberId", member.getId()));
+        Long promotionId = saveScenarioB();
 
         var request = RestAssured
                 .given().log().all()
@@ -62,4 +90,12 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
         return promotion.getId();
     }
 
+    private Long saveScenarioB() {
+        var couponGroup = makeCouponGroup(createCouponGroup(추석_쿠폰그룹_기존));
+        makeCoupon(createCoupon(추석_쿠폰_신규, couponGroup));
+        Promotion promotion = makePromotion(createPromotion(추석_프로모션));
+        PromotionOption promotionOption = makePromotionOption(createPromotionOption(두번째_프로모션_옵션, promotion));
+        makePromotionOptionCouponGroup(promotionOption, couponGroup);
+        return promotion.getId();
+    }
 }
