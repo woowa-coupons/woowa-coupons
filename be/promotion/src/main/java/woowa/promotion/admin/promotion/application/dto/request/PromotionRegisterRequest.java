@@ -1,12 +1,13 @@
 package woowa.promotion.admin.promotion.application.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.Instant;
-import java.util.List;
 import woowa.promotion.admin.promotion.domain.ProgressStatus;
 import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.MemberType;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
+
+import java.time.Instant;
+import java.util.List;
 
 public record PromotionRegisterRequest(
 
@@ -31,11 +32,10 @@ public record PromotionRegisterRequest(
 
             String memberType,
             Instant lastOrderAt,
-            Boolean lastOrderBefore,
             Long couponGroupId
     ) {
         public PromotionOption toEntity(Promotion promotion) {
-            return new PromotionOption(lastOrderAt, lastOrderBefore, promotion, MemberType.from(memberType));
+            return new PromotionOption(lastOrderAt, promotion, MemberType.from(memberType));
         }
     }
 
