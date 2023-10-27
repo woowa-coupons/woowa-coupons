@@ -16,7 +16,7 @@ public enum PromotionOptionFixture {
 
 
     private static Instant getLastOrderAtPromotion() {
-        return Year.of(2002).atMonth(6).atDay(18).atTime(20, 30).atZone(ZoneId.of("Asia/Seoul")).toInstant();
+        return Year.of(2023).atMonth(10).atDay(26).atTime(16, 0).atZone(ZoneId.of("Asia/Seoul")).toInstant();
     }
 
     private Instant lastOrderAt;
