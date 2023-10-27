@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Icon } from '@components/common/Icon/Icon';
-import { Coupon } from '../CouponType';
+import { Coupon, CouponType } from '../CouponType';
 import SelectInputGroup from '../inputGroup/SelectInputGroup';
 import TextInputGroup from '../inputGroup/TextInputGroup';
 import {
@@ -45,10 +45,7 @@ export default function CouponRegistrationItem({
           title={'쿠폰 타입'}
           required={false}
           placeholder={'쿠폰 타입을 선택해 주세요.'}
-          options={[
-            { text: '정액 쿠폰', value: '정액' },
-            { text: '정률 쿠폰', value: '정률' },
-          ]}
+          options={CouponType}
           inputGroupSize={'small'}
           value={coupon.type}
         />
