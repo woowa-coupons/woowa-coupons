@@ -32,7 +32,7 @@ const textInputStyle = (size: InputGroupSize) => {
 
 const dateInputStyle = (size: InputGroupSize) => {
   return css`
-    width: 200px;
+    width: 300px;
     height: ${size === 'small' ? '20px' : '30px'};
     flex-shrink: 0;
     border-radius: ${radius.medium};
