@@ -33,6 +33,7 @@ public class FixtureFactory {
                                                         Promotion promotion) {
         return new PromotionOption(
                 promotionOptionFixture.getLastOrderAt(),
+                promotionOptionFixture.getLastOrderBefore(),
                 promotion,
                 MemberType.from(promotionOptionFixture.getMemberType())
         );
@@ -108,6 +109,7 @@ public class FixtureFactory {
                                                                       Long couponGroupId) {
         return new PromotionOptionRequest(promotionOptionFixture.getMemberType(),
                 promotionOptionFixture.getLastOrderAt(),
+                promotionOptionFixture.getLastOrderBefore(),
                 couponGroupId);
     }
 

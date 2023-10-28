@@ -3,7 +3,16 @@ package woowa.promotion.admin.promotion_option.domain;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +43,9 @@ public class PromotionOption {
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
-    public PromotionOption(Instant lastOrderAt, Promotion promotion, MemberType memberType) {
+    public PromotionOption(Instant lastOrderAt, Boolean lastOrderBefore, Promotion promotion, MemberType memberType) {
         this.lastOrderAt = lastOrderAt;
+        this.lastOrderBefore = lastOrderBefore;
         this.promotion = promotion;
         this.memberType = memberType;
     }
