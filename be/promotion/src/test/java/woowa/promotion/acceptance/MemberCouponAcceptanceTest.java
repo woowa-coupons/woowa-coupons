@@ -29,9 +29,12 @@ import woowa.promotion.util.AcceptanceTest;
 @DisplayName("[인수테스트] 회원")
 public class MemberCouponAcceptanceTest extends AcceptanceTest {
 
-    @DisplayName("시나리오 A")
+    @DisplayName("시나리오 A: "
+            + "프로모션 옵션 : 2023년 10월 26일 16시 전에 주문한 사람"
+            + "쿠폰 옵션 :  랜덤이 아니다."
+            + "프로모션에 마지막 주문일이 2023년 10월 26일 16시 이전인 회원이 쿠폰 발급에 성공한다.")
     @Test
-    @Sql(value = {"classpath:schema.sql", "classpath:scenarioA.sql"})
+    @Sql(value = {"classpath:schema.sql", "classpath:saveScenarioA.sql"})
     void scenarioA() {
         // given
         Member member = makeMember(유저_Bruni);
@@ -55,9 +58,12 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
 
     }
 
-    @DisplayName("시나리오 B")
+    @DisplayName("시나리오 B: "
+            + "프로모션 옵션 : 2023년 10월 26일 16시 후에 주문한 사람"
+            + "쿠폰 옵션 :  랜덤이 아니다."
+            + "프로모션에 마지막 주문일이 2023년 10월 26일 16시 이후인 회원이 쿠폰 발급에 성공한다.")
     @Test
-    @Sql(value = {"classpath:schema.sql", "classpath:scenarioB.sql"})
+    @Sql(value = {"classpath:schema.sql", "classpath:saveScenarioB.sql"})
     void scenarioB() {
         // given
         Member member = makeMember(유저_Jinny);
