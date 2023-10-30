@@ -29,6 +29,7 @@ out/
 ### YML file ###
 application-jwt.yml
 application-origin.yml
+application-db.yml
 
 ### NetBeans ###
 /nbproject/private/
