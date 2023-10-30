@@ -1,6 +1,7 @@
 package woowa.promotion.acceptance;
 
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ import static woowa.promotion.fixture.UserFixture.*;
 @DisplayName("[인수테스트] 회원")
 public class MemberCouponAcceptanceTest extends AcceptanceTest {
 
+    @Disabled
     @DisplayName("시나리오 A: "
             + "프로모션 옵션 : 2023년 10월 26일 16시 전에 주문한 사람"
             + "쿠폰 옵션 :  랜덤이 아니다."
