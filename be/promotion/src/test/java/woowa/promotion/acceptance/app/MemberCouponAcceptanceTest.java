@@ -36,7 +36,7 @@ import woowa.promotion.app.order.domain.Order;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
 
-@DisplayName("[인수테스트] 회원")
+@DisplayName("[인수테스트][회원] 쿠폰 발급")
 public class MemberCouponAcceptanceTest extends AcceptanceTest {
 
     @Disabled

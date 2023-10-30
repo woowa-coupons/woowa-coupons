@@ -14,7 +14,7 @@ import woowa.promotion.fixture.PromotionFixture;
 import woowa.promotion.fixture.UserFixture;
 import woowa.promotion.util.AcceptanceTest;
 
-@DisplayName("[인수 테스트] 회원 프로모션")
+@DisplayName("[인수테스트][회원] 프로모션")
 public class AppPromotionAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("회원이 프로모션 조회시 노출여부가 true인 프로모션만 조회된다.")

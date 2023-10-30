@@ -15,7 +15,7 @@ import woowa.promotion.app.member.presentation.dto.request.SignInRequest;
 import woowa.promotion.app.member.presentation.dto.request.SignUpRequest;
 import woowa.promotion.util.AcceptanceTest;
 
-@DisplayName("[인수테스트] 회원")
+@DisplayName("[인수테스트][회원] 인증")
 public class MemberAcceptanceTest extends AcceptanceTest {
 
     private static Stream<Arguments> providerSignupUser() {

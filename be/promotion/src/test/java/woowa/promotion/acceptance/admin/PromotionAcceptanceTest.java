@@ -22,7 +22,7 @@ import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
 
-@DisplayName("[인수테스트] 관리자 - 프로모션")
+@DisplayName("[인수테스트][관리자] 프로모션")
 public class PromotionAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("프로모션 등록에 성공한다.")

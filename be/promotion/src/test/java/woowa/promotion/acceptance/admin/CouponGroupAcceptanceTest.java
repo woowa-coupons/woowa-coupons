@@ -20,7 +20,7 @@ import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.AcceptanceTest;
 
-@DisplayName("[인수테스트] 관리자 - 쿠폰 그룹")
+@DisplayName("[인수테스트][관리자] 쿠폰 그룹")
 public class CouponGroupAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("쿠폰 그룹 생성에 성공한다.")
