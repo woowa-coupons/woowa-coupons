@@ -1,18 +1,18 @@
-package woowa.promotion.global.domain.jwt;
+package woowa.promotion.unit.global.domain.jwt;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import woowa.promotion.global.exception.ApiException;
-import woowa.promotion.global.properties.JwtProperties;
-
 import java.util.Date;
 import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import woowa.promotion.global.domain.jwt.JwtProvider;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.properties.JwtProperties;
 
 @DisplayName("JwtProvider 단위 테스트")
 class JwtProviderTest {

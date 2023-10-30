@@ -1,11 +1,12 @@
-package woowa.promotion.global.security.hash;
+package woowa.promotion.unit.global.security.hash;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import woowa.promotion.global.exception.ApiException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import woowa.promotion.global.security.hash.SHA256;
 
 @DisplayName("SHA256 단위 테스트")
 class SHA256Test {
