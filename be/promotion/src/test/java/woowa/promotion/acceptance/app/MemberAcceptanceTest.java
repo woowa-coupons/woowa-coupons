@@ -1,6 +1,10 @@
-package woowa.promotion.acceptance;
+package woowa.promotion.acceptance.app;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static woowa.promotion.fixture.UserFixture.유저_June;
 
 import io.restassured.RestAssured;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -10,11 +14,6 @@ import org.springframework.http.MediaType;
 import woowa.promotion.app.member.presentation.dto.request.SignInRequest;
 import woowa.promotion.app.member.presentation.dto.request.SignUpRequest;
 import woowa.promotion.util.AcceptanceTest;
-
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.fixture.UserFixture.유저_June;
 
 @DisplayName("[인수테스트] 회원")
 public class MemberAcceptanceTest extends AcceptanceTest {

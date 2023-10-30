@@ -1,4 +1,7 @@
-package woowa.promotion.acceptance;
+package woowa.promotion.acceptance.admin;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.DisplayName;
@@ -7,9 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("[인수테스트] 관리자")
 public class AdminAcceptanceTest extends AcceptanceTest {

@@ -1,4 +1,4 @@
-package woowa.promotion.acceptance;
+package woowa.promotion.acceptance.app;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_1000;

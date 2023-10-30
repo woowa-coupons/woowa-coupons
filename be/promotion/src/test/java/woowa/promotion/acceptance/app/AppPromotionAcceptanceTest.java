@@ -1,6 +1,10 @@
-package woowa.promotion.acceptance;
+package woowa.promotion.acceptance.app;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import io.restassured.RestAssured;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -9,11 +13,6 @@ import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.fixture.PromotionFixture;
 import woowa.promotion.fixture.UserFixture;
 import woowa.promotion.util.AcceptanceTest;
-
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("[인수 테스트] 회원 프로모션")
 public class AppPromotionAcceptanceTest extends AcceptanceTest {
