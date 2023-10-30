@@ -11,8 +11,8 @@ public enum PromotionOptionFixture {
     B_프로모션_옵션(Instant.now(), false, MemberType.OLD_MEMBER.name()),
     첫번째_프로모션_옵션(getLastOrderAtPromotion(), true, MemberType.OLD_MEMBER.name()),
     두번째_프로모션_옵션(getLastOrderAtPromotion(), false, MemberType.OLD_MEMBER.name()),
-    세번째_프로모션_옵션(null, null, MemberType.NEW_MEMBER.name()),
-    네번째_프로모션_옵션(null, null, MemberType.OLD_MEMBER.name());
+    세번째_프로모션_옵션(null, null, MemberType.OLD_MEMBER.name()),
+    네번째_프로모션_옵션(null, null, MemberType.NEW_MEMBER.name());
 
 
     private static Instant getLastOrderAtPromotion() {
