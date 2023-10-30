@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.app.member.domain.Member;
@@ -34,7 +35,8 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
             + "쿠폰 옵션 :  랜덤이 아니다."
             + "프로모션에 마지막 주문일이 2023년 10월 26일 16시 이전인 회원이 쿠폰 발급에 성공한다.")
     @Test
-    @Sql(value = {"classpath:schema.sql", "classpath:saveScenarioA.sql"})
+    @Sql(value = {"classpath:saveScenarioA.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"classpath:schema.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void scenarioA() {
         // given
         Member member = makeMember(유저_Bruni);
@@ -63,7 +65,9 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
             + "쿠폰 옵션 :  랜덤이 아니다."
             + "프로모션에 마지막 주문일이 2023년 10월 26일 16시 이후인 회원이 쿠폰 발급에 성공한다.")
     @Test
-    @Sql(value = {"classpath:schema.sql", "classpath:saveScenarioB.sql"})
+    @Sql(value = {
+            "classpath:saveScenarioB.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"classpath:schema.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void scenarioB() {
         // given
         Member member = makeMember(유저_Jinny);
