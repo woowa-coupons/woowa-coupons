@@ -1,7 +1,7 @@
 package woowa.promotion.util.fixture;
 
 
-public enum UserFixture {
+public enum MemberFixture {
 
     유저_June("june", "june@codesquad.kr", "password"),
     유저_Jinny("Jinny", "jinny@codesquad.kr", "password"),
@@ -11,7 +11,7 @@ public enum UserFixture {
     private final String email;
     private final String password;
 
-    UserFixture(String nickname, String email, String password) {
+    MemberFixture(String nickname, String email, String password) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;

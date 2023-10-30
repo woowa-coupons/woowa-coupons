@@ -25,8 +25,8 @@ import woowa.promotion.app.member_coupon.presentation.dto.CouponIssueRequest;
 
 public class FixtureFactory {
 
-    public static Member createMember(UserFixture userFixture, String password) {
-        return new Member(userFixture.getNickname(), userFixture.getEmail(), password);
+    public static Member createMember(MemberFixture memberFixture, String password) {
+        return new Member(memberFixture.getNickname(), memberFixture.getEmail(), password);
     }
 
     public static PromotionOption createPromotionOption(PromotionOptionFixture promotionOptionFixture,

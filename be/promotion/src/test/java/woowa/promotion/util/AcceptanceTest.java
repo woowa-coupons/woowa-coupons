@@ -18,7 +18,7 @@ import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.fixture.FixtureFactory;
-import woowa.promotion.util.fixture.UserFixture;
+import woowa.promotion.util.fixture.MemberFixture;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -42,9 +42,9 @@ public abstract class AcceptanceTest {
         RestAssured.port = port;
     }
 
-    protected Member makeMember(UserFixture userFixture) {
-        String password = passwordEncoder.encrypt(userFixture.getPassword());
-        return supportRepository.save(FixtureFactory.createMember(userFixture, password));
+    protected Member makeMember(MemberFixture memberFixture) {
+        String password = passwordEncoder.encrypt(memberFixture.getPassword());
+        return supportRepository.save(FixtureFactory.createMember(memberFixture, password));
     }
 
     protected Promotion makePromotion(Promotion promotion) {

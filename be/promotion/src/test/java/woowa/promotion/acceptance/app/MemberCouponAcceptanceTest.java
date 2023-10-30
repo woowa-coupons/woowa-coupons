@@ -11,14 +11,14 @@ import static woowa.promotion.util.fixture.FixtureFactory.createCoupon;
 import static woowa.promotion.util.fixture.FixtureFactory.createCouponGroup;
 import static woowa.promotion.util.fixture.FixtureFactory.createPromotion;
 import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOption;
+import static woowa.promotion.util.fixture.MemberFixture.유저_Bruni;
+import static woowa.promotion.util.fixture.MemberFixture.유저_Jinny;
+import static woowa.promotion.util.fixture.MemberFixture.유저_June;
 import static woowa.promotion.util.fixture.PromotionFixture.추석_프로모션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.네번째_프로모션_옵션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.두번째_프로모션_옵션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.세번째_프로모션_옵션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.첫번째_프로모션_옵션;
-import static woowa.promotion.util.fixture.UserFixture.유저_Bruni;
-import static woowa.promotion.util.fixture.UserFixture.유저_Jinny;
-import static woowa.promotion.util.fixture.UserFixture.유저_June;
 
 import io.restassured.RestAssured;
 import java.util.Map;

@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import woowa.promotion.app.promotion.presentation.dto.AppPromotionResponse;
 import woowa.promotion.util.AcceptanceTest;
 import woowa.promotion.util.fixture.FixtureFactory;
+import woowa.promotion.util.fixture.MemberFixture;
 import woowa.promotion.util.fixture.PromotionFixture;
-import woowa.promotion.util.fixture.UserFixture;
 
 @DisplayName("[인수테스트][회원] 프로모션")
 public class AppPromotionAcceptanceTest extends AcceptanceTest {
@@ -21,7 +21,7 @@ public class AppPromotionAcceptanceTest extends AcceptanceTest {
     @Test
     void retrievePromotions() {
         // given
-        supportRepository.save(FixtureFactory.createMember(UserFixture.유저_June, passwordEncoder.encrypt("1234")));
+        supportRepository.save(FixtureFactory.createMember(MemberFixture.유저_June, passwordEncoder.encrypt("1234")));
 
         supportRepository.save(FixtureFactory.createPromotion(PromotionFixture.A_프로모션));
         supportRepository.save(FixtureFactory.createPromotion(PromotionFixture.B_프로모션));
