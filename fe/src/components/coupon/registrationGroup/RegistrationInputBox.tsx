@@ -5,9 +5,9 @@ import {
   registrationItemInputGroupDivStyle,
   registrationItemTopDivStyle,
 } from './CouponRegistrationGroup.style';
-import { Coupon, CouponType } from '../CouponType';
+import { Coupon, CouponType } from '../common/CouponType';
 import { useInput } from '@hooks/useInput';
-import { inputBoxGropupFooterStyle } from '../CouponGroup.style';
+import { inputBoxGropupFooterStyle } from '../common/CouponGroup.style';
 import { useState } from 'react';
 import { Icon } from '@components/common/Icon/Icon';
 

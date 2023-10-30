@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Coupon } from '../CouponType';
+import { Coupon } from '../common/CouponType';
 import CouponRegistrationItem from './CouponRegistrationItem';
 import { registrationBoxStyle } from './CouponRegistrationGroup.style';
 
