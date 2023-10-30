@@ -15,10 +15,10 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptionCouponGroup;
 import woowa.promotion.app.member.domain.Member;
-import woowa.promotion.fixture.FixtureFactory;
-import woowa.promotion.fixture.UserFixture;
 import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.security.hash.PasswordEncoder;
+import woowa.promotion.util.fixture.FixtureFactory;
+import woowa.promotion.util.fixture.UserFixture;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")

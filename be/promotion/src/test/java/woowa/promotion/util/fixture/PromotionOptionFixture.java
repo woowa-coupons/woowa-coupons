@@ -1,10 +1,9 @@
-package woowa.promotion.fixture;
-
-import woowa.promotion.admin.promotion_option.domain.MemberType;
+package woowa.promotion.util.fixture;
 
 import java.time.Instant;
 import java.time.Year;
 import java.time.ZoneId;
+import woowa.promotion.admin.promotion_option.domain.MemberType;
 
 public enum PromotionOptionFixture {
 

@@ -13,10 +13,10 @@ import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
 import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[비즈니스 로직 테스트] 관리자")
 class AdminServiceTest extends ApplicationTest {

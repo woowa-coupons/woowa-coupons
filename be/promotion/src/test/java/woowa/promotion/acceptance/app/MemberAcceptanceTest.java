@@ -1,7 +1,7 @@
 package woowa.promotion.acceptance.app;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.fixture.UserFixture.유저_June;
+import static woowa.promotion.util.fixture.UserFixture.유저_June;
 
 import io.restassured.RestAssured;
 import java.util.stream.Stream;

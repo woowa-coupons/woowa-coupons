@@ -1,4 +1,4 @@
-package woowa.promotion.fixture;
+package woowa.promotion.util.fixture;
 
 
 public enum UserFixture {

@@ -16,9 +16,9 @@ import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.AcceptanceTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[인수테스트][관리자] 쿠폰 그룹")
 public class CouponGroupAcceptanceTest extends AcceptanceTest {

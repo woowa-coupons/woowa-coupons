@@ -9,10 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import woowa.promotion.app.promotion.presentation.dto.AppPromotionResponse;
-import woowa.promotion.fixture.FixtureFactory;
-import woowa.promotion.fixture.PromotionFixture;
-import woowa.promotion.fixture.UserFixture;
 import woowa.promotion.util.AcceptanceTest;
+import woowa.promotion.util.fixture.FixtureFactory;
+import woowa.promotion.util.fixture.PromotionFixture;
+import woowa.promotion.util.fixture.UserFixture;
 
 @DisplayName("[인수테스트][회원] 프로모션")
 public class AppPromotionAcceptanceTest extends AcceptanceTest {

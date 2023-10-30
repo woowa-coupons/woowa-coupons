@@ -1,24 +1,24 @@
 package woowa.promotion.acceptance.app;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_1000;
-import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_2000;
-import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_3000;
-import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_신규;
-import static woowa.promotion.fixture.CouponGroupFixture.추석_쿠폰그룹_기존;
-import static woowa.promotion.fixture.CouponGroupFixture.추석_쿠폰그룹_랜덤;
-import static woowa.promotion.fixture.FixtureFactory.createCoupon;
-import static woowa.promotion.fixture.FixtureFactory.createCouponGroup;
-import static woowa.promotion.fixture.FixtureFactory.createPromotion;
-import static woowa.promotion.fixture.FixtureFactory.createPromotionOption;
-import static woowa.promotion.fixture.PromotionFixture.추석_프로모션;
-import static woowa.promotion.fixture.PromotionOptionFixture.네번째_프로모션_옵션;
-import static woowa.promotion.fixture.PromotionOptionFixture.두번째_프로모션_옵션;
-import static woowa.promotion.fixture.PromotionOptionFixture.세번째_프로모션_옵션;
-import static woowa.promotion.fixture.PromotionOptionFixture.첫번째_프로모션_옵션;
-import static woowa.promotion.fixture.UserFixture.유저_Bruni;
-import static woowa.promotion.fixture.UserFixture.유저_Jinny;
-import static woowa.promotion.fixture.UserFixture.유저_June;
+import static woowa.promotion.util.fixture.CouponFixture.추석_쿠폰_랜덤_1000;
+import static woowa.promotion.util.fixture.CouponFixture.추석_쿠폰_랜덤_2000;
+import static woowa.promotion.util.fixture.CouponFixture.추석_쿠폰_랜덤_3000;
+import static woowa.promotion.util.fixture.CouponFixture.추석_쿠폰_신규;
+import static woowa.promotion.util.fixture.CouponGroupFixture.추석_쿠폰그룹_기존;
+import static woowa.promotion.util.fixture.CouponGroupFixture.추석_쿠폰그룹_랜덤;
+import static woowa.promotion.util.fixture.FixtureFactory.createCoupon;
+import static woowa.promotion.util.fixture.FixtureFactory.createCouponGroup;
+import static woowa.promotion.util.fixture.FixtureFactory.createPromotion;
+import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOption;
+import static woowa.promotion.util.fixture.PromotionFixture.추석_프로모션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.네번째_프로모션_옵션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.두번째_프로모션_옵션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.세번째_프로모션_옵션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.첫번째_프로모션_옵션;
+import static woowa.promotion.util.fixture.UserFixture.유저_Bruni;
+import static woowa.promotion.util.fixture.UserFixture.유저_Jinny;
+import static woowa.promotion.util.fixture.UserFixture.유저_June;
 
 import io.restassured.RestAssured;
 import java.util.Map;
@@ -33,8 +33,8 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.app.order.domain.Order;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[인수테스트][회원] 쿠폰 발급")
 public class MemberCouponAcceptanceTest extends AcceptanceTest {

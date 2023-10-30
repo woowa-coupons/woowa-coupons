@@ -2,7 +2,7 @@ package woowa.promotion.application.app.member.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static woowa.promotion.fixture.UserFixture.유저_June;
+import static woowa.promotion.util.fixture.UserFixture.유저_June;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

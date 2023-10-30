@@ -1,4 +1,4 @@
-package woowa.promotion.fixture;
+package woowa.promotion.util.fixture;
 
 import java.time.Instant;
 import java.util.List;

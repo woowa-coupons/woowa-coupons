@@ -1,15 +1,15 @@
 package woowa.promotion.acceptance.admin;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.fixture.CouponGroupFixture.A_쿠폰그룹;
-import static woowa.promotion.fixture.CouponGroupFixture.B_쿠폰그룹;
-import static woowa.promotion.fixture.FixtureFactory.createCouponGroup;
-import static woowa.promotion.fixture.FixtureFactory.createPromotion;
-import static woowa.promotion.fixture.FixtureFactory.createPromotionOptionRequest;
-import static woowa.promotion.fixture.PromotionFixture.A_프로모션;
-import static woowa.promotion.fixture.PromotionFixture.B_프로모션;
-import static woowa.promotion.fixture.PromotionOptionFixture.A_프로모션_옵션;
-import static woowa.promotion.fixture.PromotionOptionFixture.B_프로모션_옵션;
+import static woowa.promotion.util.fixture.CouponGroupFixture.A_쿠폰그룹;
+import static woowa.promotion.util.fixture.CouponGroupFixture.B_쿠폰그룹;
+import static woowa.promotion.util.fixture.FixtureFactory.createCouponGroup;
+import static woowa.promotion.util.fixture.FixtureFactory.createPromotion;
+import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOptionRequest;
+import static woowa.promotion.util.fixture.PromotionFixture.A_프로모션;
+import static woowa.promotion.util.fixture.PromotionFixture.B_프로모션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.A_프로모션_옵션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.B_프로모션_옵션;
 
 import io.restassured.RestAssured;
 import java.util.List;
@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.AcceptanceTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[인수테스트][관리자] 프로모션")
 public class PromotionAcceptanceTest extends AcceptanceTest {

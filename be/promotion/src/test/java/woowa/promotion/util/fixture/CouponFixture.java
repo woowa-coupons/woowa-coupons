@@ -1,4 +1,4 @@
-package woowa.promotion.fixture;
+package woowa.promotion.util.fixture;
 
 import woowa.promotion.admin.coupon.domain.CouponType;
 

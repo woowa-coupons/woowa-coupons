@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import woowa.promotion.admin.admin.application.AdminService;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.DocumentationTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[RESTDocs] 관리자 인증 API")
 public class AuthDocumentationTest extends DocumentationTest {

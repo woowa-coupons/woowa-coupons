@@ -18,8 +18,8 @@ import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
-import woowa.promotion.fixture.FixtureFactory;
 import woowa.promotion.util.ApplicationTest;
+import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[비즈니스 로직 테스트] 쿠폰 그룹")
 class CouponGroupServiceTest extends ApplicationTest {
