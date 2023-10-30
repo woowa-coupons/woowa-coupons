@@ -1,4 +1,4 @@
-import CustomButton from '@components/common/button/CustomButton';
+import CustomButton from '@components/common/CustomButton/CustomButton';
 import SelectInputGroup from '../inputGroup/SelectInputGroup';
 import TextInputGroup from '../inputGroup/TextInputGroup';
 import {
