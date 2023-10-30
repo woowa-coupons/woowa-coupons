@@ -65,8 +65,7 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
             + "쿠폰 옵션 :  랜덤이 아니다."
             + "프로모션에 마지막 주문일이 2023년 10월 26일 16시 이후인 회원이 쿠폰 발급에 성공한다.")
     @Test
-    @Sql(value = {
-            "classpath:saveScenarioB.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"classpath:saveScenarioB.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = {"classpath:schema.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void scenarioB() {
         // given
