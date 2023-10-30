@@ -1,21 +1,14 @@
 package woowa.promotion.admin.coupon.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.global.domain.audit.AuditingFields;
+import woowa.promotion.global.exception.ApiException;
+import woowa.promotion.global.exception.domain.CouponException;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -55,4 +48,12 @@ public class Coupon extends AuditingFields {
         this.remainQuantity = initialQuantity;
         this.couponGroup = couponGroup;
     }
+
+    public void issue() {
+        if (this.remainQuantity <= 0) {
+            throw new ApiException(CouponException.EXHAUSTED);
+        }
+        this.remainQuantity--;
+    }
+
 }

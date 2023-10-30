@@ -1,8 +1,8 @@
 package woowa.promotion.fixture;
 
-import woowa.promotion.admin.promotion.domain.ProgressStatus;
-
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import woowa.promotion.admin.promotion.domain.ProgressStatus;
 
 public enum PromotionFixture {
 
@@ -12,9 +12,10 @@ public enum PromotionFixture {
             + " 음식을 고르세요", "www.bannerUrl.com", Instant.now(), Instant.now(),
             "www.promotionUrl.com", true, ProgressStatus.ON_GOING.name()),
     C_프로모션("추석 이벤트", "즐거운 한가위"
-            + " 음식을 고르세요", "www.bannerUrl.com", Instant.now(), Instant.now().plusSeconds(3600 * 24 * 7),
-            "www.promotionUrl.com", false, ProgressStatus.ON_GOING.name());
-
+            + " 음식을 고르세요", "www.bannerUrl.com", Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS),
+            "www.promotionUrl.com", false, ProgressStatus.ON_GOING.name()),
+    추석_프로모션("추석 프로모션", "즐거운 한가위", "www.naver.com", Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS),
+            "www.google.com", true, ProgressStatus.ON_GOING.name());
     private final String title;
     private final String content;
     private final String banner;

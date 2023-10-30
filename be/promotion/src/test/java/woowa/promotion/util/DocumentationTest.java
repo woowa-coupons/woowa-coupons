@@ -12,6 +12,8 @@ import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.admin.presentation.AuthController;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.CouponGroupController;
+import woowa.promotion.app.member_coupon.application.MemberCouponService;
+import woowa.promotion.app.member_coupon.presentation.AppCouponController;
 import woowa.promotion.app.promotion.application.AppPromotionService;
 import woowa.promotion.app.promotion.presentation.AppPromotionController;
 import woowa.promotion.global.interceptor.AuthInterceptor;
@@ -23,12 +25,14 @@ import static org.mockito.BDDMockito.given;
 @MockBean({
         AdminService.class,
         CouponGroupService.class,
-        AppPromotionService.class
+        AppPromotionService.class,
+        MemberCouponService.class
 })
 @WebMvcTest({
         AuthController.class,
         CouponGroupController.class,
-        AppPromotionController.class
+        AppPromotionController.class,
+        AppCouponController.class
 })
 @AutoConfigureRestDocs
 public abstract class DocumentationTest {
