@@ -1,17 +1,23 @@
 package woowa.promotion.acceptance;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_1000;
+import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_2000;
+import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_랜덤_3000;
 import static woowa.promotion.fixture.CouponFixture.추석_쿠폰_신규;
 import static woowa.promotion.fixture.CouponGroupFixture.추석_쿠폰그룹_기존;
+import static woowa.promotion.fixture.CouponGroupFixture.추석_쿠폰그룹_랜덤;
 import static woowa.promotion.fixture.FixtureFactory.createCoupon;
 import static woowa.promotion.fixture.FixtureFactory.createCouponGroup;
 import static woowa.promotion.fixture.FixtureFactory.createPromotion;
 import static woowa.promotion.fixture.FixtureFactory.createPromotionOption;
 import static woowa.promotion.fixture.PromotionFixture.추석_프로모션;
+import static woowa.promotion.fixture.PromotionOptionFixture.네번째_프로모션_옵션;
 import static woowa.promotion.fixture.PromotionOptionFixture.두번째_프로모션_옵션;
 import static woowa.promotion.fixture.PromotionOptionFixture.첫번째_프로모션_옵션;
 import static woowa.promotion.fixture.UserFixture.유저_Bruni;
 import static woowa.promotion.fixture.UserFixture.유저_Jinny;
+import static woowa.promotion.fixture.UserFixture.유저_June;
 
 import io.restassured.RestAssured;
 import java.util.Map;
@@ -106,5 +112,43 @@ public class MemberCouponAcceptanceTest extends AcceptanceTest {
         PromotionOption promotionOption = makePromotionOption(createPromotionOption(두번째_프로모션_옵션, promotion));
         makePromotionOptionCouponGroup(promotionOption, couponGroup);
         return promotion.getId();
+    }
+
+    private Long saveScenarioE() {
+        var couponGroup = makeCouponGroup(createCouponGroup(추석_쿠폰그룹_랜덤));
+        makeCoupon(createCoupon(추석_쿠폰_랜덤_1000, couponGroup));
+        makeCoupon(createCoupon(추석_쿠폰_랜덤_2000, couponGroup));
+        makeCoupon(createCoupon(추석_쿠폰_랜덤_3000, couponGroup));
+        Promotion promotion = makePromotion(createPromotion(추석_프로모션));
+        PromotionOption promotionOption = makePromotionOption(createPromotionOption(네번째_프로모션_옵션, promotion));
+        makePromotionOptionCouponGroup(promotionOption, couponGroup);
+        return promotion.getId();
+    }
+
+    @DisplayName("시나리오 E: "
+            + "프로모션 옵션 : 신규 회원"
+            + "쿠폰 옵션 :  랜덤"
+            + "주문 내역이 없는 회원이 쿠폰 발급에 성공한다.")
+    @Test
+    void scenarioE() {
+        // given
+        Member member = makeMember(유저_June);
+        String accessToken = jwtProvider.createAccessToken(Map.of("memberId", member.getId()));
+        Long promotionId = saveScenarioE();
+
+        var request = RestAssured
+                .given().log().all()
+                .auth().oauth2(accessToken)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(FixtureFactory.createCouponIssueRequest(promotionId));
+
+        // when
+        var response = request
+                .when().post("/app/member-coupons")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 }
