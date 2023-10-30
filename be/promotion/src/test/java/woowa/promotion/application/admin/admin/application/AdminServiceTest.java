@@ -1,4 +1,4 @@
-package woowa.promotion.admin.admin.application;
+package woowa.promotion.application.admin.admin.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import woowa.promotion.admin.admin.application.AdminService;
 import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
 import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
 import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
