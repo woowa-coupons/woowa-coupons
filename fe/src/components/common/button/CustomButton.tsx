@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import React from "react";
 import { buttonIconStyle, buttonStyle } from "./CustomButton.style";
 import { ButtonColor, ButtonSize } from "./CustomButtonType";
 
@@ -6,22 +7,22 @@ type Props = {
     title: string,
     size: ButtonSize,
     color: ButtonColor,
-    icon?: string,
+    icon?: React.ReactNode,
     onButtonClick?: () => void,
 }
 
-export default function CustomButton(props: Props) {
+export default function CustomButton({title, size, color, icon, onButtonClick}: Props) {
 
     return (
         <button 
-            css={buttonStyle(props.size, props.color)} 
-            {...(props.onButtonClick && { onClick: props.onButtonClick })}>
+            css={buttonStyle(size, color)} 
+            {...(onButtonClick && { onClick: onButtonClick })}>
             {
-                props.icon != undefined
-                ? <i css={buttonIconStyle}>{ props.icon }</i>
+                icon != undefined
+                ? <i css={buttonIconStyle}>{ icon }</i>
                 : null 
             }
-            {props.title}
+            {title}
         </button>
     );
 }
