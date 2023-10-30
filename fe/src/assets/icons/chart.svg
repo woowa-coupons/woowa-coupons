@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<g>
-	<polygon points="384,106.7 384,140.8 453.7,140.8 251.7,342.8 174.9,266 64.7,376.2 88.9,400.3 174.9,314.3 251.7,391.1 477.9,165 
-		477.9,234.7 512,234.7 512,106.7 384,106.7 	"/>
-	<polygon points="34.1,46.9 0,46.9 0,465.1 512,465.1 512,430.9 34.1,430.9 	"/>
-</g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="64px" height="64px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="current" stroke-width="0.9120000000000001"/>
+
+<g id="SVGRepo_iconCarrier"> <path d="M21 21H6.2C5.07989 21 4.51984 21 4.09202 20.782C3.71569 20.5903 3.40973 20.2843 3.21799 19.908C3 19.4802 3 18.9201 3 17.8V3M7 15L12 9L16 13L21 7" stroke="current" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/> </g>
+
 </svg>
