@@ -1,9 +1,10 @@
 package woowa.promotion.fixture;
 
+import woowa.promotion.admin.promotion_option.domain.MemberType;
+
 import java.time.Instant;
 import java.time.Year;
 import java.time.ZoneId;
-import woowa.promotion.admin.promotion_option.domain.MemberType;
 
 public enum PromotionOptionFixture {
 
@@ -15,10 +16,6 @@ public enum PromotionOptionFixture {
     네번째_프로모션_옵션(null, null, MemberType.NEW_MEMBER.name());
 
 
-    private static Instant getLastOrderAtPromotion() {
-        return Year.of(2023).atMonth(10).atDay(26).atTime(16, 0).atZone(ZoneId.of("Asia/Seoul")).toInstant();
-    }
-
     private Instant lastOrderAt;
     private Boolean lastOrderBefore;
     private String memberType;
@@ -27,6 +24,10 @@ public enum PromotionOptionFixture {
         this.lastOrderAt = lastOrderAt;
         this.lastOrderBefore = lastOrderBefore;
         this.memberType = memberType;
+    }
+
+    private static Instant getLastOrderAtPromotion() {
+        return Year.of(2023).atMonth(10).atDay(26).atTime(16, 0).atZone(ZoneId.of("Asia/Seoul")).toInstant();
     }
 
     public Instant getLastOrderAt() {
