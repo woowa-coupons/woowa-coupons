@@ -8,7 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.mock.web.MockHttpServletRequest;
 import woowa.promotion.global.util.HttpAuthorizationUtil;
 
-@DisplayName("HttpAuthorizationUtil 단위 테스트")
+@DisplayName("[단위테스트] HttpAuthorizationUtil")
 class HttpAuthorizationUtilTest {
 
     @DisplayName("ServletRequest의 Authorization 헤더에서 액세스 토큰을 추출하는데 성공한다.")

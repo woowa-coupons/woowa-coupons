@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.security.hash.SHA256;
 
-@DisplayName("SHA256 단위 테스트")
+@DisplayName("[단위테스트] SHA256")
 class SHA256Test {
 
     private SHA256 sha256 = new SHA256();

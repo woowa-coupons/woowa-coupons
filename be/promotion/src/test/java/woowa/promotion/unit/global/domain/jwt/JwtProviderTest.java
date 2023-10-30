@@ -14,7 +14,7 @@ import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.properties.JwtProperties;
 
-@DisplayName("JwtProvider 단위 테스트")
+@DisplayName("[단위테스트] JwtProvider")
 class JwtProviderTest {
 
     private static final String SECRET_KEY = "1231231231231231231231231231231231312312312312312312312312312312";
