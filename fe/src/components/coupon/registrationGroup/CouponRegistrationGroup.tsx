@@ -5,8 +5,8 @@ import {
   inputBoxGroupTopDivStyle,
 } from './CouponRegistrationGroup.style';
 import RegistrationBox from './RegistrationViewBox';
-import { requiredIndicationStyle } from '../CouponGroup.style';
-import { Coupon } from '../CouponType';
+import { requiredIndicationStyle } from '../common/CouponGroup.style';
+import { Coupon } from '../common/CouponType';
 import RegistrationInputBox from './RegistrationInputBox';
 
 type Props = {

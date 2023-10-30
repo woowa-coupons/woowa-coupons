@@ -5,7 +5,7 @@ import {
   inputGroupTopDivStyle,
   selectInputStyle,
 } from './InputGroup.style';
-import { requiredIndicationStyle } from '../CouponGroup.style';
+import { requiredIndicationStyle } from '../common/CouponGroup.style';
 import { InputGroupSize } from './InputGroupType';
 
 type Option = { text: string; value: string };

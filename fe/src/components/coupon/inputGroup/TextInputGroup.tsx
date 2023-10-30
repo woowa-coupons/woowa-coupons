@@ -5,7 +5,7 @@ import {
   inputGroupTopDivStyle,
   textInputStyle,
 } from './InputGroup.style';
-import { requiredIndicationStyle } from '../CouponGroup.style';
+import { requiredIndicationStyle } from '../common/CouponGroup.style';
 import { InputGroupSize } from './InputGroupType';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
