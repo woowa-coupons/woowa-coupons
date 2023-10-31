@@ -1,4 +1,4 @@
-package woowa.promotion.application.admin.documentation;
+package woowa.promotion.documentation;
 
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.given;
