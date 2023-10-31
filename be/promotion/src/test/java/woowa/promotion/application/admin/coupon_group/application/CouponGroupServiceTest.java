@@ -21,7 +21,7 @@ import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupD
 import woowa.promotion.util.ApplicationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 
-@DisplayName("[비즈니스 로직 테스트] 쿠폰 그룹")
+@DisplayName("[비즈니스 로직 테스트][관리자] 쿠폰 그룹")
 class CouponGroupServiceTest extends ApplicationTest {
 
     @Autowired

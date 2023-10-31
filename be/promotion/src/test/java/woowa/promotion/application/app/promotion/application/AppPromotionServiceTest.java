@@ -11,7 +11,7 @@ import woowa.promotion.util.ApplicationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 import woowa.promotion.util.fixture.PromotionFixture;
 
-@DisplayName("[비즈니스 로직 테스트] 회원 프로모션")
+@DisplayName("[비즈니스 로직 테스트][회원] 프로모션")
 class AppPromotionServiceTest extends ApplicationTest {
 
     @Autowired

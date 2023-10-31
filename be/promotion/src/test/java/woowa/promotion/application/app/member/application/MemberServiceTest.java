@@ -18,7 +18,7 @@ import woowa.promotion.global.exception.domain.MemberException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 
-@DisplayName("[비즈니스 로직 테스트] 회원")
+@DisplayName("[비즈니스 로직 테스트][회원] 인증")
 class MemberServiceTest extends ApplicationTest {
 
     @Autowired

@@ -23,7 +23,7 @@ import woowa.promotion.app.member_coupon.application.MemberCouponService;
 import woowa.promotion.app.member_coupon.presentation.dto.CouponIssueRequest;
 import woowa.promotion.util.DocumentationTest;
 
-@DisplayName("[REST Docs] 회원 쿠폰")
+@DisplayName("[RESTDocs] 회원 쿠폰 API")
 public class MemberCouponDocumentationTest extends DocumentationTest {
 
     @Autowired

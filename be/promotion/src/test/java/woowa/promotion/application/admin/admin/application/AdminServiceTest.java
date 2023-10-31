@@ -18,7 +18,7 @@ import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 
-@DisplayName("[비즈니스 로직 테스트] 관리자")
+@DisplayName("[비즈니스 로직 테스트][관리자] 인증")
 class AdminServiceTest extends ApplicationTest {
 
     @Autowired

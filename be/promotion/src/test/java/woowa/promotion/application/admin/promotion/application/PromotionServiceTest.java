@@ -30,7 +30,7 @@ import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.Promot
 import woowa.promotion.util.ApplicationTest;
 
 
-@DisplayName("[비즈니스 로직 테스트] 관리자 프로모션")
+@DisplayName("[비즈니스 로직 테스트][관리자] 프로모션")
 class PromotionServiceTest extends ApplicationTest {
 
     @Autowired
