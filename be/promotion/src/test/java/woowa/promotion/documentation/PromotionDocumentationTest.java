@@ -1,4 +1,4 @@
-package woowa.promotion.application.app.documentation;
+package woowa.promotion.documentation;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
