@@ -1,6 +1,7 @@
 package woowa.promotion.util;
 
 import io.restassured.RestAssured;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,10 +16,10 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptionCouponGroup;
 import woowa.promotion.app.member.domain.Member;
-import woowa.promotion.fixture.FixtureFactory;
-import woowa.promotion.fixture.UserFixture;
 import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.security.hash.PasswordEncoder;
+import woowa.promotion.util.fixture.FixtureFactory;
+import woowa.promotion.util.fixture.MemberFixture;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -42,9 +43,16 @@ public abstract class AcceptanceTest {
         RestAssured.port = port;
     }
 
-    protected Member makeMember(UserFixture userFixture) {
-        String password = passwordEncoder.encrypt(userFixture.getPassword());
-        return supportRepository.save(FixtureFactory.createMember(userFixture, password));
+    protected Member 랜덤_회원_가입() {
+        String nickname = UUID.randomUUID().toString();
+        String email = nickname.substring(0, 5) + "@test.com";
+        Member member = new Member(nickname, email, passwordEncoder.encrypt("password"));
+        return supportRepository.save(member);
+    }
+
+    protected Member makeMember(MemberFixture memberFixture) {
+        String password = passwordEncoder.encrypt(memberFixture.getPassword());
+        return supportRepository.save(FixtureFactory.createMember(memberFixture, password));
     }
 
     protected Promotion makePromotion(Promotion promotion) {
