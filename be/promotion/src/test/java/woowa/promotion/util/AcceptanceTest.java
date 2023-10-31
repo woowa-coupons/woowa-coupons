@@ -1,6 +1,7 @@
 package woowa.promotion.util;
 
 import io.restassured.RestAssured;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +41,13 @@ public abstract class AcceptanceTest {
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+    }
+
+    protected Member 랜덤_회원_가입() {
+        String nickname = UUID.randomUUID().toString();
+        String email = nickname.substring(0, 5) + "@test.com";
+        Member member = new Member(nickname, email, passwordEncoder.encrypt("password"));
+        return supportRepository.save(member);
     }
 
     protected Member makeMember(MemberFixture memberFixture) {
