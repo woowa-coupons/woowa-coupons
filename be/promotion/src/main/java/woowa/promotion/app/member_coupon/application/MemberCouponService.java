@@ -63,14 +63,15 @@ public class MemberCouponService {
     }
 
     private List<CouponGroup> getCouponGroups(PromotionOption promotionOption) {
-        List<PromotionOptionCouponGroup> promotionOptionCouponGroups = promotionOptionCouponGroupRepository.findByPromotionOptionId(promotionOption.getId());
+        List<PromotionOptionCouponGroup> promotionOptionCouponGroups = promotionOptionCouponGroupRepository.findByPromotionOptionId(
+                promotionOption.getId());
         return promotionOptionCouponGroups.stream()
                 .map(PromotionOptionCouponGroup::getCouponGroup)
                 .toList();
     }
 
     private boolean hasRemainCoupon(CouponGroup couponGroup) {
-        return couponGroup.getCoupons().stream()
+        return couponRepository.findByCouponGroupId(couponGroup.getId()).stream()
                 .allMatch(coupon -> coupon.getRemainQuantity() > 0);
     }
 
