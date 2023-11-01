@@ -8,6 +8,5 @@ import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 
 public interface PromotionOptionRepository extends JpaRepository<PromotionOption, Long> {
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<PromotionOption> findByPromotionId(Long id);
 }
