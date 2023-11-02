@@ -9,8 +9,17 @@ export type Coupon = {
   title: string;
   type: string;
   discount: number;
-  quantity: number;
+  initialQuantity: number;
 };
+
+export type CouponGroup = {
+  id: number,
+  title: string,
+  couponTitles: string[],
+  totalRemainQuantity: number,
+  totalInitialQuantity: number,
+  createdBy: string,
+}
 
 export const IsRandom = [
     { text: '일반 발급', value: '정액' },
