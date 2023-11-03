@@ -10,7 +10,7 @@ import CustomButton from '@components/common/CustomButton/CustomButton';
 import { Icon } from '@components/common/Icon/Icon';
 import { CouponGroupType, IsRandom } from './CouponType';
 
-export default function CouponGroupCard() {
+export default function CouponGroupRegistrationCard() {
   const {
     value: groupName,
     setValue: setGroupName,

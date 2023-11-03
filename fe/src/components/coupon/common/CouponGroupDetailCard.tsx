@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import ViewBoxGroup from '../viewDataGroup/ViewBoxGroup';
 import ViewTextGroup from '../viewDataGroup/ViewTextGroup';
-import { cardStyle } from './CouponGroup.style';
-import { Coupon } from './CouponType';
+import {cardStyle} from './CouponGroup.style';
+import {Coupon} from './CouponType';
+import {formatDate} from "@utils/formatData.ts";
 
 type Props = {
   couponGroupId: number,
@@ -44,24 +45,22 @@ export default function CouponGroupDetailCard({couponGroupId}: Props) {
       throw new Error('Failed to fetch');
     }
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
   };
 
   return (
     <div css={cardStyle}>
-      <ViewTextGroup title={'쿠폰 그룹 No.'} content={'-'} size={'medium'} />
+      <ViewTextGroup title={'쿠폰 그룹 No.'} content={'1'} size={'medium'} />
 
       <ViewTextGroup title={'쿠폰 그룹 이름'} content={title} size={'medium'} />
 
-      <ViewTextGroup title={'발급 시작 일자'} content={startedAt} size={'medium'} />
+      <ViewTextGroup title={'발급 시작 일자'} content={formatDate(startedAt)} size={'medium'} />
 
-      <ViewTextGroup title={'발급 종료 일자'} content={finishedAt} size={'medium'} />
+      <ViewTextGroup title={'발급 종료 일자'} content={formatDate(finishedAt)} size={'medium'} />
 
       <ViewTextGroup title={'랜덤 발급 여부'} content={isRandom? '랜덤 발급' : 'X'} size={'medium'} />
 
-      <ViewTextGroup title={'쿠폰 그룹 타입'} content={type} size={'medium'} />
+      <ViewTextGroup title={'쿠폰 그룹 타입'} content={type? '일일 지급 쿠폰' : '일일 지급 쿠폰'} size={'medium'} />
 
       <ViewBoxGroup title={'등록된 쿠폰'} content={coupons} />
     </div>

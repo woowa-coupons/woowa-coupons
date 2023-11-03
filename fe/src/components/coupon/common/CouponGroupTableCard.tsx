@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import AdminTable from '../adminTable/AdminTable';
-import { HeaderData } from '../adminTable/AdminTableType';
-import { cardWithoutPaddingStyle } from './CouponGroup.style';
-import { CouponGroup } from './CouponType';
+import {HeaderData} from '../adminTable/AdminTableType';
+import {cardWithoutPaddingStyle} from './CouponGroup.style';
+import {CouponGroup} from './CouponType';
 
 export default function CouponGroupTableCard() {
 
@@ -31,9 +31,7 @@ export default function CouponGroupTableCard() {
       throw new Error('Failed to fetch');
     }
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
   };
 
   return (

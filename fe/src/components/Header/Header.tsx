@@ -29,6 +29,14 @@ const headerTitle: HeaderTitleMap = {
     title: '쿠폰 그룹 관리',
     hasBackButton: false,
   },
+  '/couponGroup/detail/1': {
+    title: '쿠폰 그룹 상세',
+    hasBackButton: false,
+  },
+  '/couponGroup/add': {
+    title: '쿠폰 그룹 추가',
+    hasBackButton: false,
+  },
   '/analytics': {
     title: '통계',
     hasBackButton: false,
