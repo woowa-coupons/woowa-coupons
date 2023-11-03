@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { Coupon } from '../CouponType';
-import CouponRegistrationItem from './CouponRegistrationItem';
+import { Coupon } from '../common/CouponType';
 import { registrationBoxStyle } from './CouponRegistrationGroup.style';
+import CouponRegistrationItem from './CouponRegistrationItem';
 
 type Props = {
   coupons: Coupon[];

@@ -17,7 +17,7 @@ import X from '@assets/icons/x.svg?react';
 import { theme } from '@styles/theme';
 import React from 'react';
 
-const icons = {
+export const icons = {
   calendar: Calendar,
   chart: Chart,
   chevronDown: ChevronDown,

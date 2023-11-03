@@ -11,6 +11,7 @@ export const usePageNavigator = () => {
     navigateToPromotionAdd: () => navigate(PATH.PROMOTION.ADD),
     navigateToPromotionDetail: (promotionId: number) =>
       navigate(PATH.PROMOTION.DETAIL(promotionId)),
+    navigateToCouponGroupAdd: () => navigate(PATH.COUPON.ADD),
     navigateToGoBack: () => navigate(PATH.GOBACK),
   };
 };
