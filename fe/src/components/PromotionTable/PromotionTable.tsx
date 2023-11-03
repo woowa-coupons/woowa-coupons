@@ -14,19 +14,9 @@ import { Button } from '@components/common/Button/Button';
 import { Icon } from '@components/common/Icon/Icon';
 import { buttonStyles } from '@components/common/Button/Button.styles';
 import { formatDate } from '@utils/formatData';
+import { PromotionSummary } from '@api/promotion';
 
-export type PromotionList = {
-  id: number;
-  bannerUrl: string;
-  title: string;
-  startedAt: string;
-  finishedAt: string;
-  progressStatus: string;
-};
-
-type PromotionTableProps = { data: PromotionList[] };
-
-export function PromotionTable({ data }: PromotionTableProps) {
+export function PromotionTable(data: PromotionSummary[]) {
   const theme = useTheme();
 
   return (
@@ -44,7 +34,7 @@ export function PromotionTable({ data }: PromotionTableProps) {
         </tr>
       </thead>
       <tbody css={tableBody(theme)}>
-        {data.map((item) => (
+        {data.map((item: PromotionSummary) => (
           <tr key={item.id} css={promotionItem(theme, false)}>
             <td css={sectionStyles.checkbox}>
               <input type="checkbox" />
@@ -78,13 +68,13 @@ export function PromotionTable({ data }: PromotionTableProps) {
             </td>
             <td css={sectionStyles.buttons}>
               <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="chart" fill="none" stroke="GRAY_400" />
+                <Icon name="chart" fill="WHITE" stroke="GRAY_400" />
               </Button>
               <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="edit" fill="none" stroke="GRAY_400" />
+                <Icon name="edit" fill="WHITE" stroke="GRAY_400" />
               </Button>
               <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="trash" fill="none" stroke="GRAY_400" />
+                <Icon name="trash" fill="WHITE" stroke="GRAY_400" />
               </Button>
             </td>
           </tr>

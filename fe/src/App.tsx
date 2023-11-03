@@ -6,7 +6,8 @@ import { ErrorPage } from '@pages/ErrorPage/ErrorPage';
 import { PromotionAddPage } from '@pages/PromotionAddPage/PromotionAddPage';
 import { PromotionDetailPage } from '@pages/PromotionDetailPage/PromotionDetailPage';
 import { PromotionPage } from '@pages/PromotionPage/PromotionPage';
-import StartPage from '@pages/StartPage/\bStartPage';
+import StartPage from '@pages/StartPage/StartPage';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
