@@ -257,7 +257,7 @@ export function PromotionAddPage() {
             </div>
             <div css={settingButtonSection}>
               <Button cssProp={buttonStyles.iconWhite(theme)}>
-                <Icon name="refresh" fill="none" />
+                <Icon name="refresh" fill="WHITE" />
                 <span>초기화</span>
               </Button>
               <Button cssProp={buttonStyles.iconBlue(theme)}>
