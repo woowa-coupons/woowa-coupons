@@ -24,13 +24,15 @@ import { buttonStyles } from '@components/common/Button/Button.styles';
 import { Icon } from '@components/common/Icon/Icon';
 import { PromotionCard } from '@components/PromotionCard/PromotionCard';
 import { usePageNavigator } from '@hooks/usePageNavigator';
+import { useCouponGroupList } from '@api/coupon';
+import { usePostNewPromotion } from '@api/promotion';
 
 type PromotionOptions = PromotionOptionType[];
 
 type PromotionOptionType = {
   memberType: string;
   lastOrderAt: string;
-  couponGroupTitle: string;
+  couponGroupId: number;
 };
 
 // to do: 컴포넌트로 분리
@@ -43,36 +45,17 @@ export function PromotionAddPage() {
   const { value: startedAt, onChange: onChangeStartedAt } = useInput();
   const { value: finishedAt, onChange: onChangeFinishedAt } = useInput();
   const { value: promotionUrl, onChange: onChangePromotionUrl } = useInput();
+  const { value: contents, onChange: onChangeContents } = useInput();
+  const {
+    value: lastOrder,
+    setValue: setLastOrder,
+    onChange: onChangeLastOrder,
+  } = useInput();
   const [isDisplay, setIsDisplay] = useState<string>('노출');
   const [promotionStatus, setPromotionStatus] = useState<string>('예정');
+  const [selectedCouponGroup, setSelectedCouponGroup] = useState<number>();
   const [memberType, setMemberType] = useState<string>();
-  const [couponGroup, setCouponGroup] = useState<PromotionOptions>([
-    {
-      memberType: 'new',
-      lastOrderAt: '2023.10.23',
-      couponGroupTitle: '10주년',
-    },
-    {
-      memberType: 'new',
-      lastOrderAt: '2023.10.23',
-      couponGroupTitle: '10주년',
-    },
-    {
-      memberType: 'new',
-      lastOrderAt: '2023.10.23',
-      couponGroupTitle: '10주년',
-    },
-    {
-      memberType: 'new',
-      lastOrderAt: '2023.10.23',
-      couponGroupTitle: '10주년',
-    },
-    {
-      memberType: 'new',
-      lastOrderAt: '2023.10.23',
-      couponGroupTitle: '10주년',
-    },
-  ]);
+  const [couponGroup, setCouponGroup] = useState<PromotionOptions>([]);
 
   const handleDisplayOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIsDisplay(e.target.value);
@@ -86,6 +69,44 @@ export function PromotionAddPage() {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setMemberType(e.target.value);
+  };
+
+  const handleSelectedCouponGroup = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCouponGroup(parseInt(e.target.value));
+  };
+
+  const newPromotionData = {
+    title: title,
+    content: contents,
+    banner: bannerUrl,
+    startedAt: startedAt,
+    finishedAt: finishedAt,
+    isDisplay: isDisplay === '노출' ? true : false,
+    promotionPageUrl: promotionUrl,
+    progressStatus: promotionStatus,
+    promotionOptions: couponGroup,
+  };
+  const postNewPromotion = usePostNewPromotion();
+  const { data: couponGroupListData } = useCouponGroupList();
+  const handleAddPromotionOption = () => {
+    if (memberType && lastOrder && selectedCouponGroup) {
+      const newPromotionOption = {
+        memberType: memberType,
+        lastOrderAt: lastOrder,
+        couponGroupId: selectedCouponGroup,
+      };
+      setCouponGroup([...couponGroup, newPromotionOption]);
+      // 추가 후 필드 초기화
+      resetPromotionOptionInput();
+    }
+  };
+
+  const resetPromotionOptionInput = () => {
+    setMemberType('');
+    setLastOrder('');
+    setSelectedCouponGroup(undefined);
   };
 
   return (
@@ -150,7 +171,11 @@ export function PromotionAddPage() {
             <span>상세 내용</span>
           </div>
           <div css={inputSection}>
-            <textarea />
+            <Input
+              value={contents}
+              placeholder="상세 내용을 입력해주세요"
+              onChange={onChangeContents}
+            />
           </div>
         </div>
         <div css={tableItem}>
@@ -193,7 +218,7 @@ export function PromotionAddPage() {
               value={promotionStatus}
               onChange={handlePromotionStatus}
             >
-              <option value="예정">예정</option>
+              <option value="ON_GOING">예정</option>
               <option value="진행중">진행중</option>
               <option value="종료">종료</option>
             </select>
@@ -220,8 +245,8 @@ export function PromotionAddPage() {
                     <option disabled hidden selected>
                       회원 타입을 설정해주세요
                     </option>
-                    <option value="예정">신규 회원</option>
-                    <option value="진행중">모든 회원</option>
+                    <option value="NEW_MEMBER">신규 회원</option>
+                    <option value="OLD_MEMBER">모든 회원</option>
                   </select>
                 </div>
               </div>
@@ -232,9 +257,9 @@ export function PromotionAddPage() {
                 <div>
                   <input
                     css={dateInput(theme)}
-                    value={finishedAt}
+                    value={lastOrder}
                     type="date"
-                    onChange={onChangeFinishedAt}
+                    onChange={onChangeLastOrder}
                   />
                 </div>
               </div>
@@ -245,22 +270,36 @@ export function PromotionAddPage() {
                 <div>
                   <select
                     css={selectorStyles(theme)}
-                    value={memberType}
-                    onChange={handlePromotionMemberType}
+                    value={selectedCouponGroup}
+                    onChange={handleSelectedCouponGroup}
                   >
                     <option disabled hidden selected>
-                      쿠폰 그룹을 설정해주세요
+                      {couponGroupListData
+                        ? '쿠폰 그룹을 설정해주세요'
+                        : '생성된 쿠폰 그룹이 없습니다'}
                     </option>
+                    {couponGroupListData &&
+                      couponGroupListData.map((item) => (
+                        <option id={item.id.toString()} value={item.id}>
+                          {item.title}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
             </div>
             <div css={settingButtonSection}>
-              <Button cssProp={buttonStyles.iconWhite(theme)}>
+              <Button
+                cssProp={buttonStyles.iconWhite(theme)}
+                onClick={resetPromotionOptionInput}
+              >
                 <Icon name="refresh" fill="WHITE" />
                 <span>초기화</span>
               </Button>
-              <Button cssProp={buttonStyles.iconBlue(theme)}>
+              <Button
+                cssProp={buttonStyles.iconBlue(theme)}
+                onClick={handleAddPromotionOption}
+              >
                 <Icon name="plus" stroke="WHITE" />
                 <span>추가</span>
               </Button>
@@ -272,7 +311,7 @@ export function PromotionAddPage() {
                   id={index}
                   memberType={item.memberType}
                   lastOrderAt={item.lastOrderAt}
-                  couponGroupTitle={item.couponGroupTitle}
+                  couponGroupTitle={item.couponGroupId.toString()}
                 />
               ))}
             </div>
@@ -287,7 +326,13 @@ export function PromotionAddPage() {
             >
               취소
             </Button>
-            <Button>등록하기</Button>
+            <Button
+              onClick={() => {
+                postNewPromotion.mutate(newPromotionData);
+              }}
+            >
+              등록하기
+            </Button>
           </div>
         </div>
       </div>
