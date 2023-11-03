@@ -11,6 +11,7 @@ import {
 import { LabelInput } from '@components/common/LabelInput/LabelInput';
 import { useInput } from '@hooks/useInput';
 import { buttonStyles } from '@components/common/Button/Button.styles';
+import { usePostSignUpData } from '@api/auth';
 
 type JoinFormProps = {
   goLoginPage: () => void;
@@ -22,6 +23,14 @@ export function JoinForm({ goLoginPage }: JoinFormProps) {
   const { value: password, onChange: onChangePassword } = useInput();
   const { value: checkPassword, onChange: onChangeCheckPassword } = useInput();
   const { value: nickname, onChange: onChangeNickname } = useInput();
+
+  const signUpData = {
+    email: id,
+    nickname: nickname,
+    password: checkPassword,
+  };
+
+  const postSigUp = usePostSignUpData();
 
   return (
     <div css={joinPage()}>
@@ -71,7 +80,13 @@ export function JoinForm({ goLoginPage }: JoinFormProps) {
         />
       </div>
       <div css={buttonSection()}>
-        <Button onClick={goLoginPage}>등록하기</Button>
+        <Button
+          onClick={() => {
+            postSigUp.mutate(signUpData);
+          }}
+        >
+          등록하기
+        </Button>
       </div>
     </div>
   );
