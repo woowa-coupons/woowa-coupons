@@ -31,7 +31,6 @@ export const usePostSignUpData = () => {
 
 const postSignInData = async (signInData: SignInData) => {
   const response = await publicApi.post(API_ENDPOINT.LOGIN, signInData);
-  console.log(response);
   return response.data;
 };
 
@@ -39,6 +38,11 @@ export const usePostSignInData = () => {
   const { navigateToPromotion } = usePageNavigator();
   const { mutate } = useMutation(postSignInData, {
     onSuccess: () => {
+      console.log('success');
+      localStorage.setItem(
+        'accessToken',
+        'eyJhbGciOiJIUzUxMiJ9.eyJhZG1pbklkIjo0LCJleHAiOjE2OTg5ODE0NTR9.3ZkKTbVrOn-aU9ZQU_RKjtoAlqzOtnNG2cZKjh3X70mgWTr-vmeFS-ZsnB1-VBOgGyTDKcVjSkNynTxzsGFoHg'
+      );
       navigateToPromotion();
     },
   });

@@ -8,6 +8,8 @@ export const background = () => css`
 
 export const contents = () => css`
   padding: 30px;
+  min-width: 1140px;
+  min-height: 924px;
   width: max-content;
   height: max-content;
   display: flex;
