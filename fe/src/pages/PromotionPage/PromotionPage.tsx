@@ -11,69 +11,13 @@ import { useTheme } from '@emotion/react';
 import { Icon } from '@components/common/Icon/Icon';
 import { usePageNavigator } from '@hooks/usePageNavigator';
 import emptyImg from '@assets/images/empty.png';
-
-const data = [
-  {
-    id: 6,
-    bannerUrl:
-      'https://lwi.nexon.com/m_kartrush/event/2022/0907_baemin_21CF67D8C8A953B2/meta.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '진행중',
-  },
-  {
-    id: 5,
-    bannerUrl:
-      'https://lwi.nexon.com/m_kartrush/event/2022/0907_baemin_21CF67D8C8A953B2/meta.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '종료',
-  },
-  {
-    id: 4,
-    bannerUrl:
-      'https://lwi.nexon.com/m_kartrush/event/2022/0907_baemin_21CF67D8C8A953B2/meta.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '종료',
-  },
-  {
-    id: 3,
-    bannerUrl:
-      'https://lwi.nexon.com/m_kartrush/event/2022/0907_baemin_21CF67D8C8A953B2/meta.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '종료',
-  },
-  {
-    id: 2,
-    bannerUrl:
-      'https://img.a-bly.com/events/thumbnails/event_thumbnail_1681896870034220.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '종료',
-  },
-  {
-    id: 1,
-    bannerUrl:
-      'https://lwi.nexon.com/m_kartrush/event/2022/0907_baemin_21CF67D8C8A953B2/meta.jpg',
-    title: '프로모션 제목',
-    startedAt: '2023-10-06T14:30:00Z',
-    finishedAt: '2023-10-16T14:30:00Z',
-    progressStatus: '종료',
-  },
-];
-
-// const data: PromotionList[] = [];
+import { usePromotionList } from '@api/promotion';
 
 export function PromotionPage() {
   const theme = useTheme();
   const { navigateToPromotionAdd } = usePageNavigator();
+
+  const { data: promotionList } = usePromotionList();
 
   return (
     <div css={contents}>
@@ -90,8 +34,9 @@ export function PromotionPage() {
           <span>프로모션 등록</span>
         </Button>
       </div>
-      <PromotionTable data={data} />
-      {data.length === 0 && (
+      {promotionList && promotionList.length > 0 ? (
+        <PromotionTable data={promotionList} />
+      ) : (
         <div css={emptyLog(theme)}>
           <img css={empty} src={emptyImg} alt="" />
           <span>등록된 프로모션이 없습니다</span>

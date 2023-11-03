@@ -14,9 +14,17 @@ import { Button } from '@components/common/Button/Button';
 import { Icon } from '@components/common/Icon/Icon';
 import { buttonStyles } from '@components/common/Button/Button.styles';
 import { formatDate } from '@utils/formatData';
-import { PromotionSummary } from '@api/promotion';
 
-export function PromotionTable(data: PromotionSummary[]) {
+export type PromotionListItem = {
+  id: number;
+  bannerUrl: string;
+  title: string;
+  startedAt: string;
+  finishedAt: string;
+  progressStatus: string;
+};
+
+export function PromotionTable({ data }: { data: PromotionListItem[] }) {
   const theme = useTheme();
 
   return (
@@ -34,51 +42,52 @@ export function PromotionTable(data: PromotionSummary[]) {
         </tr>
       </thead>
       <tbody css={tableBody(theme)}>
-        {data.map((item: PromotionSummary) => (
-          <tr key={item.id} css={promotionItem(theme, false)}>
-            <td css={sectionStyles.checkbox}>
-              <input type="checkbox" />
-            </td>
-            <td css={sectionStyles.no}>
-              <span>{item.id}</span>
-            </td>
-            <td css={sectionStyles.banner}>
-              <img
-                css={bannerImg}
-                src={item.bannerUrl}
-                alt="프로모션 배너 이미지"
-              />
-            </td>
-            <td css={sectionStyles.name}>
-              <a href={`/promotion/${item.id}`} css={detailLink(theme)}>
-                <span>{item.title}</span>
-              </a>
-            </td>
-            <td css={sectionStyles.startDate}>
-              <span>{formatDate(item.startedAt)}</span>
-            </td>
-            <td css={sectionStyles.endDate}>
-              <span>{formatDate(item.finishedAt)}</span>
-            </td>
-            <td css={sectionStyles.status}>
-              <span>{item.progressStatus}</span>
-            </td>
-            <td css={sectionStyles.writer}>
-              <span>litae</span>
-            </td>
-            <td css={sectionStyles.buttons}>
-              <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="chart" fill="WHITE" stroke="GRAY_400" />
-              </Button>
-              <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="edit" fill="WHITE" stroke="GRAY_400" />
-              </Button>
-              <Button cssProp={buttonStyles.onlyIconLarge()}>
-                <Icon name="trash" fill="WHITE" stroke="GRAY_400" />
-              </Button>
-            </td>
-          </tr>
-        ))}
+        {data &&
+          data.map((item: PromotionListItem) => (
+            <tr key={item.id.toString()} css={promotionItem(theme, false)}>
+              <td css={sectionStyles.checkbox}>
+                <input type="checkbox" />
+              </td>
+              <td css={sectionStyles.no}>
+                <span>{item.id}</span>
+              </td>
+              <td css={sectionStyles.banner}>
+                <img
+                  css={bannerImg}
+                  src={item.bannerUrl}
+                  alt="프로모션 배너 이미지"
+                />
+              </td>
+              <td css={sectionStyles.name}>
+                <a href={`/promotion/${item.id}`} css={detailLink(theme)}>
+                  <span>{item.title}</span>
+                </a>
+              </td>
+              <td css={sectionStyles.startDate}>
+                <span>{formatDate(item.startedAt)}</span>
+              </td>
+              <td css={sectionStyles.endDate}>
+                <span>{formatDate(item.finishedAt)}</span>
+              </td>
+              <td css={sectionStyles.status}>
+                <span>{item.progressStatus}</span>
+              </td>
+              <td css={sectionStyles.writer}>
+                <span>litae</span>
+              </td>
+              <td css={sectionStyles.buttons}>
+                <Button cssProp={buttonStyles.onlyIconLarge()}>
+                  <Icon name="chart" fill="WHITE" stroke="GRAY_400" />
+                </Button>
+                <Button cssProp={buttonStyles.onlyIconLarge()}>
+                  <Icon name="edit" fill="WHITE" stroke="GRAY_400" />
+                </Button>
+                <Button cssProp={buttonStyles.onlyIconLarge()}>
+                  <Icon name="trash" fill="WHITE" stroke="GRAY_400" />
+                </Button>
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
