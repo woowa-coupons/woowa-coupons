@@ -6,6 +6,7 @@ import ChevronRight from '@assets/icons/chevron-right.svg?react';
 import ChevronUp from '@assets/icons/chevron-up.svg?react';
 import Dots from '@assets/icons/dots.svg?react';
 import Edit from '@assets/icons/edit.svg?react';
+import Filter from '@assets/icons/filter.svg?react';
 import Grid from '@assets/icons/grid.svg?react';
 import Home from '@assets/icons/home.svg?react';
 import Plus from '@assets/icons/plus.svg?react';
@@ -25,6 +26,7 @@ const icons = {
   chevronUp: ChevronUp,
   dots: Dots,
   edit: Edit,
+  filter: Filter,
   grid: Grid,
   home: Home,
   plus: Plus,

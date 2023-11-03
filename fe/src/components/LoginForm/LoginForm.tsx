@@ -10,7 +10,7 @@ import { Button } from '@components/common/Button/Button';
 import { useInput } from '@hooks/useInput';
 import { buttonStyles } from '@components/common/Button/Button.styles';
 import { isValidEmail } from '@utils/isValidEmail';
-import { usePageNavigator } from '@hooks/usePageNavigator';
+import { usePostSignInData } from '@api/auth';
 
 type LoginFormProps = {
   goJoinForm: () => void;
@@ -18,9 +18,15 @@ type LoginFormProps = {
 
 export function LoginForm({ goJoinForm }: LoginFormProps) {
   const theme = useTheme();
-  const { navigateToPromotion } = usePageNavigator();
   const { value: id, onChange: onChangeId } = useInput();
   const { value: password, onChange: onChangePassword } = useInput();
+
+  const signInData = {
+    email: id,
+    password: password,
+  };
+
+  const postSignIn = usePostSignInData();
 
   return (
     <div css={loginSection()}>
@@ -50,7 +56,13 @@ export function LoginForm({ goJoinForm }: LoginFormProps) {
         <Button css={buttonStyles.textLink(theme)} onClick={goJoinForm}>
           관리자 등록하기
         </Button>
-        <Button onClick={navigateToPromotion}>로그인</Button>
+        <Button
+          onClick={() => {
+            postSignIn.mutate(signInData);
+          }}
+        >
+          로그인
+        </Button>
       </div>
     </div>
   );
