@@ -9,7 +9,7 @@ export const PATH = {
   },
   COUPON: {
     BASE: '/couponGroup',
-    DETAIL: '/couponGroup/detail/:id',
+    DETAIL: (couponGroupId: number) => `/couponGroup/detail/${couponGroupId}`,
     ADD: '/couponGroup/add',
     EDIT: '/couponGroup/edit/:id',
   },

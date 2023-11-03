@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Icon } from '@components/common/Icon/Icon';
-import { Coupon, CouponType } from '../CouponType';
+import { Coupon, CouponType } from '../common/CouponType';
 import SelectInputGroup from '../inputGroup/SelectInputGroup';
 import TextInputGroup from '../inputGroup/TextInputGroup';
 import {

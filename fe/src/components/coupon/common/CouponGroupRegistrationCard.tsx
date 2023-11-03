@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { cardStyle, inputBoxGropupFooterStyle } from './CouponGroup.style';
-import CouponRegistrationGroup from './registrationGroup/CouponRegistrationGroup';
-import DateInputGroup from './inputGroup/DateInputGroup';
-import TextInputGroup from './inputGroup/TextInputGroup';
+import CouponRegistrationGroup from '../registrationGroup/CouponRegistrationGroup';
+import DateInputGroup from '../inputGroup/DateInputGroup';
+import TextInputGroup from '../inputGroup/TextInputGroup';
 import { useInput } from '@hooks/useInput';
-import { useCoupon } from '@components/coupon/useCoupons';
-import SelectInputGroup from './inputGroup/SelectInputGroup';
-import CustomButton from '@components/common/button/CustomButton';
+import { useCoupon } from '@components/coupon/common/useCoupons';
+import SelectInputGroup from '../inputGroup/SelectInputGroup';
+import CustomButton from '@components/common/CustomButton/CustomButton';
 import { Icon } from '@components/common/Icon/Icon';
 import { CouponGroupType, IsRandom } from './CouponType';
 
-export default function CouponGroupCard() {
+export default function CouponGroupRegistrationCard() {
   const {
     value: groupName,
     setValue: setGroupName,

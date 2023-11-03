@@ -1,0 +1,1 @@
+export type ViewDataGroupSize = "small" | "medium";
