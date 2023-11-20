@@ -1,10 +1,9 @@
 package woowa.promotion.admin.coupon_group.presentation.dto.response;
 
-import woowa.promotion.admin.coupon.domain.Coupon;
-import woowa.promotion.admin.coupon_group.domain.CouponGroup;
-
 import java.time.Instant;
 import java.util.List;
+import woowa.promotion.admin.coupon.domain.Coupon;
+import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 
 public record CouponGroupDetailResponse(
 
@@ -20,7 +19,9 @@ public record CouponGroupDetailResponse(
                 couponGroup.getIsRandom(),
                 couponGroup.getStartedAt(),
                 couponGroup.getFinishedAt(),
-                couponGroup.getCoupons().stream().map(CouponGroupCouponResponse::from).toList()
+                couponGroup.getCoupons().stream()
+                        .map(CouponGroupCouponResponse::from)
+                        .toList()
         );
     }
 
@@ -32,8 +33,12 @@ public record CouponGroupDetailResponse(
             Integer initialQuantity
     ) {
         public static CouponGroupCouponResponse from(Coupon coupon) {
-            return new CouponGroupCouponResponse(coupon.getTitle(), coupon.getType().name(), coupon.getDiscount(),
-                    coupon.getInitialQuantity());
+            return new CouponGroupCouponResponse(
+                    coupon.getTitle(),
+                    coupon.getType().name(),
+                    coupon.getDiscount(),
+                    coupon.getInitialQuantity()
+            );
         }
     }
 }
