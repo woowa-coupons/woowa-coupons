@@ -18,7 +18,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import woowa.promotion.admin.admin.application.AdminService;
+import woowa.promotion.admin.admin.application.AdminAuthService;
 import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
 import woowa.promotion.util.DocumentationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
@@ -27,14 +27,14 @@ import woowa.promotion.util.fixture.FixtureFactory;
 public class AuthDocumentationTest extends DocumentationTest {
 
     @Autowired
-    private AdminService adminService;
+    private AdminAuthService adminAuthService;
 
     @DisplayName("관리자 회원가입")
     @Test
     void signup() throws Exception {
         // given
         var signupData = FixtureFactory.createSignupServiceRequest();
-        willDoNothing().given(adminService).signUp(signupData);
+        willDoNothing().given(adminAuthService).signUp(signupData);
 
         // when
         var response = mockMvc.perform(post("/admin/auth/sign-up")
@@ -62,7 +62,7 @@ public class AuthDocumentationTest extends DocumentationTest {
     void signIn() throws Exception {
         // given
         var signInData = FixtureFactory.createSignInRequest();
-        given(adminService.signIn(any(SignInRequest.class))).willReturn(FixtureFactory.createSignInServiceResponse());
+        given(adminAuthService.signIn(any(SignInRequest.class))).willReturn(FixtureFactory.createSignInServiceResponse());
 
         // when
         var response = mockMvc.perform(post("/admin/auth/sign-in")

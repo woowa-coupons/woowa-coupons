@@ -17,7 +17,7 @@ import woowa.promotion.global.security.hash.PasswordEncoder;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class AdminService {
+public class AdminAuthService {
 
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;

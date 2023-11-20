@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import woowa.promotion.admin.admin.application.AdminService;
+import woowa.promotion.admin.admin.application.AdminAuthService;
 import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
 import woowa.promotion.admin.admin.presentation.dto.request.SignUpRequest;
 import woowa.promotion.admin.admin.presentation.dto.response.SignInResponse;
@@ -15,15 +15,15 @@ import woowa.promotion.admin.admin.presentation.dto.response.SignInResponse;
 @RequiredArgsConstructor
 @RequestMapping("/admin/auth")
 @RestController
-public class AuthController {
+public class AdminAuthController {
 
-    private final AdminService adminService;
+    private final AdminAuthService adminAuthService;
 
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(
                                         @RequestBody SignUpRequest request
     ) {
-        adminService.signUp(request);
+        adminAuthService.signUp(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
     }
@@ -32,7 +32,7 @@ public class AuthController {
     public ResponseEntity<SignInResponse> signIn(
             @RequestBody SignInRequest request
     ) {
-        SignInResponse response = adminService.signIn(request);
+        SignInResponse response = adminAuthService.signIn(request);
         return ResponseEntity.ok()
                 .body(response);
     }
