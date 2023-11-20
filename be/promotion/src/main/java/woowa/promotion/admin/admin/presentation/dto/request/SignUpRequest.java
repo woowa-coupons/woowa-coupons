@@ -1,6 +1,6 @@
 package woowa.promotion.admin.admin.presentation.dto.request;
 
-public record SignupRequest(
+public record SignUpRequest(
         String email,
         String nickname,
         String password
