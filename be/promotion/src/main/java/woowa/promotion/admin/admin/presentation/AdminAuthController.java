@@ -21,7 +21,7 @@ public class AdminAuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(
-                                        @RequestBody SignUpRequest request
+            @RequestBody SignUpRequest request
     ) {
         adminAuthService.signUp(request);
         return ResponseEntity.status(HttpStatus.CREATED)

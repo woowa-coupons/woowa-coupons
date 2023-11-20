@@ -24,26 +24,44 @@ public class AdminAuthService {
     private final JwtProvider jwtProvider;
 
     public void signUp(SignUpRequest request) {
-        String encryptedPassword = passwordEncoder.encrypt(request.password());
+        validateEmail(request);
+        saveAdmin(request);
+    }
 
+    private void validateEmail(SignUpRequest request) {
         if (adminRepository.existsByEmail(request.email())) {
             throw new ApiException(AdminException.DUPLICATED_EMAIL);
         }
+    }
 
+    private void saveAdmin(SignUpRequest request) {
+        String encryptedPassword = passwordEncoder.encrypt(request.password());
         Admin admin = Admin.of(request.nickname(), request.email(), encryptedPassword);
         adminRepository.save(admin);
     }
 
     @Transactional(readOnly = true)
     public SignInResponse signIn(SignInRequest request) {
-        Admin admin = adminRepository.findByEmail(request.email())
-                .orElseThrow(() -> new ApiException(AdminException.INVALID_EMAIL));
+        Admin admin = findAdmin(request);
+        validatePassword(request, admin);
+        return createResponse(admin);
+    }
 
+    private Admin findAdmin(SignInRequest request) {
+        return adminRepository.findByEmail(request.email())
+                .orElseThrow(() -> new ApiException(AdminException.INVALID_EMAIL));
+    }
+
+    private void validatePassword(SignInRequest request, Admin admin) {
         if (!admin.isSamePassword(passwordEncoder.encrypt(request.password()))) {
             throw new ApiException(AdminException.INVALID_PASSWORD);
         }
+    }
 
-        String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
+    private SignInResponse createResponse(Admin admin) {
+        String accessToken = jwtProvider.createAccessToken(
+                Map.of("adminId", admin.getId())
+        );
         return new SignInResponse(accessToken);
     }
 }
