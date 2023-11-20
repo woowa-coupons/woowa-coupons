@@ -34,4 +34,8 @@ public class PromotionOptionCouponGroup {
         this.promotionOption = promotionOption;
         this.couponGroup = couponGroup;
     }
+
+    public boolean matchesPromotionId(Long promotionId) {
+        return couponGroup.getPromotion().getId().equals(promotionId);
+    }
 }
