@@ -13,7 +13,7 @@ import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
-import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;

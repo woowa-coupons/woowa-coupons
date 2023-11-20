@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import woowa.promotion.admin.admin.domain.Admin;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
-import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
