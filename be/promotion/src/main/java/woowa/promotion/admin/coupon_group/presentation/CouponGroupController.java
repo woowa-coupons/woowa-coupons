@@ -15,7 +15,6 @@ import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupS
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.resolver.Authentication;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,7 +35,11 @@ public class CouponGroupController {
 
     @GetMapping
     public ResponseEntity<CustomPage<CouponGroupsResponse>> retrieveCouponGroups(
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(
+                    sort = "id",
+                    direction = Sort.Direction.DESC,
+                    page = 1
+            ) Pageable pageable
     ) {
         return ResponseEntity.ok(couponGroupService.retrieveCouponGroups(pageable));
     }

@@ -4,10 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import io.restassured.RestAssured;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -19,6 +15,10 @@ import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroups
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.AcceptanceTest;
 import woowa.promotion.util.fixture.FixtureFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 @DisplayName("[인수테스트][관리자] 쿠폰 그룹")
 public class CouponGroupAcceptanceTest extends AcceptanceTest {
@@ -59,6 +59,37 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
                 .auth().oauth2(accessToken)
                 .queryParam("page", 1)
                 .queryParam("size", 10);
+
+        // when
+        var response = request
+                .get("/admin/coupon-groups")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
+                () -> assertThat(response.jsonPath().getObject("data[0]", CouponGroupsResponse.class))
+                        .hasFieldOrPropertyWithValue("title", "cg - 15"),
+                () -> assertThat(response.jsonPath().getObject("paging", CustomPage.Paging.class))
+                        .hasFieldOrPropertyWithValue("currentPage", 1)
+                        .hasFieldOrPropertyWithValue("totalPages", 2)
+                        .hasFieldOrPropertyWithValue("totalElements", 15L)
+                        .hasFieldOrPropertyWithValue("size", 10)
+        );
+    }
+
+    @Test
+    @DisplayName("쿠폰 그룹 목록을 조회한다. (쿼리 파라미터 없음)")
+    void retrieveCouponGroupsWithNoQueryParams() {
+        // given
+        Admin admin = supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt("1234")));
+        saveCouponGroupsAndCoupons();
+        String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
+
+        var request = RestAssured
+                .given().log().all()
+                .auth().oauth2(accessToken);
 
         // when
         var response = request
