@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import woowa.promotion.admin.admin.domain.Admin;
+import woowa.promotion.admin.auth.domain.Admin;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.infrastructure.CouponRepository;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;

@@ -2,10 +2,10 @@ package woowa.promotion.util.fixture;
 
 import java.time.Instant;
 import java.util.List;
-import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
-import woowa.promotion.admin.admin.presentation.dto.request.SignUpRequest;
-import woowa.promotion.admin.admin.presentation.dto.response.SignInResponse;
+import woowa.promotion.admin.auth.domain.Admin;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.presentation.dto.request.SignUpRequest;
+import woowa.promotion.admin.auth.presentation.dto.response.SignInResponse;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.domain.CouponType;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;

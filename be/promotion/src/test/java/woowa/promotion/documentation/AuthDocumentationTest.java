@@ -18,8 +18,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import woowa.promotion.admin.admin.application.AdminAuthService;
-import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.application.AdminAuthService;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
 import woowa.promotion.util.DocumentationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 

@@ -1,4 +1,4 @@
-package woowa.promotion.admin.admin.presentation.dto.response;
+package woowa.promotion.admin.auth.presentation.dto.response;
 
 public record SignInResponse(
         String accessToken

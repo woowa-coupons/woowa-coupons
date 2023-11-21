@@ -1,9 +1,8 @@
-package woowa.promotion.admin.admin.infrastructure;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import woowa.promotion.admin.admin.domain.Admin;
+package woowa.promotion.admin.auth.infrastructure;
 
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import woowa.promotion.admin.auth.domain.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 

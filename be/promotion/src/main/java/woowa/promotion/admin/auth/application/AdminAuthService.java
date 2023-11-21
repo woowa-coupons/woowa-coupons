@@ -1,14 +1,14 @@
-package woowa.promotion.admin.admin.application;
+package woowa.promotion.admin.auth.application;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.admin.admin.infrastructure.AdminRepository;
-import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
-import woowa.promotion.admin.admin.presentation.dto.request.SignUpRequest;
-import woowa.promotion.admin.admin.presentation.dto.response.SignInResponse;
+import woowa.promotion.admin.auth.domain.Admin;
+import woowa.promotion.admin.auth.infrastructure.AdminRepository;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.presentation.dto.request.SignUpRequest;
+import woowa.promotion.admin.auth.presentation.dto.response.SignInResponse;
 import woowa.promotion.global.domain.jwt.JwtProvider;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AdminException;

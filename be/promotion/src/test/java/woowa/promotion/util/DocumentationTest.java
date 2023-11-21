@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import woowa.promotion.admin.admin.application.AdminAuthService;
-import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.admin.admin.presentation.AdminAuthController;
+import woowa.promotion.admin.auth.application.AdminAuthService;
+import woowa.promotion.admin.auth.domain.Admin;
+import woowa.promotion.admin.auth.presentation.AdminAuthController;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.CouponGroupController;
 import woowa.promotion.app.member_coupon.application.MemberCouponService;

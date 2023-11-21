@@ -1,4 +1,4 @@
-package woowa.promotion.admin.admin.presentation.dto.request;
+package woowa.promotion.admin.auth.presentation.dto.request;
 
 public record SignUpRequest(
         String email,

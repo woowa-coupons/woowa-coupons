@@ -1,4 +1,4 @@
-package woowa.promotion.admin.admin.presentation;
+package woowa.promotion.admin.auth.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import woowa.promotion.admin.admin.application.AdminAuthService;
-import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
-import woowa.promotion.admin.admin.presentation.dto.request.SignUpRequest;
-import woowa.promotion.admin.admin.presentation.dto.response.SignInResponse;
+import woowa.promotion.admin.auth.application.AdminAuthService;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.presentation.dto.request.SignUpRequest;
+import woowa.promotion.admin.auth.presentation.dto.response.SignInResponse;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin/auth")

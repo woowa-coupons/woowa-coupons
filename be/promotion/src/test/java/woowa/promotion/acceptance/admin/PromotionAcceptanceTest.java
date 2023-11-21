@@ -18,7 +18,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import woowa.promotion.admin.admin.domain.Admin;
+import woowa.promotion.admin.auth.domain.Admin;
 import woowa.promotion.util.AcceptanceTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 
