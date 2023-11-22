@@ -85,13 +85,9 @@ public class PromotionService {
 
     private CouponGroup getMatchingCouponGroup(List<PromotionOptionCouponGroup> couponGroupList, Long promotionId) {
         return couponGroupList.stream()
-                .filter(promotionOptionCouponGroup -> isMatchingPromotion(promotionOptionCouponGroup, promotionId))
+                .filter(promotionOptionCouponGroup -> promotionOptionCouponGroup.matchesPromotionId(promotionId))
                 .map(PromotionOptionCouponGroup::getCouponGroup)
                 .findFirst()
                 .orElseThrow(() -> new ApiException(CouponGroupException.NOT_FOUND));
-    }
-
-    private boolean isMatchingPromotion(PromotionOptionCouponGroup promotionOptionCouponGroup, Long promotionId) {
-        return promotionOptionCouponGroup.getCouponGroup().getPromotion().getId().equals(promotionId);
     }
 }

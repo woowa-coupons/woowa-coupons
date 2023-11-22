@@ -1,14 +1,13 @@
-package woowa.promotion.admin.coupon_group.presentation.dto;
+package woowa.promotion.admin.coupon_group.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.domain.CouponType;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.domain.Type;
-
-import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public record CouponGroupCreateRequest(
 

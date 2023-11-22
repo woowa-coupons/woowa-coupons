@@ -8,21 +8,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import woowa.promotion.admin.admin.application.AdminService;
-import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
-import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
-import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
-import woowa.promotion.admin.admin.domain.Admin;
+import woowa.promotion.admin.auth.application.AdminAuthService;
+import woowa.promotion.admin.auth.domain.Admin;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.presentation.dto.request.SignUpRequest;
+import woowa.promotion.admin.auth.presentation.dto.response.SignInResponse;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.security.hash.PasswordEncoder;
 import woowa.promotion.util.ApplicationTest;
 import woowa.promotion.util.fixture.FixtureFactory;
 
 @DisplayName("[비즈니스 로직 테스트][관리자] 인증")
-class AdminServiceTest extends ApplicationTest {
+class AdminAuthServiceTest extends ApplicationTest {
 
     @Autowired
-    private AdminService adminService;
+    private AdminAuthService adminAuthService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,10 +34,10 @@ class AdminServiceTest extends ApplicationTest {
         @Test
         void signup() {
             // given
-            SignupServiceRequest request = FixtureFactory.createSignupServiceRequest();
+            SignUpRequest request = FixtureFactory.createSignupServiceRequest();
 
             // when
-            adminService.signup(request);
+            adminAuthService.signUp(request);
 
             String encrypted = passwordEncoder.encrypt(request.password());
 
@@ -54,11 +54,11 @@ class AdminServiceTest extends ApplicationTest {
         @Test
         void duplicatedSignupData_whenSignup_thenThrowsException() {
             // given
-            SignupServiceRequest request = FixtureFactory.createSignupServiceRequest();
+            SignUpRequest request = FixtureFactory.createSignupServiceRequest();
             supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt(request.password())));
 
             // when & then
-            assertThatThrownBy(() -> adminService.signup(request))
+            assertThatThrownBy(() -> adminAuthService.signUp(request))
                     .isInstanceOf(ApiException.class);
         }
     }
@@ -71,11 +71,11 @@ class AdminServiceTest extends ApplicationTest {
         @Test
         void signIn() {
             // given
-            SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
+            SignInRequest request = FixtureFactory.createSignInServiceRequest();
             supportRepository.save(FixtureFactory.createAdmin(passwordEncoder.encrypt(request.password())));
 
             // when
-            SignInServiceResponse response = adminService.signIn(request);
+            SignInResponse response = adminAuthService.signIn(request);
 
             // then
             assertThat(response.accessToken()).isNotBlank();
@@ -85,10 +85,10 @@ class AdminServiceTest extends ApplicationTest {
         @Test
         void givenInvalidSignInData_whenSignIn_thenThrowsException() {
             // given
-            SignInServiceRequest request = FixtureFactory.createSignInServiceRequest();
+            SignInRequest request = FixtureFactory.createSignInServiceRequest();
 
             // when & then
-            assertThatThrownBy(() -> adminService.signIn(request))
+            assertThatThrownBy(() -> adminAuthService.signIn(request))
                     .isInstanceOf(ApiException.class);
         }
     }

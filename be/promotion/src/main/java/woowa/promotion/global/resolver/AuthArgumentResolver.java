@@ -7,7 +7,7 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import woowa.promotion.admin.admin.domain.Admin;
+import woowa.promotion.admin.auth.domain.Admin;
 import woowa.promotion.app.member.domain.Member;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.AuthorizationException;

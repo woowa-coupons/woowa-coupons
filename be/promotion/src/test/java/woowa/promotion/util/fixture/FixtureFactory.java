@@ -2,18 +2,16 @@ package woowa.promotion.util.fixture;
 
 import java.time.Instant;
 import java.util.List;
-import woowa.promotion.admin.admin.application.dto.request.SignInServiceRequest;
-import woowa.promotion.admin.admin.application.dto.request.SignupServiceRequest;
-import woowa.promotion.admin.admin.application.dto.response.SignInServiceResponse;
-import woowa.promotion.admin.admin.domain.Admin;
-import woowa.promotion.admin.admin.presentation.dto.request.SignInRequest;
-import woowa.promotion.admin.admin.presentation.dto.request.SignupRequest;
+import woowa.promotion.admin.auth.domain.Admin;
+import woowa.promotion.admin.auth.presentation.dto.request.SignInRequest;
+import woowa.promotion.admin.auth.presentation.dto.request.SignUpRequest;
+import woowa.promotion.admin.auth.presentation.dto.response.SignInResponse;
 import woowa.promotion.admin.coupon.domain.Coupon;
 import woowa.promotion.admin.coupon.domain.CouponType;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.domain.Type;
-import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest;
-import woowa.promotion.admin.coupon_group.presentation.dto.CouponGroupCreateRequest.CouponDto;
+import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest;
+import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest.CouponDto;
 import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest;
 import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest.PromotionOptionRequest;
 import woowa.promotion.admin.promotion.domain.ProgressStatus;
@@ -39,16 +37,16 @@ public class FixtureFactory {
         );
     }
 
-    public static SignupRequest createSignupRequest() {
-        return new SignupRequest(
+    public static SignUpRequest createSignupRequest() {
+        return new SignUpRequest(
                 "bruni@woowa.com",
                 "브루니",
                 "1234"
         );
     }
 
-    public static SignupServiceRequest createSignupServiceRequest() {
-        return new SignupServiceRequest(
+    public static SignUpRequest createSignupServiceRequest() {
+        return new SignUpRequest(
                 "bruni@woowa.com",
                 "브루니",
                 "1234"
@@ -62,15 +60,15 @@ public class FixtureFactory {
         );
     }
 
-    public static SignInServiceRequest createSignInServiceRequest() {
-        return new SignInServiceRequest(
+    public static SignInRequest createSignInServiceRequest() {
+        return new SignInRequest(
                 "bruni@woowa.com",
                 "1234"
         );
     }
 
-    public static SignInServiceResponse createSignInServiceResponse() {
-        return new SignInServiceResponse("accessToken");
+    public static SignInResponse createSignInServiceResponse() {
+        return new SignInResponse("accessToken");
     }
 
     public static Admin createAdmin(String encryptedPassword) {
