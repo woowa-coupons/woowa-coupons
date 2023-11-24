@@ -1,5 +1,9 @@
 package woowa.promotion.admin.promotion_option.domain;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,11 +11,6 @@ import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.app.member_coupon.application.condition.LastOrderCondition;
 import woowa.promotion.app.member_coupon.application.condition.MemberTypeCondition;
 import woowa.promotion.app.member_coupon.application.condition.PromotionOptionCondition;
-
-import javax.persistence.*;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
