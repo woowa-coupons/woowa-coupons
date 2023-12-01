@@ -1,26 +1,14 @@
 package woowa.promotion.application.admin.promotion.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static woowa.promotion.util.fixture.CouponGroupFixture.A_쿠폰그룹;
-import static woowa.promotion.util.fixture.CouponGroupFixture.B_쿠폰그룹;
-import static woowa.promotion.util.fixture.FixtureFactory.createCouponGroup;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotion;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOption;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOptionRequest;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotionRegisterRequest;
-import static woowa.promotion.util.fixture.PromotionFixture.A_프로모션;
-import static woowa.promotion.util.fixture.PromotionFixture.B_프로모션;
-import static woowa.promotion.util.fixture.PromotionOptionFixture.A_프로모션_옵션;
-import static woowa.promotion.util.fixture.PromotionOptionFixture.B_프로모션_옵션;
-
 import java.util.List;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
 import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.promotion.application.PromotionService;
-import woowa.promotion.admin.promotion.application.dto.response.PromotionListResponse;
 import woowa.promotion.admin.promotion.domain.Promotion;
 import woowa.promotion.admin.promotion.infrastructure.PromotionRepository;
 import woowa.promotion.admin.promotion_option.domain.PromotionOption;
@@ -28,6 +16,16 @@ import woowa.promotion.admin.promotion_option.infrastructure.PromotionOptionRepo
 import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptionCouponGroup;
 import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.PromotionOptionCouponGroupRepository;
 import woowa.promotion.util.ApplicationTest;
+
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static woowa.promotion.util.fixture.CouponGroupFixture.A_쿠폰그룹;
+import static woowa.promotion.util.fixture.CouponGroupFixture.B_쿠폰그룹;
+import static woowa.promotion.util.fixture.FixtureFactory.*;
+import static woowa.promotion.util.fixture.PromotionFixture.A_프로모션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.A_프로모션_옵션;
+import static woowa.promotion.util.fixture.PromotionOptionFixture.B_프로모션_옵션;
 
 
 @DisplayName("[비즈니스 로직 테스트][관리자] 프로모션")
@@ -69,23 +67,23 @@ class PromotionServiceTest extends ApplicationTest {
         return couponGroupRepository.save(couponGroup);
     }
 
-    @DisplayName("프로모션 리스트 조회")
+    @DisplayName("페이징된 프로모션 리스트 조회")
     @Test
-    void getPromotionList() {
+    void getPagedPromotionList() {
         // given
-        var promotionA = createPromotion(A_프로모션);
-        var promotionB = createPromotion(B_프로모션);
-        var promotions = List.of(promotionA, promotionB);
-        promotionRepository.saveAll(promotions);
+        IntStream.rangeClosed(1, 15).forEach(idx -> supportRepository.save(createPromotion(A_프로모션)));
 
         // when
-        var response = promotionService.getPromotionList();
+        var response = promotionService.getPromotionList(PageRequest.of(2, 10));
 
         // then
-        assertThat(response).usingRecursiveComparison().ignoringCollectionOrder()
-                .isEqualTo(promotions.stream().map(
-                        PromotionListResponse::from).toList()
-                );
+        assertAll(
+                () -> assertThat(response.paging().currentPage()).isEqualTo(2),
+                () -> assertThat(response.paging().totalPages()).isEqualTo(2),
+                () -> assertThat(response.paging().totalElements()).isEqualTo(15),
+                () -> assertThat(response.paging().size()).isEqualTo(5),
+                () -> assertThat(response.data().size()).isEqualTo(5)
+        );
     }
 
     @DisplayName("프로모션 상세 조회")
