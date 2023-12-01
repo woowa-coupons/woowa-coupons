@@ -27,7 +27,8 @@ CREATE TABLE coupon
     remain_quantity  INT         NOT NULL,
     coupon_group_id  BIGINT      NOT NULL,
     created_at       TIMESTAMP   NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    INDEX coupon_group_id_idx (coupon_group_id)
 );
 
 DROP TABLE IF EXISTS promotion_history;
@@ -57,7 +58,8 @@ CREATE TABLE promotion_option
     last_order_before TINYINT     NULL,
     member_type       VARCHAR(50) NOT NULL,
     promotion_id      BIGINT      NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    INDEX promotion_id_idx (promotion_id)
 );
 
 DROP TABLE IF EXISTS coupon_group;
@@ -80,7 +82,8 @@ CREATE TABLE promotion_option_coupon_group
     id                  BIGINT NOT NULL AUTO_INCREMENT,
     promotion_option_id BIGINT NOT NULL,
     coupon_group_id     BIGINT NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    INDEX po_cg_idx (promotion_option_id, coupon_group_id)
 );
 
 DROP TABLE IF EXISTS promotion;

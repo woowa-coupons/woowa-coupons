@@ -12,6 +12,9 @@ import woowa.promotion.global.exception.domain.CouponException;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(indexes = {
+        @Index(name = "coupon_group_id_idx", columnList = "coupon_group_id")
+})
 @Entity
 public class Coupon extends AuditingFields {
 
