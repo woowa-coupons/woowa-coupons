@@ -1,19 +1,17 @@
 package woowa.promotion.admin.promotion.presentation;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import woowa.promotion.admin.promotion.application.PromotionService;
 import woowa.promotion.admin.promotion.application.dto.request.PromotionRegisterRequest;
 import woowa.promotion.admin.promotion.application.dto.response.PromotionDetailResponse;
 import woowa.promotion.admin.promotion.application.dto.response.PromotionListResponse;
+import woowa.promotion.global.domain.page.CustomPage;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin/promotions")
@@ -31,8 +29,14 @@ public class PromotionController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<PromotionListResponse>> getPromotionList() {
-        var response = promotionService.getPromotionList();
+    public ResponseEntity<CustomPage<PromotionListResponse>> getPromotionList(
+            @PageableDefault(
+                    sort = "id",
+                    direction = Sort.Direction.DESC,
+                    page = 1
+            ) Pageable pageable
+    ) {
+        var response = promotionService.getPromotionList(pageable);
         return ResponseEntity.ok().body(response);
     }
 
