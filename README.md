@@ -1,6 +1,6 @@
-<div style="text-align: center;">
+<p align="center">
 <img src = "https://github.com/woowa-coupons/woowa-coupons/assets/108214590/cdf34629-c60b-4a76-9d44-8d5e243bea5a" width="180px;">
-</div>
+</p>
 
 # 🏍️ 배달의 민족 프로모션 클론 프로젝트
 - 미션 기간: `23-10-09 ~ 23-11-03` [4 week]
