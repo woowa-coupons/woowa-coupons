@@ -76,7 +76,8 @@
 <br/>
 
 ## ⚙️ 인프라 구조
-// 브루니가 추가할 예정
+![image](https://github.com/woowa-coupons/woowa-coupons/assets/66981851/4fe19116-b443-41b4-ae30-43e423e0d4e0)
+
 
 <br/>
 
