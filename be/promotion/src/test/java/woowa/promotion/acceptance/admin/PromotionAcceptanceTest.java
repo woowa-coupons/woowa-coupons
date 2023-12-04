@@ -1,19 +1,18 @@
 package woowa.promotion.acceptance.admin;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static woowa.promotion.util.fixture.CouponGroupFixture.A_쿠폰그룹;
 import static woowa.promotion.util.fixture.CouponGroupFixture.B_쿠폰그룹;
-import static woowa.promotion.util.fixture.FixtureFactory.createCouponGroup;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotion;
-import static woowa.promotion.util.fixture.FixtureFactory.createPromotionOptionRequest;
+import static woowa.promotion.util.fixture.FixtureFactory.*;
 import static woowa.promotion.util.fixture.PromotionFixture.A_프로모션;
-import static woowa.promotion.util.fixture.PromotionFixture.B_프로모션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.A_프로모션_옵션;
 import static woowa.promotion.util.fixture.PromotionOptionFixture.B_프로모션_옵션;
 
-import io.restassured.RestAssured;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -60,13 +59,15 @@ public class PromotionAcceptanceTest extends AcceptanceTest {
         // given
         Admin admin = supportRepository.save(Admin.of("nickname", "email", "password"));
         String accessToken = jwtProvider.createAccessToken(Map.of("adminId", admin.getId()));
-        
-        makePromotion(createPromotion(A_프로모션));
-        makePromotion(createPromotion(B_프로모션));
+
+        IntStream.rangeClosed(1, 15).forEach(idx -> makePromotion(createPromotion(A_프로모션)));
+
         var request = RestAssured
                 .given().log().all()
                 .auth().oauth2(accessToken)
-                .contentType(MediaType.APPLICATION_JSON_VALUE);
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .param("page", 2)
+                .param("size", 10);
 
         // when
         var response = request
@@ -75,8 +76,14 @@ public class PromotionAcceptanceTest extends AcceptanceTest {
                 .extract();
 
         // then
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.body().jsonPath().getString("contents[0].title"));
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
+                () -> assertThat(response.body().jsonPath().getInt("paging.currentPage")).isEqualTo(2),
+                () -> assertThat(response.body().jsonPath().getInt("paging.totalPages")).isEqualTo(2),
+                () -> assertThat(response.body().jsonPath().getInt("paging.totalElements")).isEqualTo(15),
+                () -> assertThat(response.body().jsonPath().getInt("paging.size")).isEqualTo(5),
+                () -> assertThat(response.body().jsonPath().getList("data").size()).isEqualTo(5)
+        );
     }
 
 }

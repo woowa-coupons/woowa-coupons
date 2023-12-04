@@ -3,6 +3,9 @@ package woowa.promotion.admin.promotion.application;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.promotion.admin.coupon_group.domain.CouponGroup;
@@ -17,6 +20,7 @@ import woowa.promotion.admin.promotion_option.domain.PromotionOption;
 import woowa.promotion.admin.promotion_option.infrastructure.PromotionOptionRepository;
 import woowa.promotion.admin.promotion_option_coupon_group.domain.PromotionOptionCouponGroup;
 import woowa.promotion.admin.promotion_option_coupon_group.infrastructure.PromotionOptionCouponGroupRepository;
+import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.exception.ApiException;
 import woowa.promotion.global.exception.domain.CouponGroupException;
 import woowa.promotion.global.exception.domain.PromotionException;
@@ -59,11 +63,25 @@ public class PromotionService {
         return promotionOptionRepository.save(promotionOptionRequest.toEntity(promotion));
     }
 
-    public List<PromotionListResponse> getPromotionList() {
-        return promotionRepository.findAll()
-                .stream()
-                .map(PromotionListResponse::from)
-                .toList();
+    public CustomPage<PromotionListResponse> getPromotionList(Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(
+                Math.max(pageable.getPageNumber() - 1, 0),  // page 쿼리 파라미터가 0으로 넘어가거나 그 이하일 경우
+                pageable.getPageSize(),
+                pageable.getSort()
+        );
+        Page<Promotion> pagedPromotions = promotionRepository.findAll(pageRequest);
+
+        return new CustomPage<>(
+                pagedPromotions.getContent().stream()
+                        .map(PromotionListResponse::from)
+                        .toList(),
+                new CustomPage.Paging(
+                        pageable.getPageNumber(),
+                        pagedPromotions.getTotalPages(),
+                        pagedPromotions.getTotalElements(),
+                        pagedPromotions.getContent().size()
+                )
+        );
     }
 
     public PromotionDetailResponse getPromotion(Long promotionId) {
