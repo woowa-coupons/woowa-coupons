@@ -1,6 +1,5 @@
 package woowa.promotion.admin.coupon_group.presentation;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import woowa.promotion.admin.auth.domain.Admin;
 import woowa.promotion.admin.coupon_group.application.CouponGroupService;
@@ -50,8 +50,11 @@ public class CouponGroupController {
     }
 
     @GetMapping("/summary")
-    public ResponseEntity<List<CouponGroupSimpleResponse>> retrieveSimpleCouponGroups() {
-        return ResponseEntity.ok(couponGroupService.retrieveSimpleCouponGroups());
+    public ResponseEntity<CouponGroupSimpleResponse> retrieveSimpleCouponGroups(
+            @RequestParam(required = false, defaultValue = "0") Long cursor,
+            @RequestParam(required = false, defaultValue = "10") Integer size
+    ) {
+        return ResponseEntity.ok(couponGroupService.retrieveSimpleCouponGroups(cursor, size));
     }
 
     @GetMapping("/{couponGroupId}")

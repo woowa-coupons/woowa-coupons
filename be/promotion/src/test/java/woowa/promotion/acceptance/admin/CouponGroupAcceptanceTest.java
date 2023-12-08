@@ -122,15 +122,16 @@ public class CouponGroupAcceptanceTest extends AcceptanceTest {
         var response = RestAssured
                 .given().log().all()
                 .auth().oauth2(accessToken)
-                .get("/admin/coupon-groups/summary")
+                .get("/admin/coupon-groups/summary?size=15")
                 .then().log().all()
                 .extract();
 
         // then
         assertAll(
                 () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
-                () -> assertThat(response.jsonPath().getList(".", CouponGroup.class)).hasSize(15),
-                () -> assertThat(response.jsonPath().getObject("[0]", CouponGroup.class))
+                () -> assertThat(response.jsonPath().getList("couponGroups", CouponGroup.class)).hasSize(15),
+                () -> assertThat(response.jsonPath().getBoolean("hasNext")).isFalse(),
+                () -> assertThat(response.jsonPath().getObject("couponGroups[0]", CouponGroup.class))
                         .hasFieldOrProperty("id")
                         .hasFieldOrProperty("title")
         );

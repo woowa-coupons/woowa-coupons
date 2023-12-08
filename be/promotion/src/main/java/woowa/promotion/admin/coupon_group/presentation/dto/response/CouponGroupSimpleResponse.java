@@ -1,8 +1,17 @@
 package woowa.promotion.admin.coupon_group.presentation.dto.response;
 
+import java.util.List;
+
 public record CouponGroupSimpleResponse(
 
-        Long id,
-        String title
+        List<CouponGroupSimpleDto> couponGroups,
+        Boolean hasNext
 ) {
+
+    public record CouponGroupSimpleDto(
+
+            Long id,
+            String title
+    ) {
+    }
 }

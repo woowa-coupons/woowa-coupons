@@ -28,6 +28,7 @@ import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse.CouponGroupSimpleDto;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.DocumentationTest;
@@ -125,22 +126,27 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
     @Test
     void retrieveSimpleCouponGroups() throws Exception {
         // given
-        given(couponGroupService.retrieveSimpleCouponGroups())
-                .willReturn(List.of(
-                        new CouponGroupSimpleResponse(1L, "쿠폰 그룹 제목 - 1"),
-                        new CouponGroupSimpleResponse(2L, "쿠폰 그룹 제목 - 2")
+        given(couponGroupService.retrieveSimpleCouponGroups(0L, 2))
+                .willReturn(new CouponGroupSimpleResponse(
+                        List.of(
+                                new CouponGroupSimpleDto(1L, "쿠폰 그룹 제목 - 1"),
+                                new CouponGroupSimpleDto(2L, "쿠폰 그룹 제목 - 2")
+
+                        ),
+                        false
                 ));
 
         // when
-        var response = mockMvc.perform(request(HttpMethod.GET, "/admin/coupon-groups/summary")
+        var response = mockMvc.perform(request(HttpMethod.GET, "/admin/coupon-groups/summary?size=2")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer abc.abc.abc"));
 
         // then
         var resultActions = response
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[*].id").exists())
-                .andExpect(jsonPath("$[*].title").exists());
+                .andExpect(jsonPath("$.couponGroups").isArray())
+                .andExpect(jsonPath("$.couponGroups[*].id").exists())
+                .andExpect(jsonPath("$.couponGroups[*].title").exists())
+                .andExpect(jsonPath("$.hasNext").exists());
 
         // docs
         resultActions
@@ -151,9 +157,10 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("JWT 인증 토큰")
                         ),
                         responseFields(
-                                fieldWithPath("[]").description("쿠폰 그룹 간단 목록"),
-                                fieldWithPath("[].id").description("쿠폰 그룹 ID"),
-                                fieldWithPath("[].title").description("쿠폰 그룹 제목")
+                                fieldWithPath("couponGroups[]").description("쿠폰 그룹 간단 목록"),
+                                fieldWithPath("couponGroups[].id").description("쿠폰 그룹 ID"),
+                                fieldWithPath("couponGroups[].title").description("쿠폰 그룹 제목"),
+                                fieldWithPath("hasNext").description("다음 페이지 존재 여부")
                         )
                 ));
     }
