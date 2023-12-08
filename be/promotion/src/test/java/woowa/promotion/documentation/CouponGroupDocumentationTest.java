@@ -28,6 +28,7 @@ import woowa.promotion.admin.coupon_group.application.CouponGroupService;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse.CouponGroupCouponResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse.CouponGroupSimpleDto;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.util.DocumentationTest;
@@ -128,8 +129,8 @@ public class CouponGroupDocumentationTest extends DocumentationTest {
         given(couponGroupService.retrieveSimpleCouponGroups(0L, 2))
                 .willReturn(new CouponGroupSimpleResponse(
                         List.of(
-                                new CouponGroupSimpleResponse.CouponGroupSliceDto(1L, "쿠폰 그룹 제목 - 1"),
-                                new CouponGroupSimpleResponse.CouponGroupSliceDto(2L, "쿠폰 그룹 제목 - 2")
+                                new CouponGroupSimpleDto(1L, "쿠폰 그룹 제목 - 1"),
+                                new CouponGroupSimpleDto(2L, "쿠폰 그룹 제목 - 2")
 
                         ),
                         false

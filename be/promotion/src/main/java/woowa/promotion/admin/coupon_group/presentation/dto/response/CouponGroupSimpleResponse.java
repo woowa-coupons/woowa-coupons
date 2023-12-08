@@ -4,11 +4,11 @@ import java.util.List;
 
 public record CouponGroupSimpleResponse(
 
-        List<CouponGroupSliceDto> couponGroups,
+        List<CouponGroupSimpleDto> couponGroups,
         Boolean hasNext
 ) {
 
-    public record CouponGroupSliceDto(
+    public record CouponGroupSimpleDto(
 
             Long id,
             String title

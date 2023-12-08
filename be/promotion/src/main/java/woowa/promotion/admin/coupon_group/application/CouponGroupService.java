@@ -19,7 +19,7 @@ import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
-import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse.CouponGroupSliceDto;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse.CouponGroupSimpleDto;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.exception.ApiException;
@@ -63,12 +63,12 @@ public class CouponGroupService {
     }
 
     public CouponGroupSimpleResponse retrieveSimpleCouponGroups(Long cursor, Integer size) {
-        PageRequest pageRequest = PageRequest.of(0, size);
-        Optional<Slice<CouponGroupSliceDto>> couponGroupSlice = couponGroupRepository.findAllCouponGroupSliceDto(cursor, pageRequest);
+        PageRequest pageRequest = PageRequest.ofSize(size);
+        Optional<Slice<CouponGroupSimpleDto>> couponGroupSimpleDtoSlices = couponGroupRepository.findAllCouponGroupSliceDto(cursor, pageRequest);
 
-        return couponGroupSlice.map(couponGroupSliceDtos -> new CouponGroupSimpleResponse(
-                couponGroupSliceDtos.getContent(),
-                couponGroupSliceDtos.hasNext()
+        return couponGroupSimpleDtoSlices.map(couponGroupSimpleDtos -> new CouponGroupSimpleResponse(
+                couponGroupSimpleDtos.getContent(),
+                couponGroupSimpleDtos.hasNext()
         )).orElseGet(() -> new CouponGroupSimpleResponse(Collections.emptyList(), false));
     }
 
