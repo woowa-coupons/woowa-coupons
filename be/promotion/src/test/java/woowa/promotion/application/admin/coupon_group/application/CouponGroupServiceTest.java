@@ -56,13 +56,14 @@ class CouponGroupServiceTest extends ApplicationTest {
         saveCouponGroupsAndCoupons(couponGroupCount);
 
         // when
-        var response = couponGroupService.retrieveSimpleCouponGroups();
+        var response = couponGroupService.retrieveSimpleCouponGroups(0L, 15);
 
         // then
         assertAll(
-                () -> assertThat(response).hasSize(15),
-                () -> assertThat(response.get(0)).hasFieldOrProperty("id"),
-                () -> assertThat(response.get(0)).hasFieldOrProperty("title")
+                () -> assertThat(response.couponGroups()).hasSize(15),
+                () -> assertThat(response.couponGroups().get(0)).hasFieldOrProperty("id"),
+                () -> assertThat(response.couponGroups().get(0)).hasFieldOrProperty("title"),
+                () -> assertThat(response.hasNext()).isFalse()
         );
     }
 
