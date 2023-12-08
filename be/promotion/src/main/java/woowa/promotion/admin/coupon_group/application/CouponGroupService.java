@@ -1,11 +1,14 @@
 package woowa.promotion.admin.coupon_group.application;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.promotion.admin.auth.domain.Admin;
@@ -16,6 +19,7 @@ import woowa.promotion.admin.coupon_group.infrastructure.CouponGroupRepository;
 import woowa.promotion.admin.coupon_group.presentation.dto.request.CouponGroupCreateRequest;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupDetailResponse;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse;
+import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupSimpleResponse.CouponGroupSliceDto;
 import woowa.promotion.admin.coupon_group.presentation.dto.response.CouponGroupsResponse;
 import woowa.promotion.global.domain.page.CustomPage;
 import woowa.promotion.global.exception.ApiException;
@@ -58,8 +62,14 @@ public class CouponGroupService {
         );
     }
 
-    public List<CouponGroupSimpleResponse> retrieveSimpleCouponGroups() {
-        return couponGroupRepository.findAllCouponGroupSimpleResponse();
+    public CouponGroupSimpleResponse retrieveSimpleCouponGroups(Long cursor, Integer size) {
+        PageRequest pageRequest = PageRequest.of(0, size);
+        Optional<Slice<CouponGroupSliceDto>> couponGroupSlice = couponGroupRepository.findAllCouponGroupSliceDto(cursor, pageRequest);
+
+        return couponGroupSlice.map(couponGroupSliceDtos -> new CouponGroupSimpleResponse(
+                couponGroupSliceDtos.getContent(),
+                couponGroupSliceDtos.hasNext()
+        )).orElseGet(() -> new CouponGroupSimpleResponse(Collections.emptyList(), false));
     }
 
     public CouponGroupDetailResponse retrieveDetailCouponGroup(Long couponGroupId) {
