@@ -52,7 +52,7 @@ public class CouponGroupController {
     @GetMapping("/summary")
     public ResponseEntity<CouponGroupSimpleResponse> retrieveSimpleCouponGroups(
             @RequestParam(required = false, defaultValue = "0") Long cursor,
-            @RequestParam Integer size
+            @RequestParam(required = false, defaultValue = "10") Integer size
     ) {
         return ResponseEntity.ok(couponGroupService.retrieveSimpleCouponGroups(cursor, size));
     }
