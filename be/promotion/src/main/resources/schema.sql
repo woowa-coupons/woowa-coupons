@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS coupon
     remain_quantity  INT         NOT NULL,
     coupon_group_id  BIGINT      NOT NULL,
     created_at       TIMESTAMP   NOT NULL,
+    version          INT         NULL,
     PRIMARY KEY (id),
     INDEX coupon_group_id_idx (coupon_group_id)
 );

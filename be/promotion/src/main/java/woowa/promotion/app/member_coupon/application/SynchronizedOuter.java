@@ -11,7 +11,7 @@ public class SynchronizedOuter {
 
     private final MemberCouponService memberCouponService;
 
-    public synchronized void issueCoupon(CouponIssueRequest request, Member member) {
+    public void issueCoupon(CouponIssueRequest request, Member member) {
         memberCouponService.issueCoupon(request, member);
     }
 }
