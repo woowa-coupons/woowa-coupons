@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${db.prod.url}
+    username: ${db.prod.username}
+    password: ${db.prod.password}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+    open-in-view: false

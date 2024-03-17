@@ -1,0 +1,132 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.16'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    // Jacoco
+    id 'jacoco'
+    // RESTDocs
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+jacoco {
+    toolVersion = "0.8.9"
+}
+
+group = 'woowa'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    asciidoctorExt
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // jwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+    // mysql
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // testcontainer
+    testImplementation "org.testcontainers:testcontainers:1.19.0"
+    testImplementation "org.testcontainers:junit-jupiter:1.19.0"
+    testImplementation 'org.testcontainers:mysql:1.19.0'
+
+    // rest-assured
+    testImplementation 'io.rest-assured:rest-assured:4.5.1'
+
+
+    // REST Docs
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+tasks.named('test') {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
+/** Jacoco start **/
+jacocoTestReport {
+    dependsOn "createDocument"
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+
+        xml.destination file("${buildDir}/jacoco/index.xml")
+        html.destination file("${buildDir}/jacoco/index.html")
+    }
+}
+/** Jacoco end **/
+
+/** REST Docs start **/
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    baseDirFollowsSourceFile()
+
+    dependsOn test
+}
+
+tasks.register('createDocument', Copy) {
+    dependsOn asciidoctor
+
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static")
+}
+
+tasks.register('displaceDocument', Copy) {
+    dependsOn createDocument
+
+    from("${asciidoctor.outputDir}")
+    into("build/resources/main/static")
+}
+
+bootJar {
+    bootJarMainClassName.dependsOn createDocument
+    jar.dependsOn createDocument
+    dependsOn createDocument
+}
+/** REST Docs end **/
+
+/* Submodule start */
+processResources.dependsOn('copySecret')
+
+tasks.register('copySecret', Copy) {
+    description = 'Copy submodules to project'
+
+    from('./src/main/resources/secret') {
+        include('*.yml')
+    }
+    into('src/main/resources')
+}
+/* Submodule end */

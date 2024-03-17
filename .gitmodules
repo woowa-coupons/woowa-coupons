@@ -1,0 +1,3 @@
+[submodule "be/promotion/src/main/resources/secret"]
+	path = be/promotion/src/main/resources/secret
+	url = https://github.com/woowa-coupons/secret.git
