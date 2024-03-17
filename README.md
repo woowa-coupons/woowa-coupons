@@ -79,7 +79,7 @@
 <br>
 
 ## ✏️ 프로젝트 기록
-기능 구현을 하면서 발생한 문제점 해결 과정과 성능 개선 과정을 기록했습니다.
+기능 구현을 하면서 발생한 문제 해결 과정과 성능 개선 과정을 기록했습니다.
 
 | No. | 제목                                                                                                                                                                                      | 작성자                                     |
 |-----|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------|
@@ -90,3 +90,6 @@
 | 5   | [쿠폰 발급 로직의 리팩토링 적용기](https://velog.io/@bruni_23yong/%EC%BF%A0%ED%8F%B0-%EB%B0%9C%EA%B8%89-%EB%A1%9C%EC%A7%81%EC%9D%98-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EC%A0%81%EC%9A%A9%EA%B8%B0) | [Bruni(브루니)](https://github.com/23Yong) |
 | 6   | [쿠폰 발급 동시성 제어하기, 성능테스트로 성능 개선하기](https://viper1.tistory.com/60)                                                                                                                         | [Jun(준)](https://github.com/JJONSOO)    |
 | 7   | [슬로우 쿼리 개선기](https://velog.io/@bruni_23yong/%EC%8A%AC%EB%A1%9C%EC%9A%B0-%EC%BF%BC%EB%A6%AC-%EA%B0%9C%EC%84%A0%EA%B8%B0)                                                                 | [Bruni(브루니)](https://github.com/23Yong) |
+| 8   | [[Spring + Nginx + SSL] Invalid character found in method name, SSL handshake failed 오류](https://velog.io/@jinny-l/Spring-Nginx-SSL-Invalid-character-found-in-method-name-error)    | [Jinny(지니)](https://github.com/jinny-l) |
+| 9   | [[Spring/JPA] Unable to locate class 에러](https://velog.io/@jinny-l/SpringJPA-Unable-to-locate-class-error)                                                                                | [Jinny(지니)](https://github.com/jinny-l) |
+| 10  | [[Github Actions] error copy file to dest 에러](https://velog.io/@jinny-l/Github-Actions-error-copy-file-to-dest-error)                                                               | [Jinny(지니)](https://github.com/jinny-l) |
